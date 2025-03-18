@@ -1,11 +1,33 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace GameCore
 {
-    [RequireComponent(typeof(PlayerInput))]
+    //[RequireComponent(typeof(PlayerInput))]
     public sealed class InputHandler : MonoBehaviour
     {
+        [SerializeField]
+        private LayerMask _defaultLayer;
+
+        [SerializeField]
+        private GraphicRaycaster _graphicRaycaster;
+
+        private PointerEventData _clickData;
+
+        private List<RaycastResult> _raycastResults;
+
+        private GameControls _controls;
+
+        private GameControls.GameplayActions _gameplayMap;
+
+        private GameControls.UIActions _uiMap;
+
+        private bool _isUIClicked;
+
+
         public Vector3 MoveDirection => _moveDirection;
 
         public Vector3 MovePosition => _movePosition;
@@ -20,7 +42,7 @@ namespace GameCore
 
         //a field of input and isPlaying listener to switch input action maps
 
-        private PlayerInput _playerInput;
+        //private PlayerInput _playerInput;
 
         private Vector3 _moveDirection;
 
@@ -34,7 +56,15 @@ namespace GameCore
 
         private void Awake()
         {
-            _playerInput = GetComponent<PlayerInput>();
+            _controls = new GameControls();
+
+            _gameplayMap = _controls.Gameplay;
+            _uiMap = _controls.UI;
+
+            _clickData = new PointerEventData(EventSystem.current);
+            _raycastResults = new();
+
+            //playerInput = GetComponent<PlayerInput>();
             _camera = Camera.main;
             _groundPlane = new Plane(Vector3.up, 0);
             _moveDirection = _zeroVector;
@@ -42,20 +72,56 @@ namespace GameCore
 
         private void OnEnable()
         {
-            _playerInput.onActionTriggered += OnMoveUpContinued;
-            _playerInput.onActionTriggered += OnMoveDownContinued;
-            _playerInput.onActionTriggered += OnMoveLeftContinued;
-            _playerInput.onActionTriggered += OnMoveRightContinued;
-            _playerInput.onActionTriggered += OnClickPositionContinued;
+            _controls.Enable();
+
+            _gameplayMap.GameplayClick.started += Click;
+
+            //_playerInput.onActionTriggered += OnMoveUpContinued;
+            //_playerInput.onActionTriggered += OnMoveDownContinued;
+            //_playerInput.onActionTriggered += OnMoveLeftContinued;
+            //_playerInput.onActionTriggered += OnMoveRightContinued;
+            //_playerInput.onActionTriggered += OnClickPositionContinued;
         }
 
         private void OnDisable()
         {
-            _playerInput.onActionTriggered -= OnMoveUpContinued;
-            _playerInput.onActionTriggered -= OnMoveDownContinued;
-            _playerInput.onActionTriggered -= OnMoveLeftContinued;
-            _playerInput.onActionTriggered -= OnMoveRightContinued;
-            _playerInput.onActionTriggered -= OnClickPositionContinued;
+            _gameplayMap.GameplayClick.started -= Click;
+
+            //_playerInput.onActionTriggered -= OnMoveUpContinued;
+            //_playerInput.onActionTriggered -= OnMoveDownContinued;
+            //_playerInput.onActionTriggered -= OnMoveLeftContinued;
+            //_playerInput.onActionTriggered -= OnMoveRightContinued;
+            //_playerInput.onActionTriggered -= OnClickPositionContinued;
+
+            _controls.Disable();
+        }
+
+        private void Click(InputAction.CallbackContext context)
+        {
+            var screenPos = context.ReadValue<Vector2>();
+
+            if (!IsUIClicked(screenPos))
+            {
+                Debug.Log("click go");
+
+                //calc raycast GO position
+            }
+            else
+            {
+                Debug.Log("click UI");
+            }
+        }
+
+
+        private bool IsUIClicked(Vector2 position)
+        {
+            _clickData.position = position;
+
+            _raycastResults.Clear();
+
+            _graphicRaycaster.Raycast(_clickData, _raycastResults);
+
+            return _raycastResults.Count > 0;
         }
 
         private void OnClickPositionContinued(InputAction.CallbackContext context)
