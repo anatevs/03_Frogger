@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,6 +9,16 @@ namespace GameCore
 {
     public sealed class InputHandler : MonoBehaviour
     {
+        public event Action<Vector3> OnMoved;
+
+        public Vector3 MoveDirection => _moveDirection;
+
+        public Vector3 MovePosition => _movePosition;
+
+        public bool IsMoving => _isMoving;
+
+        public bool IsMovingPos => _isMovingPos;
+
         [SerializeField]
         private LayerMask _defaultLayer;
 
@@ -24,21 +35,9 @@ namespace GameCore
 
         private GameControls.UIActions _uiMap;
 
-        public Vector3 MoveDirection => _moveDirection;
-
-        public Vector3 MovePosition => _movePosition;
-
-        public bool IsMoving => _isMoving;
-
-        public bool IsMovingPos => _isMovingPos;
-
         private Camera _camera;
 
         private Plane _groundPlane;
-
-        //a field of input and isPlaying listener to switch input action maps
-
-        //private PlayerInput _playerInput;
 
         private Vector3 _moveDirection;
 
@@ -147,6 +146,8 @@ namespace GameCore
             {
                 _isMoving = true;
                 _moveDirection = _moveVectors[context.action.name];
+
+                OnMoved?.Invoke(_moveDirection);
             }
             else if (context.canceled)
             {

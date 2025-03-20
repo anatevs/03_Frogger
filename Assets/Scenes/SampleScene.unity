@@ -398,6 +398,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7731928550669959331, guid: b1c6ec134f7ce5c4db84f2d580f5d2b5, type: 3}
   m_PrefabInstance: {fileID: 7778674771506943279}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &827690479 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 259043143118473849, guid: b1c6ec134f7ce5c4db84f2d580f5d2b5, type: 3}
+  m_PrefabInstance: {fileID: 7778674771506943279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +601,25 @@ Transform:
   m_Father: {fileID: 218955246}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1579350205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2475618319053844161, guid: b1c6ec134f7ce5c4db84f2d580f5d2b5, type: 3}
+  m_PrefabInstance: {fileID: 7778674771506943279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1579350206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579350205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c2b7af98f49c34eae5c87ff9a0b79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 827690479}
+  _jumpDuration: 0.5
 --- !u!1 &1590453431
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,6 +630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590453432}
   - component: {fileID: 1590453433}
+  - component: {fileID: 1590453434}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -645,6 +670,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   _graphicRaycaster: {fileID: 1960433433}
+--- !u!114 &1590453434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590453431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3111313b7e0ad4898621267015cc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frogAnimation: {fileID: 1579350206}
+  _inputHandler: {fileID: 1590453433}
 --- !u!1 &1734165118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,5 +1319,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2475618319053844161, guid: b1c6ec134f7ce5c4db84f2d580f5d2b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1579350206}
   m_SourcePrefab: {fileID: 100100000, guid: b1c6ec134f7ce5c4db84f2d580f5d2b5, type: 3}
