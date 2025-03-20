@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace GameCore
 {
-    //[RequireComponent(typeof(PlayerInput))]
     public sealed class InputHandler : MonoBehaviour
     {
         [SerializeField]
@@ -24,9 +23,6 @@ namespace GameCore
         private GameControls.GameplayActions _gameplayMap;
 
         private GameControls.UIActions _uiMap;
-
-        private bool _isUIClicked;
-
 
         public Vector3 MoveDirection => _moveDirection;
 
@@ -54,64 +50,60 @@ namespace GameCore
 
         private static Vector3 _zeroVector = Vector3.zero;
 
+        private readonly Dictionary<string, Vector3> _moveVectors = new();
+
+
         private void Awake()
         {
             _controls = new GameControls();
 
             _gameplayMap = _controls.Gameplay;
-            _uiMap = _controls.UI;
+            //_uiMap = _controls.UI;
 
             _clickData = new PointerEventData(EventSystem.current);
             _raycastResults = new();
 
-            //playerInput = GetComponent<PlayerInput>();
             _camera = Camera.main;
             _groundPlane = new Plane(Vector3.up, 0);
             _moveDirection = _zeroVector;
+
+            _moveVectors.Add(_gameplayMap.MoveUp.name, Vector3.forward);
+            _moveVectors.Add(_gameplayMap.MoveDown.name, Vector3.back);
+            _moveVectors.Add(_gameplayMap.MoveLeft.name, Vector3.left);
+            _moveVectors.Add(_gameplayMap.MoveRight.name, Vector3.right);
         }
 
         private void OnEnable()
         {
             _controls.Enable();
 
-            _gameplayMap.GameplayClick.started += Click;
+            _gameplayMap.MoveUp.started += DirectionMoveContinued;
+            _gameplayMap.MoveDown.started += DirectionMoveContinued;
+            _gameplayMap.MoveLeft.started += DirectionMoveContinued;
+            _gameplayMap.MoveRight.started += DirectionMoveContinued;
 
-            //_playerInput.onActionTriggered += OnMoveUpContinued;
-            //_playerInput.onActionTriggered += OnMoveDownContinued;
-            //_playerInput.onActionTriggered += OnMoveLeftContinued;
-            //_playerInput.onActionTriggered += OnMoveRightContinued;
-            //_playerInput.onActionTriggered += OnClickPositionContinued;
+            _gameplayMap.MoveUp.canceled += DirectionMoveContinued;
+            _gameplayMap.MoveDown.canceled += DirectionMoveContinued;
+            _gameplayMap.MoveLeft.canceled += DirectionMoveContinued;
+            _gameplayMap.MoveRight.canceled += DirectionMoveContinued;
         }
 
         private void OnDisable()
         {
-            _gameplayMap.GameplayClick.started -= Click;
+            _gameplayMap.MoveUp.started -= DirectionMoveContinued;
+            _gameplayMap.MoveDown.started -= DirectionMoveContinued;
+            _gameplayMap.MoveLeft.started -= DirectionMoveContinued;
+            _gameplayMap.MoveRight.started -= DirectionMoveContinued;
 
-            //_playerInput.onActionTriggered -= OnMoveUpContinued;
-            //_playerInput.onActionTriggered -= OnMoveDownContinued;
-            //_playerInput.onActionTriggered -= OnMoveLeftContinued;
-            //_playerInput.onActionTriggered -= OnMoveRightContinued;
-            //_playerInput.onActionTriggered -= OnClickPositionContinued;
+            _gameplayMap.MoveUp.canceled -= DirectionMoveContinued;
+            _gameplayMap.MoveDown.canceled -= DirectionMoveContinued;
+            _gameplayMap.MoveLeft.canceled -= DirectionMoveContinued;
+            _gameplayMap.MoveRight.canceled -= DirectionMoveContinued;
+
+
 
             _controls.Disable();
         }
-
-        private void Click(InputAction.CallbackContext context)
-        {
-            var screenPos = context.ReadValue<Vector2>();
-
-            if (!IsUIClicked(screenPos))
-            {
-                Debug.Log("click go");
-
-                //calc raycast GO position
-            }
-            else
-            {
-                Debug.Log("click UI");
-            }
-        }
-
 
         private bool IsUIClicked(Vector2 position)
         {
@@ -124,14 +116,14 @@ namespace GameCore
             return _raycastResults.Count > 0;
         }
 
-        private void OnClickPositionContinued(InputAction.CallbackContext context)
+        private void ClickPositionContinued(InputAction.CallbackContext context)
         {
-            if (context.action.name == "PositionMove")
+            if (context.started)
             {
-                if (context.started)
-                {
-                    var clickPositionScreen = context.ReadValue<Vector2>();
+                var clickPositionScreen = context.ReadValue<Vector2>();
 
+                if (IsUIClicked(clickPositionScreen))
+                {
                     var ray = _camera.ScreenPointToRay(clickPositionScreen);
 
                     if (_groundPlane.Raycast(ray, out var distance))
@@ -140,51 +132,27 @@ namespace GameCore
                         _movePosition = ray.GetPoint(distance);
                     }
                 }
-
-                else if (context.canceled)
-                {
-                    _isMovingPos = false;
-                    _movePosition = _zeroVector;
-                }
             }
-        }
 
-        private void OnMoveUpContinued(InputAction.CallbackContext context)
-        {
-            DirectionMoveContinued("MoveUpValue", Vector3.forward, context);
-        }
-
-        private void OnMoveDownContinued(InputAction.CallbackContext context)
-        {
-            DirectionMoveContinued("MoveDownValue", Vector3.back, context);
-        }
-
-        private void OnMoveLeftContinued(InputAction.CallbackContext context)
-        {
-            DirectionMoveContinued("MoveLeftValue", Vector3.left, context);
-        }
-
-        private void OnMoveRightContinued(InputAction.CallbackContext context)
-        {
-            DirectionMoveContinued("MoveRightValue", Vector3.right, context);
-        }
-
-        private void DirectionMoveContinued(string actionName, Vector3 direction, InputAction.CallbackContext context)
-        {
-            if (context.action.name == actionName)
+            else if (context.canceled)
             {
-                if (context.started)
-                {
-                    _isMoving = true;
-                    _moveDirection = direction;
-                }
-                else if (context.canceled)
-                {
-                    _isMoving = false;
-                    _moveDirection = _zeroVector;
-                }
+                _isMovingPos = false;
+                _movePosition = _zeroVector;
             }
         }
 
+        private void DirectionMoveContinued(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                _isMoving = true;
+                _moveDirection = _moveVectors[context.action.name];
+            }
+            else if (context.canceled)
+            {
+                _isMoving = false;
+                _moveDirection = _zeroVector;
+            }
+        }
     }
 }
