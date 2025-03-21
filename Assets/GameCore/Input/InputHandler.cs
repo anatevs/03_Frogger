@@ -11,11 +11,7 @@ namespace GameCore
     {
         public event Action<Vector3> OnMoved;
 
-        public Vector3 MoveDirection => _moveDirection;
-
         public Vector3 MovePosition => _movePosition;
-
-        public bool IsMoving => _isMoving;
 
         public bool IsMovingPos => _isMovingPos;
 
@@ -104,6 +100,14 @@ namespace GameCore
             _controls.Disable();
         }
 
+        private void Update()
+        {
+            if (_isMoving)
+            {
+                OnMoved?.Invoke(_moveDirection);
+            }
+        }
+
         private bool IsUIClicked(Vector2 position)
         {
             _clickData.position = position;
@@ -146,8 +150,6 @@ namespace GameCore
             {
                 _isMoving = true;
                 _moveDirection = _moveVectors[context.action.name];
-
-                OnMoved?.Invoke(_moveDirection);
             }
             else if (context.canceled)
             {

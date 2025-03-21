@@ -1,5 +1,5 @@
-﻿using GameCore;
-using System.Collections;
+﻿using DG.Tweening;
+using GameCore;
 using UnityEngine;
 
 namespace Assets.GameCore.Player
@@ -12,6 +12,16 @@ namespace Assets.GameCore.Player
         [SerializeField]
         private InputHandler _inputHandler;
 
+        [SerializeField]
+        private float _jumpDuration;
+
+        private bool _isMoving;
+
+        private void Awake()
+        {
+            _frogAnimation.SetupJumpSpeed(_jumpDuration);
+        }
+
         private void OnEnable()
         {
             _inputHandler.OnMoved += MovePlayer;
@@ -22,19 +32,24 @@ namespace Assets.GameCore.Player
             _inputHandler.OnMoved -= MovePlayer;
         }
 
-        //private void Update()
-        //{
-        //    if (_inputHandler.IsMoving)
-        //    {
-        //        _frogAnimation.Jump();
-        //    }
-        //}
-
         private void MovePlayer(Vector3 direction)
         {
-            transform.Translate(direction);
+            if (!_isMoving)
+            {
+                _isMoving = true;
 
-            _frogAnimation.Jump();
+                transform.rotation = Quaternion.LookRotation(direction);
+
+                transform.DOMove(transform.position + direction, _jumpDuration)
+                    .OnComplete(EndMove);
+
+                _frogAnimation.Jump();
+            }
+        }
+
+        private void EndMove()
+        {
+            _isMoving = false;
         }
     }
 }

@@ -9,8 +9,7 @@ namespace GameCore
         [SerializeField]
         private Animator _animator;
 
-        [SerializeField]
-        private float _jumpDuration = 0.5f;
+        private float _jumpSpeed = 1f;
 
         private const string JUMP_TRIGGER = "Jump";
 
@@ -18,13 +17,12 @@ namespace GameCore
 
         private const string JUMP_CLIP = "FrogArmature_Frog_Jump";
 
-        private float _jumpSpeed;
 
-        private void Awake()
+        public void SetupJumpSpeed(float jumpDuration)
         {
             var jumpClip = GetAnimationClip(JUMP_CLIP);
 
-            _jumpSpeed = jumpClip.length / _jumpDuration;
+            _jumpSpeed = jumpClip.length / jumpDuration;
         }
 
         public void Jump()
