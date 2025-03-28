@@ -6,10 +6,20 @@ namespace GameCore
 {
     public class FrogAnimation : MonoBehaviour
     {
+        public float StartJumpDelay => _startJumpDelay;
+
         [SerializeField]
         private Animator _animator;
 
+        [SerializeField]
+        private float _maxFrame = 21;
+
+        [SerializeField]
+        private float _startJumpFrame;
+
         private float _jumpSpeed = 1f;
+
+        private float _startJumpDelay;
 
         private const string JUMP_TRIGGER = "Jump";
 
@@ -17,12 +27,13 @@ namespace GameCore
 
         private const string JUMP_CLIP = "FrogArmature_Frog_Jump";
 
-
         public void SetupJumpSpeed(float jumpDuration)
         {
             var jumpClip = GetAnimationClip(JUMP_CLIP);
 
             _jumpSpeed = jumpClip.length / jumpDuration;
+
+            _startJumpDelay = _startJumpFrame / _maxFrame * jumpDuration;
         }
 
         public void Jump()

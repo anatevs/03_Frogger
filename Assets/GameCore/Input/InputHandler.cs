@@ -9,7 +9,7 @@ namespace GameCore
 {
     public sealed class InputHandler : MonoBehaviour
     {
-        public event Action<Vector3> OnMoved;
+        public event Action<Vector3Int> OnMoved;
 
         public Vector3 MovePosition => _movePosition;
 
@@ -35,7 +35,7 @@ namespace GameCore
 
         private Plane _groundPlane;
 
-        private Vector3 _moveDirection;
+        private Vector3Int _moveDirection;
 
         private Vector3 _movePosition;
 
@@ -45,8 +45,7 @@ namespace GameCore
 
         private static Vector3 _zeroVector = Vector3.zero;
 
-        private readonly Dictionary<string, Vector3> _moveVectors = new();
-
+        private readonly Dictionary<string, Vector3Int> _moveVectorsInt = new();
 
         private void Awake()
         {
@@ -60,12 +59,12 @@ namespace GameCore
 
             _camera = Camera.main;
             _groundPlane = new Plane(Vector3.up, 0);
-            _moveDirection = _zeroVector;
+            _moveDirection = Vector3Int.zero;
 
-            _moveVectors.Add(_gameplayMap.MoveUp.name, Vector3.forward);
-            _moveVectors.Add(_gameplayMap.MoveDown.name, Vector3.back);
-            _moveVectors.Add(_gameplayMap.MoveLeft.name, Vector3.left);
-            _moveVectors.Add(_gameplayMap.MoveRight.name, Vector3.right);
+            _moveVectorsInt.Add(_gameplayMap.MoveUp.name, Vector3Int.forward);
+            _moveVectorsInt.Add(_gameplayMap.MoveDown.name, Vector3Int.back);
+            _moveVectorsInt.Add(_gameplayMap.MoveLeft.name, Vector3Int.left);
+            _moveVectorsInt.Add(_gameplayMap.MoveRight.name, Vector3Int.right);
         }
 
         private void OnEnable()
@@ -149,12 +148,14 @@ namespace GameCore
             if (context.started)
             {
                 _isMoving = true;
-                _moveDirection = _moveVectors[context.action.name];
+
+                _moveDirection = _moveVectorsInt[context.action.name];
             }
             else if (context.canceled)
             {
                 _isMoving = false;
-                _moveDirection = _zeroVector;
+
+                _moveDirection = Vector3Int.zero;
             }
         }
     }

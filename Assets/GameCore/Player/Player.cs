@@ -23,13 +23,38 @@ namespace GameCore
         [SerializeField]
         private LayerMask _carsLayer;
 
+        [SerializeField]
+        private Transform _body;
+
+        private Rigidbody _rigidbody;
+
+        private BoxCollider _collider;
+
+        private Vector3 _colliderCenter;
+
         private LayerMask _waterLayer = 4;
 
         private bool _isJumping;
 
+        private Vector3 _bodyShift;
+
+        private float _moveJumpDuration;
+
         private void Awake()
         {
             _frogAnimation.SetupJumpSpeed(_jumpDuration);
+
+            _moveJumpDuration = _jumpDuration - _frogAnimation.StartJumpDelay;
+
+            _rigidbody = GetComponent<Rigidbody>();
+
+            _collider = GetComponent<BoxCollider>();
+
+            _bodyShift = _collider.center - _body.transform.position;
+
+            _colliderCenter = _collider.center;
+
+            Physics.gravity *= 10;
         }
 
         private void OnEnable()
@@ -42,7 +67,22 @@ namespace GameCore
             _inputHandler.OnMoved -= MovePlayer;
         }
 
-        private void MovePlayer(Vector3 direction)
+        private void Update()
+        {
+            _rigidbody.useGravity = !_isJumping;
+
+            if (_isJumping)
+            {
+                var yPos = _body.position.y + _bodyShift.y;
+
+                Debug.Log(yPos);
+
+                _collider.center = new Vector3(_collider.center.x,
+                    yPos, _collider.center.z);
+            }
+        }
+
+        private void MovePlayer(Vector3Int direction)
         {
             if (!_isJumping)
             {
@@ -50,8 +90,18 @@ namespace GameCore
 
                 transform.rotation = Quaternion.LookRotation(direction);
 
-                transform.DOMove(transform.position + direction, _jumpDuration)
-                    .OnComplete(EndMove);
+                if (direction.x != 0)
+                {
+                    transform.DOMoveX(transform.position.x + direction.x, _moveJumpDuration)
+                        .SetDelay(_frogAnimation.StartJumpDelay)
+                        .OnComplete(EndMove);
+                }
+                else
+                {
+                    transform.DOMoveZ(transform.position.z + direction.z, _moveJumpDuration)
+                        .SetDelay(_frogAnimation.StartJumpDelay)
+                        .OnComplete(EndMove);
+                }
 
                 _frogAnimation.Jump();
             }
@@ -59,6 +109,8 @@ namespace GameCore
 
         private void EndMove()
         {
+            _collider.center = _colliderCenter;
+
             _isJumping = false;
         }
 
@@ -66,12 +118,11 @@ namespace GameCore
         {
             var collisionLayer = 1 << collision.gameObject.layer;
 
-            Debug.Log($"collision with {collision.gameObject.name} {collisionLayer}");
-
             if ((collisionLayer & _logsLayer.value) > 0)
             {
-                //transform.SetParent(collision.transform);
+                Debug.Log("log parent");
 
+                transform.SetParent(collision.transform);
             }
 
             if ((collisionLayer & _carsLayer.value) > 0)
@@ -93,7 +144,8 @@ namespace GameCore
 
             if ((collisionLayer & _logsLayer.value) > 0)
             {
-                //transform.SetParent(_defaultParent);
+                Debug.Log("default parent");
+                transform.SetParent(_defaultParent);
             }
         }
     }
