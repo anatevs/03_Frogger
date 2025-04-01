@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class LogsManager : MonoBehaviour
+    public sealed class LogsManager : MonoBehaviour
     {
         [SerializeField]
         private float _speed;
@@ -17,18 +16,16 @@ namespace GameCore
         private float[] _distanceRange = { 1f, 2f };
 
         [SerializeField]
-        private float[] _zPositions = { -2, -1, 0, 1, 2 };
+        private RowInfo[] _rowsInfo;
 
         [SerializeField]
         private LogPool _pool;
 
-        private int _moveDirection;
+        private Transform _parentTransform;
+
+        private float[] _zPositions;
 
         private float _cameraX = 13;
-
-        private float _startX;
-
-        private float _endX;
 
         private readonly List<(float dist, LogController log)> _checkingNext = new();
 
@@ -36,10 +33,14 @@ namespace GameCore
 
         private void Start()
         {
-            _moveDirection = Math.Sign(_speed);
+            _parentTransform = transform;
 
-            _startX = -_moveDirection * _cameraX;
-            _endX = _moveDirection * _cameraX;
+            _zPositions = new float[_rowsInfo.Length];
+
+            for (int i = 0; i < _rowsInfo.Length; i++)
+            {
+                _zPositions[i] = _rowsInfo[i].ZPos + transform.position.z;
+            }
 
             InitLogs();
         }
@@ -50,43 +51,49 @@ namespace GameCore
 
             for (int i = 0; i < _checkingNext.Count; i++)
             {
-                if (_checkingNext[i].log.IsBoardIntersectedX(
-                    -_moveDirection,
-                    _startX + _moveDirection * _checkingNext[i].dist))
+                if (IsNeedNext(_checkingNext[i]))
                 {
-                    Debug.Log("next gen");
-
                     _hasNextIndexes.Add(i);
                 }
             }
 
             foreach (var idx in _hasNextIndexes)
             {
-                var zPos = _checkingNext[idx].log.transform.localPosition.z;
-
-                MakeNewLog(_startX, zPos, true, out _);
+                MakeNewLog(_checkingNext[idx].log);
 
                 _checkingNext.RemoveAt(idx);
             }
         }
 
+        private void OnDisable()
+        {
+            var activeLogs = _parentTransform.GetComponentsInChildren<LogController>();
+            foreach (var log in activeLogs)
+            {
+                log.OnEndPassed -= PoolLog;
+            }
+        }
+
         private void InitLogs()
         {
-            foreach (var zPos in _zPositions)
+            for (int i = 0; i < _zPositions.Length; i++)
             {
-                MakeNewLog(_endX, zPos, false, out var logInfo);
+                var speed = _rowsInfo[i].Speed;
+
+                MakeNewLog(speed, (Math.Sign(speed) * _cameraX, _zPositions[i]), false, out var logInfo);
 
                 var allInFOV = false;
 
                 while (!allInFOV)
                 {
-                    if (logInfo.log.IsBoardIntersectedX(
-                        -_moveDirection,
-                        _startX + _moveDirection * logInfo.dist))
+                    if (IsNeedNext(logInfo))
                     {
                         MakeNewLog(
-                            logInfo.log.transform.position.x - _moveDirection * (logInfo.log.HalfX + logInfo.dist),
-                            zPos, false, out logInfo);
+                            speed,
+                            (logInfo.log.transform.position.x - 
+                            logInfo.log.MoveDirection * (logInfo.log.HalfX + logInfo.dist),
+                            _zPositions[i]),
+                            false, out logInfo);
                     }
                     else
                     {
@@ -98,13 +105,31 @@ namespace GameCore
             }
         }
 
-        private void MakeNewLog(float xPos, float zPos, bool addToChecking, out (float dist, LogController log) result)
+        private bool IsNeedNext((float dist, LogController log) logInfo)
+        {
+            var moveDirection = logInfo.log.MoveDirection;
+
+            return (logInfo.log.IsBoardIntersectedX(
+                        -moveDirection,
+                        -moveDirection * (_cameraX - logInfo.dist)));
+        }
+
+        private void MakeNewLog(LogController prevLog)
+        {
+            var zPos = prevLog.transform.position.z;
+            var speed = prevLog.Speed;
+            var direction = prevLog.MoveDirection;
+
+            MakeNewLog(speed, (-direction * _cameraX, zPos), true, out _);
+        }
+
+        private void MakeNewLog(float speed, (float x, float z) pos, bool addToChecking, out (float dist, LogController log) result)
         {
             var nextDistance = UnityEngine.Random.Range(_distanceRange[0], _distanceRange[1]);
 
-            var pos = new Vector3(xPos, 0, zPos);
+            var lengthScale = UnityEngine.Random.Range(_lengthScaleRange[0], _lengthScaleRange[1]);
 
-            var log = _pool.Spawn(transform, pos, _speed, GenerateLength());
+            var log = _pool.Spawn(speed, pos, lengthScale, _parentTransform, Math.Sign(speed) * _cameraX);
 
             result = (nextDistance, log);
 
@@ -112,11 +137,29 @@ namespace GameCore
             {
                 _checkingNext.Add(result);
             }
+
+            log.OnEndPassed += PoolLog;
         }
 
-        private float GenerateLength()
+        private void PoolLog(LogController log)
         {
-            return UnityEngine.Random.Range(_lengthScaleRange[0], _lengthScaleRange[1]);
+            log.OnEndPassed -= PoolLog;
+
+            _pool.Unspawn(log);
+        }
+    }
+
+    [Serializable]
+    public struct RowInfo
+    {
+        public int ZPos;
+
+        public float Speed;
+
+        public RowInfo(int zPos, float speed)
+        {
+            ZPos = zPos;
+            Speed = speed;
         }
     }
 }

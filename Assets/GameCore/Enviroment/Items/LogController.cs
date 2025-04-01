@@ -4,19 +4,27 @@ using UnityEngine;
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class LogController : MonoBehaviour
+    public sealed class LogController : MonoBehaviour
     {
+        public event Action<LogController> OnEndPassed;
+
         public float HalfX => _halfX;
+
+        public float Speed => _speed;
+
+        public int MoveDirection => _moveDirectionX;
 
         private float _speed;
 
-        private int _moveDirectionX = Direction.Right;
+        private int _moveDirectionX = 1;
 
-        private Vector3 _directionVector = Vector3.right;
+        private float _endX;
 
         private float _halfX;
 
         private float _defaultHalfX;
+
+        private Vector3 _directionVector = Vector3.right;
 
         public bool IsBoardIntersectedX(int boardDirection, float xPos)
         {
@@ -25,42 +33,47 @@ namespace GameCore
             return boardPos * _moveDirectionX > xPos * _moveDirectionX;
         }
 
-        public float GetLength()
+        private void Awake()
         {
             var bxCollider = GetComponent<BoxCollider>();
 
-            return bxCollider.size.x;
+            _defaultHalfX = bxCollider.size.x / 2;
         }
 
         private void Update()
         {
             transform.Translate(_directionVector * _speed * Time.deltaTime);
+
+            if (IsBoardIntersectedX(-_moveDirectionX, _endX))
+            {
+                OnEndPassed?.Invoke(this);
+            }
         }
 
-        public void Init(float speed, float length, float defaultLenght, Transform parent, Vector3 boardPos)
+        public void Init(float speed, (float x, float z) startPos, float lengthScale, float endX)
         {
             _speed = speed;
             _moveDirectionX = Math.Sign(speed);
 
-            _defaultHalfX = defaultLenght / 2;
-            SetLength(length);
+            SetLength(lengthScale);
 
-            transform.SetParent(parent);
-            SetFirstBoardPosition(boardPos);
+            SetFirstBoardPosition(startPos);
+
+            _endX = endX;
         }
 
-        private void SetLength(float length)
+        private void SetLength(float lengthScale)
         {
-            transform.localScale = new Vector3(length / transform.localScale.x, 1, 1);
+            transform.localScale = new Vector3(lengthScale, 1, 1);
 
-            _halfX = _defaultHalfX * length;
+            _halfX = _defaultHalfX * lengthScale;
         }
 
-        private void SetFirstBoardPosition(Vector3 boardPos)
+        private void SetFirstBoardPosition((float x, float z) startPos)
         {
-            transform.localPosition = new Vector3(
-                boardPos.x - _moveDirectionX * _halfX,
-                boardPos.y, boardPos.z);
+            transform.position = new Vector3(
+                startPos.x - _moveDirectionX * _halfX,
+                transform.position.y, startPos.z);
         }
 
     }

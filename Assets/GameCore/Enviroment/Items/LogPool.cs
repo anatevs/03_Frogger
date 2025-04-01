@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class LogPool : MonoBehaviour
+    public sealed class LogPool : MonoBehaviour
     {
         [SerializeField]
         private LogController _prefab;
@@ -11,28 +11,17 @@ namespace GameCore
         [SerializeField]
         private Transform _poolTransform;
 
-        private float _defaultLength;
-
         private readonly Queue<LogController> _logsQueue = new();
 
-        private void Awake()
-        {
-            Init();
-        }
-
-        private void Init()
-        {
-            _defaultLength = _prefab.GetLength();
-        }
-
-        public LogController Spawn(Transform parent, Vector3 position, float speed, float length)
+        public LogController Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float endX)
         {
             if (!_logsQueue.TryDequeue(out var log))
             {
                 log = Instantiate(_prefab);
             }
 
-            log.Init(speed, length, _defaultLength, parent, position);
+            log.transform.SetParent(parent);
+            log.Init(speed, position, lengthScale, endX);
 
             log.gameObject.SetActive(true);
 
@@ -41,8 +30,8 @@ namespace GameCore
 
         public void Unspawn(LogController log)
         {
-            log.transform.SetParent(_poolTransform);
             log.gameObject.SetActive(false);
+            log.transform.SetParent(_poolTransform);
 
             _logsQueue.Enqueue(log);
         }

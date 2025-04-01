@@ -5,7 +5,7 @@ namespace GameCore
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(BoxCollider))]
-    public class Player : MonoBehaviour
+    public sealed class Player : MonoBehaviour
     {
         [SerializeField]
         private FrogAnimation _frogAnimation;

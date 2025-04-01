@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class FrogAnimation : MonoBehaviour
+    public sealed class FrogAnimation : MonoBehaviour
     {
         public float StartJumpDelay => _startJumpDelay;
 
