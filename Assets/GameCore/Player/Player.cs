@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace GameCore
 {
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(BoxCollider))]
     public class Player : MonoBehaviour
     {
         [SerializeField]
@@ -75,8 +77,6 @@ namespace GameCore
             {
                 var yPos = _body.position.y + _bodyShift.y;
 
-                Debug.Log(yPos);
-
                 _collider.center = new Vector3(_collider.center.x,
                     yPos, _collider.center.z);
             }
@@ -120,8 +120,6 @@ namespace GameCore
 
             if ((collisionLayer & _logsLayer.value) > 0)
             {
-                Debug.Log("log parent");
-
                 transform.SetParent(collision.transform);
             }
 
@@ -144,7 +142,6 @@ namespace GameCore
 
             if ((collisionLayer & _logsLayer.value) > 0)
             {
-                Debug.Log("default parent");
                 transform.SetParent(_defaultParent);
             }
         }
