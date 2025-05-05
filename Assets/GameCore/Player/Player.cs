@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using UnityEngine;
 
 namespace GameCore
@@ -7,6 +8,12 @@ namespace GameCore
     [RequireComponent(typeof(BoxCollider))]
     public sealed class Player : MonoBehaviour
     {
+        public event Action<Transform> OnWin;
+
+        public event Action OnDropped;
+
+        public event Action OnCarHit;
+
         [SerializeField]
         private FrogAnimation _frogAnimation;
 
@@ -26,6 +33,9 @@ namespace GameCore
         private LayerMask _carsLayer;
 
         [SerializeField]
+        private LayerMask _wallLayer;
+
+        [SerializeField]
         private Transform _body;
 
         private Rigidbody _rigidbody;
@@ -34,13 +44,17 @@ namespace GameCore
 
         private Vector3 _colliderCenter;
 
-        private LayerMask _waterLayer = 4;
+        private LayerMask _waterLayer = 1 << 4;
 
         private bool _isJumping;
 
         private Vector3 _bodyShift;
 
         private float _moveJumpDuration;
+
+        private readonly float _jumpRaycastLength = 1f;
+
+        private Vector3[] _colliderBordersX = new Vector3[2];
 
         private void Awake()
         {
@@ -55,6 +69,9 @@ namespace GameCore
             _bodyShift = _collider.center - _body.transform.position;
 
             _colliderCenter = _collider.center;
+
+            _colliderBordersX[0] = new Vector3(-_collider.size.x / 2, 0, 0);
+            _colliderBordersX[1] = new Vector3(_collider.size.x / 2, 0, 0);
 
             Physics.gravity *= 10;
         }
@@ -80,15 +97,35 @@ namespace GameCore
                 _collider.center = new Vector3(_collider.center.x,
                     yPos, _collider.center.z);
             }
+
+            Debug.DrawRay(transform.position + _colliderBordersX[0],
+                transform.forward,
+                Color.red);
+
+            Debug.DrawRay(transform.position + _colliderBordersX[1],
+                transform.forward,
+                Color.red);
         }
 
         private void MovePlayer(Vector3Int direction)
         {
+            transform.rotation = Quaternion.LookRotation(direction);
+
+            if (Physics.Raycast(transform.position + _colliderBordersX[0], direction, _jumpRaycastLength, _wallLayer) ||
+                Physics.Raycast(transform.position + _colliderBordersX[1], direction, _jumpRaycastLength, _wallLayer))
+            {
+                return;
+            }
+
+
+            //if (Physics.Raycast(transform.position, direction, _jumpRaycastLength, _wallLayer))
+            //{
+            //    return;
+            //}
+
             if (!_isJumping)
             {
                 _isJumping = true;
-
-                transform.rotation = Quaternion.LookRotation(direction);
 
                 if (direction.x != 0)
                 {

@@ -14,6 +14,9 @@ namespace GameCore
 
         public int MoveDirection => _moveDirectionX;
 
+        [SerializeField]
+        private Transform _view;
+
         private float _speed;
 
         private int _moveDirectionX = 1;
@@ -64,7 +67,7 @@ namespace GameCore
 
         private void SetLength(float lengthScale)
         {
-            transform.localScale = new Vector3(lengthScale, 1, 1);
+            _view.localScale = new Vector3(lengthScale, 1, 1);
 
             _halfX = _defaultHalfX * lengthScale;
         }
