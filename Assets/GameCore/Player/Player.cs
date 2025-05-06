@@ -97,31 +97,24 @@ namespace GameCore
                 _collider.center = new Vector3(_collider.center.x,
                     yPos, _collider.center.z);
             }
-
-            Debug.DrawRay(transform.position + _colliderBordersX[0],
-                transform.forward,
-                Color.red);
-
-            Debug.DrawRay(transform.position + _colliderBordersX[1],
-                transform.forward,
-                Color.red);
         }
 
         private void MovePlayer(Vector3Int direction)
         {
+            if (_isJumping)
+            {
+                return;
+            }
+
             transform.rotation = Quaternion.LookRotation(direction);
 
             if (Physics.Raycast(transform.position + _colliderBordersX[0], direction, _jumpRaycastLength, _wallLayer) ||
                 Physics.Raycast(transform.position + _colliderBordersX[1], direction, _jumpRaycastLength, _wallLayer))
             {
+                Debug.Log("the wall is farther");
+
                 return;
             }
-
-
-            //if (Physics.Raycast(transform.position, direction, _jumpRaycastLength, _wallLayer))
-            //{
-            //    return;
-            //}
 
             if (!_isJumping)
             {
@@ -131,20 +124,20 @@ namespace GameCore
                 {
                     transform.DOMoveX(transform.position.x + direction.x, _moveJumpDuration)
                         .SetDelay(_frogAnimation.StartJumpDelay)
-                        .OnComplete(EndMove);
+                        .OnComplete(EndJump);
                 }
                 else
                 {
                     transform.DOMoveZ(transform.position.z + direction.z, _moveJumpDuration)
                         .SetDelay(_frogAnimation.StartJumpDelay)
-                        .OnComplete(EndMove);
+                        .OnComplete(EndJump);
                 }
 
                 _frogAnimation.Jump();
             }
         }
 
-        private void EndMove()
+        private void EndJump()
         {
             _collider.center = _colliderCenter;
 
