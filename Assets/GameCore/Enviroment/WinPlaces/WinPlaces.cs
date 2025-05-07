@@ -1,36 +1,27 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class WinPlaces : MonoBehaviour
+    public class WinPlaces : MonoBehaviour,
+        IDisposable
     {
         [SerializeField]
-        private Transform[] _places;
+        private WinPlace[] _places;
 
         private readonly List<int> _currentAchieved = new();
 
-        private readonly Dictionary<int, Transform> _placesDict = new();
+        private readonly Dictionary<int,  WinPlace> _placesDict = new();
 
         public void InitPlaces()
         {
             foreach (var place in _places)
             {
-                _placesDict.Add(GetPlaceId(place), place);
+                _placesDict.Add(place.Id, place);
+
+                place.OnAchieved += AddAchievedPlace;
             }
-        }
-
-        public void AddAchievedPlace(Transform place)
-        {
-            var id = GetPlaceId(place);
-
-            if (!_placesDict.ContainsKey(id))
-            {
-                Debug.Log($"no winPlace with this id (i.e. xPos) {id} in {this.name}!");
-                return;
-            }
-
-            _currentAchieved.Add(id);
         }
 
         public bool IsAllWin()
@@ -38,9 +29,25 @@ namespace GameCore
             return _currentAchieved.Count == _places.Length;
         }
 
-        private int GetPlaceId(Transform place)
+        void IDisposable.Dispose()
         {
-            return (int)place.position.x;
+            foreach (var place in _places)
+            {
+                place.OnAchieved -= AddAchievedPlace;
+            }
         }
+
+        private void AddAchievedPlace(int placeId)
+        {
+            if (!_placesDict.ContainsKey(placeId))
+            {
+                Debug.Log($"no winPlace with this id (i.e. xPos) {placeId} in {this.name}!");
+                return;
+            }
+
+            _currentAchieved.Add(placeId);
+        }
+
+
     }
 }

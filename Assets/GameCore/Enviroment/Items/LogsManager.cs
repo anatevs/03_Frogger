@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore
 {
@@ -25,11 +26,17 @@ namespace GameCore
 
         private float[] _zPositions;
 
-        private float _cameraX = 13;
+        private float _cameraX;// = 13;
 
         private readonly List<(float dist, LogController log)> _checkingNext = new();
 
         private readonly List<int> _hasNextIndexes = new();
+
+        [Inject]
+        private void Construct(CameraBorders cameraBorders)
+        {
+            _cameraX = cameraBorders.CameraHalfX;
+        }
 
         private void Start()
         {

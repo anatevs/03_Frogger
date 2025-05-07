@@ -931,7 +931,8 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 1761867050}
   _listenersManager: {fileID: 0}
   _horizontalBorders:
   - {fileID: 1028810138}
@@ -949,6 +950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1128957411}
   - component: {fileID: 1128957412}
+  - component: {fileID: 1128957413}
   m_Layer: 0
   m_Name: WinPlace
   m_TagString: Untagged
@@ -993,6 +995,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1128957413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128957410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7bc3552dab365429d4ab0192a209fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wallLayer: 8
+  _achevedView: {fileID: 254018943}
 --- !u!1 &1309988587
 GameObject:
   m_ObjectHideFlags: 0
