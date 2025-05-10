@@ -1346,6 +1346,7 @@ GameObject:
   - component: {fileID: 1590453432}
   - component: {fileID: 1590453433}
   - component: {fileID: 1590453434}
+  - component: {fileID: 1590453437}
   - component: {fileID: 1590453436}
   - component: {fileID: 1590453435}
   m_Layer: 0
@@ -1399,20 +1400,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3111313b7e0ad4898621267015cc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frogAnimation: {fileID: 1579350206}
-  _inputHandler: {fileID: 1590453433}
-  _jumpDuration: 0.2
   _defaultParent: {fileID: 1659850801}
+  _startPos: {x: 0, y: 0, z: 0}
   _logsLayer:
     serializedVersion: 2
     m_Bits: 64
   _carsLayer:
     serializedVersion: 2
     m_Bits: 128
-  _wallLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _body: {fileID: 112043257}
 --- !u!54 &1590453435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1461,6 +1456,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9, y: 0.38870826, z: 0.81867224}
   m_Center: {x: 0, y: 0.1834214, z: 0.0260765}
+--- !u!114 &1590453437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590453431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2092310c86628419d21b98548544b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frogAnimation: {fileID: 1579350206}
+  _inputHandler: {fileID: 1590453433}
+  _jumpDuration: 0.2
+  _body: {fileID: 112043257}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1632676205
 GameObject:
   m_ObjectHideFlags: 0

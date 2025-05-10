@@ -1,32 +1,34 @@
+using GameManagement;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace GameCore
 {
-    public class WinPlaces : MonoBehaviour,
+    public class WinPlaces :
+        IInitializable,
         IDisposable
     {
-        [SerializeField]
-        private WinPlace[] _places;
+        private readonly WinPlace[] _places;
+
+        private readonly GameListenersManager _listenersManager;
 
         private readonly List<int> _currentAchieved = new();
 
-        private readonly Dictionary<int,  WinPlace> _placesDict = new();
+        public WinPlaces(WinPlace[] places,
+            GameListenersManager listenersManager)
+        {
+            _places = places;
+            _listenersManager = listenersManager;
+        }
 
-        public void InitPlaces()
+        void IInitializable.Initialize()
         {
             foreach (var place in _places)
             {
-                _placesDict.Add(place.Id, place);
-
                 place.OnAchieved += AddAchievedPlace;
             }
-        }
-
-        public bool IsAllWin()
-        {
-            return _currentAchieved.Count == _places.Length;
         }
 
         void IDisposable.Dispose()
@@ -37,17 +39,25 @@ namespace GameCore
             }
         }
 
+        public bool IsAllWin()
+        {
+            return _currentAchieved.Count == _places.Length;
+        }
+
         private void AddAchievedPlace(int placeId)
         {
-            if (!_placesDict.ContainsKey(placeId))
+            _currentAchieved.Add(placeId);
+
+            if (IsAllWin())
             {
-                Debug.Log($"no winPlace with this id (i.e. xPos) {placeId} in {this.name}!");
+                _listenersManager.OnEndGame();
+
+                _currentAchieved.Clear();
+
                 return;
             }
 
-            _currentAchieved.Add(placeId);
+            _listenersManager.OnEndRound();
         }
-
-
     }
 }

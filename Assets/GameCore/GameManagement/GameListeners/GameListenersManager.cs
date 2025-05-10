@@ -9,6 +9,8 @@ namespace GameManagement
 
         private readonly List<IStartGameListener> _startGameListeners = new();
 
+        private readonly List<IEndRoundListener> _endRoundlListeners = new();
+
         private readonly List<IEndGameListener> _endGameListeners = new();
 
         private readonly List<IAppQuitListener> _appQuitListeners = new();
@@ -30,9 +32,14 @@ namespace GameManagement
                 _startGameListeners.Add(startListener);
             }
 
-            if (listener is IEndGameListener endGameListener)
+            if (listener is IEndRoundListener endRoundListener)
             {
-                _endGameListeners.Add(endGameListener);
+                _endRoundlListeners.Add(endRoundListener);
+            }
+
+            if (listener is IEndGameListener endLevelListener)
+            {
+                _endGameListeners.Add(endLevelListener);
             }
 
             if (listener is IAppQuitListener quitListener)
@@ -46,6 +53,14 @@ namespace GameManagement
             foreach (var listener in _startGameListeners)
             {
                 listener.StartGame();
+            }
+        }
+
+        public void OnEndRound()
+        {
+            foreach (var listener in _endGameListeners)
+            {
+                listener.EndGame();
             }
         }
 

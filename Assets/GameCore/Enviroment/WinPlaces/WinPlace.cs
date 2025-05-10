@@ -41,11 +41,13 @@ namespace GameCore
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<Player>() != null)
+            if (other.gameObject.TryGetComponent<Player>(out var player))
             {
                 SetAchieved(true);
 
                 OnAchieved?.Invoke(_id);
+
+                player.SetToStart();
             }
         }
     }

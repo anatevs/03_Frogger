@@ -9,6 +9,11 @@ namespace GameManagement
         public void StartGame();
     }
 
+    public interface IEndRoundListener : IGameListener
+    {
+        public void EndRound();
+    }
+
     public interface IEndGameListener : IGameListener
     {
         public void EndGame();

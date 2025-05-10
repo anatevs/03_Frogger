@@ -13,16 +13,7 @@ namespace GameCore
         public event Action OnCarHit;
 
         [SerializeField]
-        private FrogAnimation _frogAnimation;
-
-        [SerializeField]
-        private InputHandler _inputHandler;
-
-        [SerializeField]
-        private float _jumpDuration;
-
-        [SerializeField]
-        private Transform _defaultParent;
+        private Vector3 _startPos;
 
         [SerializeField]
         private LayerMask _logsLayer;
@@ -30,13 +21,34 @@ namespace GameCore
         [SerializeField]
         private LayerMask _carsLayer;
 
-        [SerializeField]
-        private LayerMask _wallLayer;
-
-        [SerializeField]
-        private Transform _body;
-
         private LayerMask _waterLayer = 1 << 4;
+
+        private bool _isOnLog;
+
+        private Transform _currentLog;
+
+        private float _currentLogShiftX;
+
+        public void SetToStart()
+        {
+            transform.position = _startPos;
+        }
+
+        private void Update()
+        {
+            if (_isOnLog)
+            {
+                MoveAfterLog();
+            }
+        }
+
+        private void MoveAfterLog()
+        {
+            transform.position = new Vector3(
+                _currentLog.position.x - _currentLogShiftX,
+                transform.position.y,
+                transform.position.z);
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -44,7 +56,11 @@ namespace GameCore
 
             if ((collisionLayer & _logsLayer.value) > 0)
             {
-                transform.SetParent(collision.transform);
+                _isOnLog = true;
+
+                _currentLog = collision.transform;
+
+                _currentLogShiftX = collision.transform.position.x - transform.position.x;
             }
 
             if ((collisionLayer & _carsLayer.value) > 0)
@@ -66,7 +82,9 @@ namespace GameCore
 
             if ((collisionLayer & _logsLayer.value) > 0)
             {
-                transform.SetParent(_defaultParent);
+                _isOnLog = false;
+
+                _currentLog = null;
             }
         }
     }
