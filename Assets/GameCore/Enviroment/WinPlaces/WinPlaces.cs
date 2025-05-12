@@ -1,8 +1,8 @@
 using GameManagement;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using VContainer.Unity;
+using UnityEngine;
 
 namespace GameCore
 {
@@ -50,6 +50,8 @@ namespace GameCore
 
             if (IsAllWin())
             {
+                Debug.Log("all achieved");
+
                 _listenersManager.OnEndGame();
 
                 _currentAchieved.Clear();

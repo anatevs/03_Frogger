@@ -20,10 +20,7 @@ namespace GameCore
 
         private LayerMask _defaultLayer = 0;
 
-        private void Awake()
-        {
-            _id = (int)transform.position.x;
-        }
+        private PlayerJump _playerJump;
 
         public void SetAchieved(bool isAcheved)
         {
@@ -39,16 +36,26 @@ namespace GameCore
             gameObject.layer = _defaultLayer;
         }
 
+        private void Awake()
+        {
+            _id = (int)transform.position.x;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent<Player>(out var player))
+            if (other.gameObject.TryGetComponent<PlayerJump>(out _playerJump))
             {
-                SetAchieved(true);
-
-                OnAchieved?.Invoke(_id);
-
-                player.SetToStart();
+                _playerJump.OnJumpEnd += MakeOnAchieved;
             }
+        }
+
+        private void MakeOnAchieved()
+        {
+            SetAchieved(true);
+
+            OnAchieved?.Invoke(_id);
+
+            _playerJump.OnJumpEnd -= MakeOnAchieved;
         }
     }
 }

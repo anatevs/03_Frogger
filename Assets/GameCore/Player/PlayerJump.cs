@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using UnityEngine;
 
 namespace GameCore
@@ -7,6 +8,8 @@ namespace GameCore
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerJump : MonoBehaviour
     {
+        public event Action OnJumpEnd;
+
         [SerializeField]
         private FrogAnimation _frogAnimation;
 
@@ -124,6 +127,8 @@ namespace GameCore
             _collider.center = _colliderCenter;
 
             _isJumping = false;
+
+            OnJumpEnd?.Invoke();
         }
     }
 }

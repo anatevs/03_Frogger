@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GameManagement;
+using System;
 using UnityEngine;
 
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public sealed class Player : MonoBehaviour
+    public sealed class Player : MonoBehaviour,
+        IEndRoundListener
     {
         public event Action<Transform> OnWin;
 
@@ -13,13 +15,16 @@ namespace GameCore
         public event Action OnCarHit;
 
         [SerializeField]
-        private Vector3 _startPos;
+        private Transform _startPos;
 
         [SerializeField]
         private LayerMask _logsLayer;
 
         [SerializeField]
         private LayerMask _carsLayer;
+
+        [SerializeField]
+        private PlayerJump _playerJump;
 
         private LayerMask _waterLayer = 1 << 4;
 
@@ -29,9 +34,14 @@ namespace GameCore
 
         private float _currentLogShiftX;
 
+        public void EndRound()
+        {
+            SetToStart();
+        }
+
         public void SetToStart()
         {
-            transform.position = _startPos;
+            transform.position = _startPos.position;
         }
 
         private void Update()

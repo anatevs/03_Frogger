@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GameManagement
 {
-    public sealed class GameListenersManager : MonoBehaviour
+    public sealed class GameListenersManager
     {
         private readonly List<IGameListener> _gameListeners = new();
 
@@ -58,9 +57,9 @@ namespace GameManagement
 
         public void OnEndRound()
         {
-            foreach (var listener in _endGameListeners)
+            foreach (var listener in _endRoundlListeners)
             {
-                listener.EndGame();
+                listener.EndRound();
             }
         }
 
@@ -72,7 +71,7 @@ namespace GameManagement
             }
         }
 
-        public void OnApplicationQuit()
+        public void OnAppQuit()
         {
             foreach (var listener in _appQuitListeners)
             {
