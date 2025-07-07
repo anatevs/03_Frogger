@@ -26,9 +26,9 @@ namespace GameCore
 
         private float[] _zPositions;
 
-        private float _cameraX;// = 13;
+        private float _cameraX;
 
-        private readonly List<(float dist, LogController log)> _checkingNext = new();
+        private readonly List<(float dist, LogComponent log)> _checkingNext = new();
 
         private readonly List<int> _hasNextIndexes = new();
 
@@ -74,7 +74,7 @@ namespace GameCore
 
         private void OnDisable()
         {
-            var activeLogs = _parentTransform.GetComponentsInChildren<LogController>();
+            var activeLogs = _parentTransform.GetComponentsInChildren<LogComponent>();
             foreach (var log in activeLogs)
             {
                 log.OnEndPassed -= PoolLog;
@@ -112,7 +112,7 @@ namespace GameCore
             }
         }
 
-        private bool IsNeedNext((float dist, LogController log) logInfo)
+        private bool IsNeedNext((float dist, LogComponent log) logInfo)
         {
             var moveDirection = logInfo.log.MoveDirection;
 
@@ -121,7 +121,7 @@ namespace GameCore
                         -moveDirection * (_cameraX - logInfo.dist)));
         }
 
-        private void MakeNewLog(LogController prevLog)
+        private void MakeNewLog(LogComponent prevLog)
         {
             var zPos = prevLog.transform.position.z;
             var speed = prevLog.Speed;
@@ -130,7 +130,7 @@ namespace GameCore
             MakeNewLog(speed, (-direction * _cameraX, zPos), true, out _);
         }
 
-        private void MakeNewLog(float speed, (float x, float z) pos, bool addToChecking, out (float dist, LogController log) result)
+        private void MakeNewLog(float speed, (float x, float z) pos, bool addToChecking, out (float dist, LogComponent log) result)
         {
             var nextDistance = UnityEngine.Random.Range(_distanceRange[0], _distanceRange[1]);
 
@@ -148,7 +148,7 @@ namespace GameCore
             log.OnEndPassed += PoolLog;
         }
 
-        private void PoolLog(LogController log)
+        private void PoolLog(LogComponent log)
         {
             log.OnEndPassed -= PoolLog;
 

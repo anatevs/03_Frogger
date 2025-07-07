@@ -34,7 +34,7 @@ namespace GameCore
 
         private float _currentLogShiftX;
 
-        public void EndRound()
+        public void OnEndRound()
         {
             SetToStart();
         }

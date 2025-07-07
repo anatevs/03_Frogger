@@ -6,14 +6,14 @@ namespace GameCore
     public sealed class LogPool : MonoBehaviour
     {
         [SerializeField]
-        private LogController _prefab;
+        private LogComponent _prefab;
 
         [SerializeField]
         private Transform _poolTransform;
 
-        private readonly Queue<LogController> _logsQueue = new();
+        private readonly Queue<LogComponent> _logsQueue = new();
 
-        public LogController Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float endX)
+        public LogComponent Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float endX)
         {
             if (!_logsQueue.TryDequeue(out var log))
             {
@@ -28,7 +28,7 @@ namespace GameCore
             return log;
         }
 
-        public void Unspawn(LogController log)
+        public void Unspawn(LogComponent log)
         {
             log.gameObject.SetActive(false);
             log.transform.SetParent(_poolTransform);

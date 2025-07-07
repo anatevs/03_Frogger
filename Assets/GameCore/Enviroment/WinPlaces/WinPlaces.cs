@@ -2,7 +2,6 @@ using GameManagement;
 using System;
 using System.Collections.Generic;
 using VContainer.Unity;
-using UnityEngine;
 
 namespace GameCore
 {
@@ -48,18 +47,16 @@ namespace GameCore
         {
             _currentAchieved.Add(placeId);
 
+            _listenersManager.EndRound();
+
             if (IsAllWin())
             {
-                Debug.Log("all achieved");
-
-                _listenersManager.OnEndGame();
+                _listenersManager.EndLevel();
 
                 _currentAchieved.Clear();
 
                 return;
-            }
-
-            _listenersManager.OnEndRound();
+            }            
         }
     }
 }

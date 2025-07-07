@@ -4,9 +4,9 @@ using UnityEngine;
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public sealed class LogController : MonoBehaviour
+    public sealed class LogComponent : MonoBehaviour
     {
-        public event Action<LogController> OnEndPassed;
+        public event Action<LogComponent> OnEndPassed;
 
         public float HalfX => _halfX;
 
@@ -56,6 +56,7 @@ namespace GameCore
         public void Init(float speed, (float x, float z) startPos, float lengthScale, float endX)
         {
             _speed = speed;
+
             _moveDirectionX = Math.Sign(speed);
 
             SetLength(lengthScale);

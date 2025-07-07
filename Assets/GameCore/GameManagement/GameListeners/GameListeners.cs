@@ -6,17 +6,22 @@ namespace GameManagement
 
     public interface IStartGameListener : IGameListener
     {
-        public void StartGame();
+        public void OnStartGame();
     }
 
     public interface IEndRoundListener : IGameListener
     {
-        public void EndRound();
+        public void OnEndRound();
+    }
+
+    public interface IEndLevelListener : IGameListener
+    {
+        public void OnEndLevel();
     }
 
     public interface IEndGameListener : IGameListener
     {
-        public void EndGame();
+        public void OnEndGame();
     }
 
     public interface IAppQuitListener : IGameListener

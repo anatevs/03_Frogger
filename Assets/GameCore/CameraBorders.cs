@@ -7,13 +7,13 @@ namespace GameCore
     {
         public float CameraHalfX => _cameraHalfX;
 
-        private BoxCollider[] _horizontalBorders;
+        private readonly BoxCollider[] _horizontalBorders;
 
-        private BoxCollider[] _verticalBorders;
+        private readonly BoxCollider[] _verticalBorders;
 
-        private float _cameraHalfX;
+        private readonly float _cameraHalfX;
 
-        private Camera _camera;
+        private readonly Camera _camera;
 
         public CameraBorders(BoxCollider[][] borders)
         {
