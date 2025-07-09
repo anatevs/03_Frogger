@@ -85,7 +85,7 @@ namespace GameCore
 
             if ((collisionLayer & _waterLayer) > 0)
             {
-                Debug.Log($"{wtr++} water collision");
+                Debug.Log($"{wtr++} water collision, water go is {collision.gameObject.name}");
             }
         }
 
