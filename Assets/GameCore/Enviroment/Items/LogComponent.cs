@@ -17,6 +17,8 @@ namespace GameCore
         [SerializeField]
         private Transform _view;
 
+        private BoxCollider _boxCollider;
+
         private float _speed;
 
         private int _moveDirectionX = 1;
@@ -38,9 +40,9 @@ namespace GameCore
 
         private void Awake()
         {
-            var bxCollider = GetComponent<BoxCollider>();
+            _boxCollider = GetComponent<BoxCollider>();
 
-            _defaultHalfX = bxCollider.size.x / 2;
+            _defaultHalfX = _boxCollider.size.x / 2;
         }
 
         private void Update()
@@ -71,6 +73,12 @@ namespace GameCore
             _view.localScale = new Vector3(lengthScale, 1, 1);
 
             _halfX = _defaultHalfX * lengthScale;
+
+            _boxCollider.size = new Vector3(
+                _halfX * 2,
+                _boxCollider.size.y,
+                _boxCollider.size.z
+                );
         }
 
         private void SetFirstBoardPosition((float x, float z) startPos)

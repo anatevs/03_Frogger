@@ -23,9 +23,6 @@ namespace GameCore
         [SerializeField]
         private LayerMask _carsLayer;
 
-        [SerializeField]
-        private PlayerJump _playerJump;
-
         private LayerMask _waterLayer = 1 << 4;
 
         private bool _isOnLog;
@@ -60,6 +57,12 @@ namespace GameCore
                 transform.position.z);
         }
 
+
+
+        private int wtr = 0;
+
+
+
         private void OnCollisionEnter(Collision collision)
         {
             var collisionLayer = 1 << collision.gameObject.layer;
@@ -82,7 +85,7 @@ namespace GameCore
 
             if ((collisionLayer & _waterLayer) > 0)
             {
-                Debug.Log("water collision");
+                Debug.Log($"{wtr++} water collision");
             }
         }
 
