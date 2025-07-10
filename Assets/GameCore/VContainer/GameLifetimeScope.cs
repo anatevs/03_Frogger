@@ -16,11 +16,19 @@ public class GameLifetimeScope : LifetimeScope
     private Player _player;
 
     [SerializeField]
+    private PlayerJump _playerJump;
+
+    [SerializeField]
     private WinPlace[] _winPlaces;
+
+    [SerializeField]
+    private InputHandler _inputHandler;
 
     protected override void Configure(IContainerBuilder builder)
     {
         RegisterGameComponents(builder);
+
+        RegisterGameControllers(builder);
 
         RegisterManagement(builder);
 
@@ -29,6 +37,10 @@ public class GameLifetimeScope : LifetimeScope
 
     private void RegisterGameComponents(IContainerBuilder builder)
     {
+        builder.RegisterComponent(_inputHandler)
+            .AsImplementedInterfaces()
+            .AsSelf();
+
         builder.RegisterComponent(_player)
             .AsImplementedInterfaces()
             .AsSelf();
@@ -41,6 +53,14 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<CameraBorders>()
             .AsSelf()
             .WithParameter(borders);
+    }
+
+    private void RegisterGameControllers(IContainerBuilder builder)
+    {
+        builder.Register<PlayerController>(Lifetime.Singleton)
+            .WithParameter(_playerJump)
+            .AsImplementedInterfaces()
+            .AsSelf();
     }
 
     private void RegisterManagement(IContainerBuilder builder)

@@ -14,9 +14,6 @@ namespace GameCore
         private FrogAnimation _frogAnimation;
 
         [SerializeField]
-        private InputHandler _inputHandler;
-
-        [SerializeField]
         private float _jumpDuration;
 
         [SerializeField]
@@ -61,16 +58,6 @@ namespace GameCore
             Physics.gravity *= 10;
         }
 
-        private void OnEnable()
-        {
-            _inputHandler.OnMoved += MovePlayer;
-        }
-
-        private void OnDisable()
-        {
-            _inputHandler.OnMoved -= MovePlayer;
-        }
-
         private void Update()
         {
             _rigidbody.useGravity = !_isJumping;
@@ -84,7 +71,7 @@ namespace GameCore
             }
         }
 
-        private void MovePlayer(Vector3Int direction)
+        public void MakeJump(Vector3Int direction)
         {
             if (_isJumping)
             {

@@ -14,12 +14,12 @@ namespace GameManagement
 
         void IInitializable.Initialize()
         {
-            _player.OnDropped += _listenersManager.EndGame;
+            //_player.OnDropped += _listenersManager.EndGame;
         }
 
         void IDisposable.Dispose()
         {
-            _player.OnDropped -= _listenersManager.EndGame;
+            //_player.OnDropped -= _listenersManager.EndGame;
         }
     }
 }

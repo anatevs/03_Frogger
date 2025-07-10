@@ -10,9 +10,7 @@ namespace GameCore
     {
         public event Action<Transform> OnWin;
 
-        public event Action OnDropped;
-
-        public event Action OnCarHit;
+        public int Lifes { get; set; }
 
         [SerializeField]
         private Transform _startPos;
@@ -22,6 +20,9 @@ namespace GameCore
 
         [SerializeField]
         private LayerMask _carsLayer;
+
+        [SerializeField]
+        private LayerMask _wallLayer;
 
         private LayerMask _waterLayer = 1 << 4;
 
@@ -57,12 +58,6 @@ namespace GameCore
                 transform.position.z);
         }
 
-
-
-        private int wtr = 0;
-
-
-
         private void OnCollisionEnter(Collision collision)
         {
             var collisionLayer = 1 << collision.gameObject.layer;
@@ -85,7 +80,12 @@ namespace GameCore
 
             if ((collisionLayer & _waterLayer) > 0)
             {
-                Debug.Log($"{wtr++} water collision, water go is {collision.gameObject.name}");
+                Debug.Log($"water collision, water go is {collision.gameObject.name}");
+            }
+
+            if (_isOnLog && (collisionLayer & _wallLayer) > 0)
+            {
+                Debug.Log("collision with wall!");
             }
         }
 
