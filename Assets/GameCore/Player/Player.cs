@@ -1,6 +1,7 @@
 ﻿using GameManagement;
 using System;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore
 {
@@ -10,16 +11,23 @@ namespace GameCore
     {
         public event Action<Transform> OnWin;
 
-        public int Lifes { get; set; }
+
+
+        [SerializeField]
+        private PlayerJump _playerJump;
+
+
+
+
 
         [SerializeField]
         private Transform _startPos;
 
         [SerializeField]
-        private LayerMask _logsLayer;
+        private LayerMask _logsLayerMask;
 
         [SerializeField]
-        private LayerMask _carsLayer;
+        private LayerMask _carsLayerMask;
 
         [SerializeField]
         private LayerMask _wallLayer;
@@ -31,6 +39,21 @@ namespace GameCore
         private Transform _currentLog;
 
         private float _currentLogShiftX;
+
+        private PlayerLifes _playerLifes;
+
+        private int _decreaseLifeAmount = 1;
+        private int _startLifes = 3;
+
+
+        [Inject]
+        public void Construct(PlayerLifes playerLifes)
+        {
+            _playerLifes = playerLifes;
+
+
+            _playerLifes.SetLifes(_startLifes);
+        }
 
         public void OnEndRound()
         {
@@ -62,30 +85,41 @@ namespace GameCore
         {
             var collisionLayer = 1 << collision.gameObject.layer;
 
-            if ((collisionLayer & _logsLayer.value) > 0)
+            if ((collisionLayer & _logsLayerMask.value) > 0)
             {
                 _isOnLog = true;
 
                 _currentLog = collision.transform;
 
                 _currentLogShiftX = collision.transform.position.x - transform.position.x;
-            }
-
-            if ((collisionLayer & _carsLayer.value) > 0)
-            {
-                Debug.Log("car collision");
 
                 return;
             }
 
+            if ((collisionLayer & _carsLayerMask.value) > 0)
+            {
+                Debug.Log("car collision");
+
+                Retry();
+            }
+
             if ((collisionLayer & _waterLayer) > 0)
             {
-                Debug.Log($"water collision, water go is {collision.gameObject.name}");
+                Debug.Log($"water collision at {Time.time}");
+
+                foreach (var contact in collision.contacts)
+                {
+                    Debug.Log($"{contact.point}");
+                }
+
+                Retry();
             }
 
             if (_isOnLog && (collisionLayer & _wallLayer) > 0)
             {
                 Debug.Log("collision with wall!");
+
+                Retry();
             }
         }
 
@@ -93,11 +127,26 @@ namespace GameCore
         {
             var collisionLayer = 1 << collision.gameObject.layer;
 
-            if ((collisionLayer & _logsLayer.value) > 0)
+            if ((collisionLayer & _logsLayerMask.value) > 0)
             {
                 _isOnLog = false;
 
                 _currentLog = null;
+            }
+        }
+
+        private void Retry()
+        {
+            if (_playerLifes.HasLifes())
+            {
+                _playerLifes.DecreaseLifes(1);
+
+                //SetToStart();
+            }
+
+            else
+            {
+                Debug.Log("no more lifes, restart the level");
             }
         }
     }

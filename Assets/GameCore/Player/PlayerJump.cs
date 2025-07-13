@@ -5,7 +5,6 @@ using UnityEngine;
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class PlayerJump : MonoBehaviour
     {
         public event Action OnJumpEnd;
@@ -22,9 +21,9 @@ namespace GameCore
         [SerializeField]
         private LayerMask _wallLayer;
 
-        private Rigidbody _rigidbody;
-
         private BoxCollider _collider;
+
+        private Rigidbody _rigidbody;
 
         private Vector3 _colliderCenter;
 
@@ -44,9 +43,9 @@ namespace GameCore
 
             _moveJumpDuration = _jumpDuration - _frogAnimation.StartJumpDelay;
 
-            _rigidbody = GetComponent<Rigidbody>();
-
             _collider = GetComponent<BoxCollider>();
+
+            _rigidbody = GetComponent<Rigidbody>();
 
             _bodyShift = _collider.center - _body.transform.position;
 
@@ -55,6 +54,7 @@ namespace GameCore
             _colliderBordersX[0] = new Vector3(-_collider.size.x / 2, 0, 0);
             _colliderBordersX[1] = new Vector3(_collider.size.x / 2, 0, 0);
 
+            _rigidbody.useGravity = false;
             Physics.gravity *= 10;
         }
 
@@ -77,7 +77,6 @@ namespace GameCore
             {
                 return;
             }
-
             transform.rotation = Quaternion.LookRotation(direction);
 
             if (Physics.Raycast(transform.position + _colliderBordersX[0], direction, _jumpRaycastLength, _wallLayer) ||
@@ -111,6 +110,14 @@ namespace GameCore
 
         private void EndJump()
         {
+            Physics.Raycast(_collider.bounds.center, Vector3.down, out var hitInfo, 3f);
+            var yPos = hitInfo.point.y + _collider.size.y / 2;
+
+            transform.position = new Vector3(
+                transform.position.x,
+                yPos - _colliderCenter.y,
+                transform.position.z);
+
             _collider.center = _colliderCenter;
 
             _isJumping = false;

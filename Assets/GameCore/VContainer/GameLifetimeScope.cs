@@ -26,7 +26,7 @@ public class GameLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        RegisterGameComponents(builder);
+        RegisterComponents(builder);
 
         RegisterGameControllers(builder);
 
@@ -35,8 +35,13 @@ public class GameLifetimeScope : LifetimeScope
         RegisterManagementComponents(builder);
     }
 
-    private void RegisterGameComponents(IContainerBuilder builder)
+    private void RegisterComponents(IContainerBuilder builder)
     {
+        builder.Register<PlayerLifes>(Lifetime.Singleton);
+
+
+
+
         builder.RegisterComponent(_inputHandler)
             .AsImplementedInterfaces()
             .AsSelf();
@@ -58,7 +63,7 @@ public class GameLifetimeScope : LifetimeScope
     private void RegisterGameControllers(IContainerBuilder builder)
     {
         builder.Register<PlayerController>(Lifetime.Singleton)
-            .WithParameter(_playerJump)
+            .WithParameter<PlayerJump>(_playerJump)
             .AsImplementedInterfaces()
             .AsSelf();
     }
