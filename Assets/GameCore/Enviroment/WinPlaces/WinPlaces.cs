@@ -56,7 +56,7 @@ namespace GameCore
                 _currentAchieved.Clear();
 
                 return;
-            }            
+            }
         }
     }
 }

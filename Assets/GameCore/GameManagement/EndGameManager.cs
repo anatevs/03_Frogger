@@ -8,7 +8,7 @@ namespace GameManagement
         IInitializable,
         IDisposable
     {
-        private Player _player;
+        private PlayerCollisions _playerCollisions;
 
         private GameListenersManager _listenersManager;
 

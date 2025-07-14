@@ -13,7 +13,7 @@ public class GameLifetimeScope : LifetimeScope
     private BoxCollider[] _verticalBorders = new BoxCollider[2];
 
     [SerializeField]
-    private Player _player;
+    private PlayerCollisions _playerCollisions;
 
     [SerializeField]
     private PlayerJump _playerJump;
@@ -28,9 +28,9 @@ public class GameLifetimeScope : LifetimeScope
     {
         RegisterComponents(builder);
 
-        RegisterGameControllers(builder);
-
         RegisterManagement(builder);
+
+        RegisterGameControllers(builder);
 
         RegisterManagementComponents(builder);
     }
@@ -46,7 +46,7 @@ public class GameLifetimeScope : LifetimeScope
             .AsImplementedInterfaces()
             .AsSelf();
 
-        builder.RegisterComponent(_player)
+        builder.RegisterComponent(_playerCollisions)
             .AsImplementedInterfaces()
             .AsSelf();
 
@@ -60,19 +60,19 @@ public class GameLifetimeScope : LifetimeScope
             .WithParameter(borders);
     }
 
-    private void RegisterGameControllers(IContainerBuilder builder)
-    {
-        builder.Register<PlayerController>(Lifetime.Singleton)
-            .WithParameter<PlayerJump>(_playerJump)
-            .AsImplementedInterfaces()
-            .AsSelf();
-    }
-
     private void RegisterManagement(IContainerBuilder builder)
     {
         builder.Register<GameListenersManager>(Lifetime.Singleton);
 
         builder.RegisterEntryPoint<GameListenersInstaller>()
+            .AsSelf();
+    }
+
+    private void RegisterGameControllers(IContainerBuilder builder)
+    {
+        builder.Register<PlayerController>(Lifetime.Singleton)
+            .WithParameter<PlayerJump>(_playerJump)
+            .AsImplementedInterfaces()
             .AsSelf();
     }
 

@@ -1,24 +1,14 @@
 ﻿using GameManagement;
 using System;
 using UnityEngine;
-using VContainer;
 
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public sealed class Player : MonoBehaviour,
+    public sealed class PlayerCollisions : MonoBehaviour,
         IEndRoundListener
     {
-        public event Action<Transform> OnWin;
-
-
-
-        [SerializeField]
-        private PlayerJump _playerJump;
-
-
-
-
+        public event Action OnDamaged;
 
         [SerializeField]
         private Transform _startPos;
@@ -39,21 +29,6 @@ namespace GameCore
         private Transform _currentLog;
 
         private float _currentLogShiftX;
-
-        private PlayerLifes _playerLifes;
-
-        private int _decreaseLifeAmount = 1;
-        private int _startLifes = 3;
-
-
-        [Inject]
-        public void Construct(PlayerLifes playerLifes)
-        {
-            _playerLifes = playerLifes;
-
-
-            _playerLifes.SetLifes(_startLifes);
-        }
 
         public void OnEndRound()
         {
@@ -100,26 +75,23 @@ namespace GameCore
             {
                 Debug.Log("car collision");
 
-                Retry();
+                OnDamaged?.Invoke();
             }
 
             if ((collisionLayer & _waterLayer) > 0)
             {
-                Debug.Log($"water collision at {Time.time}");
+                Debug.Log($"water collision");
 
-                foreach (var contact in collision.contacts)
-                {
-                    Debug.Log($"{contact.point}");
-                }
-
-                Retry();
+                OnDamaged?.Invoke();
             }
 
             if (_isOnLog && (collisionLayer & _wallLayer) > 0)
             {
-                Debug.Log("collision with wall!");
+                Debug.Log("collision with bounds!");
 
-                Retry();
+                _isOnLog = false;
+
+                OnDamaged?.Invoke();
             }
         }
 
@@ -132,21 +104,6 @@ namespace GameCore
                 _isOnLog = false;
 
                 _currentLog = null;
-            }
-        }
-
-        private void Retry()
-        {
-            if (_playerLifes.HasLifes())
-            {
-                _playerLifes.DecreaseLifes(1);
-
-                //SetToStart();
-            }
-
-            else
-            {
-                Debug.Log("no more lifes, restart the level");
             }
         }
     }
