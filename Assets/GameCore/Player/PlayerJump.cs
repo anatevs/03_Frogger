@@ -55,6 +55,7 @@ namespace GameCore
             _colliderBordersX[1] = new Vector3(_collider.size.x / 2, 0, 0);
 
             _rigidbody.useGravity = false;
+
             Physics.gravity *= 10;
         }
 
