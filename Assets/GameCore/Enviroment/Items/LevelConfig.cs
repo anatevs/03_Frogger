@@ -13,5 +13,10 @@ namespace GameCore
         //row: speed, distanceRange, objType:
         // - logObj: lengthRange
         // - bugsObj: lifetimeRange
+
+
+        //items: log, car, 3 bugs, 3 cars, crocodile
+
+        // row: item, optional item
     }
 }

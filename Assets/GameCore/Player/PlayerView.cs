@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System;
 using UnityEngine;
 
 namespace GameCore
@@ -25,6 +24,8 @@ namespace GameCore
 
         public Sequence DeathAnimation()
         {
+            transform.rotation = Quaternion.identity;
+
             _deathGO.SetActive(true);
 
             var sequence = DOTween.Sequence().Pause();

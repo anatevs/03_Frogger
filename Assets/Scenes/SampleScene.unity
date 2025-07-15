@@ -574,7 +574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 323488625}
   m_Layer: 0
-  m_Name: Terrain
+  m_Name: Enviroment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2557,7 +2557,7 @@ MonoBehaviour:
   _deathGO: {fileID: 1817858280}
   _playerView: {fileID: 443051887}
   _deathAnimScale: 2
-  _deathHalfDuration: 0.2
+  _deathHalfDuration: 0.3
 --- !u!1 &1632676205
 GameObject:
   m_ObjectHideFlags: 0
