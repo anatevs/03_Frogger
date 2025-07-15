@@ -2554,11 +2554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6309216f57aaa3459899ed7d6ecfafe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deathImage: {fileID: 1817858280}
+  _deathGO: {fileID: 1817858280}
   _playerView: {fileID: 443051887}
-  _animScale: 2
-  _halfDuration: 0.3
-  IsPlay: 0
+  _deathAnimScale: 2
+  _deathHalfDuration: 0.2
 --- !u!1 &1632676205
 GameObject:
   m_ObjectHideFlags: 0

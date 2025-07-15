@@ -1,4 +1,6 @@
-﻿using GameManagement;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using GameManagement;
 using System;
 using UnityEngine;
 using VContainer.Unity;
@@ -17,9 +19,11 @@ namespace GameCore
 
         private readonly PlayerLifes _playerLifes;
 
+        private readonly PlayerView _playerView;
+
         private readonly GameListenersManager _listenersManager;
 
-        private bool _isAlive;
+        private bool _isAlive = true;
 
         private int _startLifes = 3;
 
@@ -32,6 +36,11 @@ namespace GameCore
             _playerJump = playerJump;
             _playerCollisions = player;
             _playerLifes = playerLifes;
+
+            if (_playerCollisions.TryGetComponent(out _playerView) == false)
+            {
+                Debug.LogError("PlayerView component is not found on PlayerCollisions");
+            }
         }
 
         void IInitializable.Initialize()
@@ -41,6 +50,8 @@ namespace GameCore
             _inputHandler.OnMoved += MakeJump;
 
             _playerCollisions.OnDamaged += MakeOnDamage;
+
+            
         }
 
         void IDisposable.Dispose()
@@ -60,13 +71,24 @@ namespace GameCore
 
         private void MakeOnDamage()
         {
+            ShowDamage().Forget();
+        }
+
+        private async UniTaskVoid ShowDamage()
+        {
             _isAlive = false;
+            _playerView.ShowFrog(false);
+
+            await _playerView.DeathAnimation()
+                .Play()
+                .AsyncWaitForCompletion();
 
             if (_playerLifes.TryTakeOneLife())
             {
                 _playerCollisions.SetToStart();
 
                 _isAlive = true;
+                _playerView.ShowFrog(true);
 
                 Debug.Log($"you have {_playerLifes.Lifes} lifes left");
             }
