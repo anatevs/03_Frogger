@@ -6,7 +6,7 @@ namespace GameCore
     [RequireComponent(typeof(BoxCollider))]
     public sealed class LogComponent : MonoBehaviour
     {
-        public event Action<LogComponent> OnEndPassed;
+        public event Action<LogComponent> OnBorderPassed;
 
         public float HalfX => _halfX;
 
@@ -23,7 +23,7 @@ namespace GameCore
 
         private int _moveDirectionX = 1;
 
-        private float _endX;
+        private float _borderX;
 
         private float _halfX;
 
@@ -31,9 +31,9 @@ namespace GameCore
 
         private Vector3 _directionVector = Vector3.right;
 
-        public bool IsBoardIntersectedX(int boardDirection, float xPos)
+        public bool IsBoardIntersectedX(int logBoardDirection, float xPos)
         {
-            var boardPos = transform.position.x + boardDirection * _halfX;
+            var boardPos = transform.position.x + logBoardDirection * _halfX;
 
             return boardPos * _moveDirectionX > xPos * _moveDirectionX;
         }
@@ -49,13 +49,13 @@ namespace GameCore
         {
             transform.Translate(_directionVector * _speed * Time.deltaTime);
 
-            if (IsBoardIntersectedX(-_moveDirectionX, _endX))
+            if (IsBoardIntersectedX(-_moveDirectionX, _borderX))
             {
-                OnEndPassed?.Invoke(this);
+                OnBorderPassed?.Invoke(this);
             }
         }
 
-        public void Init(float speed, (float x, float z) startPos, float lengthScale, float endX)
+        public void Init(float speed, (float x, float z) startPos, float lengthScale, float borderX)
         {
             _speed = speed;
 
@@ -65,7 +65,7 @@ namespace GameCore
 
             SetFirstBoardPosition(startPos);
 
-            _endX = endX;
+            _borderX = borderX;
         }
 
         private void SetLength(float lengthScale)

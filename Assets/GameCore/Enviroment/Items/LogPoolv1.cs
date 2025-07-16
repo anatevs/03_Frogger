@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using GameCore;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public sealed class LogPool : MonoBehaviour
+    public class LogPoolv1 : MonoBehaviour
     {
         [SerializeField]
-        private LogComponent _prefab;
+        private LogItem _prefab;
 
         [SerializeField]
         private Transform _poolTransform;
 
-        private readonly Queue<LogComponent> _logsQueue = new();
+        private readonly Queue<LogItem> _logsQueue = new();
 
-        public LogComponent Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float borderX)
+        public LogItem Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float borderX)
         {
             if (!_logsQueue.TryDequeue(out var log))
             {
@@ -28,7 +30,7 @@ namespace GameCore
             return log;
         }
 
-        public void Unspawn(LogComponent log)
+        public void Unspawn(LogItem log)
         {
             log.gameObject.SetActive(false);
             log.transform.SetParent(_poolTransform);
