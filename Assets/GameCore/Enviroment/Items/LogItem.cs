@@ -18,14 +18,7 @@ namespace GameCore
             _defaultHalfX = _boxCollider.size.x / 2;
         }
 
-        public void Init(float speed, (float x, float z) startPos, float endX, float lengthScale)
-        {
-            SetLength(lengthScale);
-
-            Init(speed, startPos, endX);
-        }
-
-        private void SetLength(float lengthScale)
+        protected override void SetLength(float lengthScale)
         {
             _view.localScale = new Vector3(lengthScale, 1, 1);
 

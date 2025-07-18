@@ -7,35 +7,35 @@ namespace GameCore
 {
     public class LogPoolv1 : MonoBehaviour
     {
-        [SerializeField]
-        private LogItem _prefab;
+        //[SerializeField]
+        //private LogItem _prefab;
 
-        [SerializeField]
-        private Transform _poolTransform;
+        //[SerializeField]
+        //private Transform _poolTransform;
 
-        private readonly Queue<LogItem> _logsQueue = new();
+        //private readonly Queue<LogItem> _logsQueue = new();
 
-        public LogItem Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float borderX)
-        {
-            if (!_logsQueue.TryDequeue(out var log))
-            {
-                log = Instantiate(_prefab);
-            }
+        //public LogItem Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float borderX)
+        //{
+        //    if (!_logsQueue.TryDequeue(out var log))
+        //    {
+        //        log = Instantiate(_prefab);
+        //    }
 
-            log.transform.SetParent(parent);
-            log.Init(speed, position, lengthScale, borderX);
+        //    log.transform.SetParent(parent);
+        //    log.Init(speed, position, lengthScale, borderX);
 
-            log.gameObject.SetActive(true);
+        //    log.gameObject.SetActive(true);
 
-            return log;
-        }
+        //    return log;
+        //}
 
-        public void Unspawn(LogItem log)
-        {
-            log.gameObject.SetActive(false);
-            log.transform.SetParent(_poolTransform);
+        //public void Unspawn(LogItem log)
+        //{
+        //    log.gameObject.SetActive(false);
+        //    log.transform.SetParent(_poolTransform);
 
-            _logsQueue.Enqueue(log);
-        }
+        //    _logsQueue.Enqueue(log);
+        //}
     }
 }

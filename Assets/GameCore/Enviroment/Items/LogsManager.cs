@@ -25,10 +25,6 @@ namespace GameCore
 
         private float _cameraX;
 
-        private readonly List<(float dist, LogComponent log)> _checkingNext = new();
-
-        private readonly List<int> _hasNextIndexes = new();
-
         [Inject]
         private void Construct(CameraBorders cameraBorders)
         {

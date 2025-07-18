@@ -13,7 +13,7 @@ namespace GameCore
 
         private readonly Queue<LogComponent> _logsQueue = new();
 
-        public LogComponent Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent, float borderX)
+        public LogComponent Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent)
         {
             if (!_logsQueue.TryDequeue(out var log))
             {
@@ -21,7 +21,7 @@ namespace GameCore
             }
 
             log.transform.SetParent(parent);
-            log.Init(speed, position, lengthScale, borderX);
+            log.Init(speed, position, lengthScale);
 
             log.gameObject.SetActive(true);
 

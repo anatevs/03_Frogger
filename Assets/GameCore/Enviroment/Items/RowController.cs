@@ -102,7 +102,7 @@ namespace GameCore
 
             var pos = (xPos, _zPos);
 
-            var log = _pool.Spawn(_speed, pos, lengthScale, _parentTransform, _unspawnBorderX);
+            var log = _pool.Spawn(_speed, pos, lengthScale, _parentTransform);
 
             _logsQueue.Enqueue(log);
 
