@@ -12,8 +12,6 @@ namespace GameCore
             protected set { _halfX = value; }
         }
 
-        public float Speed => _speed;
-
         public int MoveDirection => _moveDirectionX;
 
         private float _speed;

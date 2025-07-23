@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class RowControllerT : MonoBehaviour
+    public class RowControllerT
     {
         private readonly float _zPos;
 
@@ -41,6 +42,7 @@ namespace GameCore
 
 
             _unspawnBorderX = _direction * _cameraX;
+
             InitLogs();
         }
 
@@ -53,6 +55,7 @@ namespace GameCore
             while (!allInFOV)
             {
                 var item = _currentLastInfo.item;
+
                 if (IsNeedNext())
                 {
                     var nextXPos = item.transform.position.x -
@@ -112,9 +115,7 @@ namespace GameCore
 
         private void AddItem(float xPos, int typeNumb)
         {
-            var lengthScale = UnityEngine.Random.Range(
-                _itemsRowData[typeNumb].LengthScaleRange[0],
-                _itemsRowData[typeNumb].LengthScaleRange[1]);
+            var lengthScale = _itemsRowData[typeNumb].GetRandomLength();
 
             var pos = (xPos, _zPos);
 
@@ -164,18 +165,22 @@ namespace GameCore
     {
         public float AppearProb;
         public float[] LengthScaleRange;
+        public MovingItem Prefab;
 
-        public TPool<MovingItem> Pool
+        public MovingItemPool Pool
         {
             readonly get => _pool;
             set => _pool = value;
         }
 
-        public MovingItem Prefab => _prefab;
+        public float GetRandomLength()
+        {
+            return UnityEngine.Random.Range(
+                LengthScaleRange[0],
+                LengthScaleRange[^1]);
+        }
+        
 
-        [SerializeField]
-        private MovingItem _prefab;
-
-        private TPool<MovingItem> _pool;
+        private MovingItemPool _pool;
     }
 }

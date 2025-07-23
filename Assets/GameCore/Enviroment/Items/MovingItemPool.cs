@@ -3,26 +3,21 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class TPool<T> where T : MovingItem
+    public class MovingItemPool
     {
-        private readonly T _prefab;
+        private readonly MovingItem _prefab;
 
         private readonly Transform _poolTransform;
 
-        private readonly Queue<T> _itemsQueue = new();
+        private readonly Queue<MovingItem> _itemsQueue = new();
 
-        public TPool()
-        {
-            
-        }
-
-        public TPool(T prefab, Transform poolTransform)
+        public MovingItemPool(MovingItem prefab, Transform poolTransform)
         {
             _prefab = prefab;
             _poolTransform = poolTransform;
         }
 
-        public T Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent)
+        public MovingItem Spawn(float speed, (float x, float z) position, float lengthScale, Transform parent)
         {
             if (!_itemsQueue.TryDequeue(out var item))
             {
@@ -37,7 +32,7 @@ namespace GameCore
             return item;
         }
 
-        public void Unspawn(T item)
+        public void Unspawn(MovingItem item)
         {
             item.gameObject.SetActive(false);
             item.transform.SetParent(_poolTransform);

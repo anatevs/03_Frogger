@@ -1254,6 +1254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 956557841}
   - component: {fileID: 956557842}
+  - component: {fileID: 956557843}
   m_Layer: 6
   m_Name: LogsT
   m_TagString: Untagged
@@ -1288,72 +1289,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17068b6297fd28a409e41ecb875ba663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lengthScaleRange:
-  - 0.5
-  - 1.5
-  _distanceRange:
-  - 1
-  - 2
   _rowData:
   - ZPos: -2
-    Speed: 1
+    Speed: 5
     DistanceRange:
     - 2
     - 5
     ItemsData:
-    - AppearRate: 1
+    - AppearProb: 0.5
       LengthScaleRange:
       - 1
+      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+    - AppearProb: 1
+      LengthScaleRange:
+      - 0.5
       - 1
-      _prefab: {fileID: 0}
-    - AppearRate: 0
-      LengthScaleRange: []
-      _prefab: {fileID: 0}
+      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - ZPos: -1
     Speed: -1.5
     DistanceRange:
     - 3
     - 5
     ItemsData:
-    - AppearRate: 1
+    - AppearProb: 1
       LengthScaleRange:
       - 1
       - 1
-      _prefab: {fileID: 0}
+      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - ZPos: 0
     Speed: 1
     DistanceRange:
     - 2.5
     - 6
     ItemsData:
-    - AppearRate: 1
+    - AppearProb: 1
       LengthScaleRange:
-      - 1
-      - 1
-      _prefab: {fileID: 0}
+      - 0.3
+      - 0.8
+      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
   - ZPos: 1
     Speed: -1
     DistanceRange:
     - 3
     - 6
     ItemsData:
-    - AppearRate: 1
+    - AppearProb: 1
       LengthScaleRange:
       - 1
       - 1
-      _prefab: {fileID: 0}
+      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - ZPos: 2
     Speed: 0.5
     DistanceRange:
     - 2
     - 5
     ItemsData:
-    - AppearRate: 1
+    - AppearProb: 1
       LengthScaleRange:
       - 1
       - 1
-      _prefab: {fileID: 0}
-  _poolTransform: {fileID: 73756761}
+      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+  _poolService: {fileID: 956557843}
+--- !u!114 &956557843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956557840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b53064d8c5899c40b5edf81c7f509d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolsTransform: {fileID: 73756761}
+  _logPrefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+  _cubePrefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+  _prefabs:
+  - {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+  - {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,7 +1820,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects:
-  - {fileID: 1761867050}
+  - {fileID: 956557840}
   _horizontalBorders:
   - {fileID: 1028810138}
   - {fileID: 1008611117}
@@ -1822,6 +1836,7 @@ MonoBehaviour:
   - {fileID: 524933544}
   - {fileID: 382668954}
   _inputHandler: {fileID: 1590453433}
+  _itemsManager: {fileID: 956557842}
 --- !u!1 &1127432972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,7 +2880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1761867051
 Transform:
   m_ObjectHideFlags: 0
