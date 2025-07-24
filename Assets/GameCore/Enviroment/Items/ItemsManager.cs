@@ -6,12 +6,14 @@ namespace GameCore
     public class ItemsManager : MonoBehaviour
     {
         [SerializeField]
-        private RowData[] _rowData;
+        private LevelConfig _levelConfig;
 
         [SerializeField]
         private PoolsService _poolService;
 
         private RowController[] _rowsControllers;
+
+        private RowData[] _rowData;
 
         private float _cameraX;
 
@@ -23,6 +25,8 @@ namespace GameCore
 
         private void Start()
         {
+            _rowData = _levelConfig.WaterRowData;
+
             _rowsControllers = new RowController[_rowData.Length];
 
             for (int i = 0; i < _rowData.Length; i++)

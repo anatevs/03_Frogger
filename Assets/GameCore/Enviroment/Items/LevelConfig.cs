@@ -1,22 +1,14 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameCore
 {
+    [CreateAssetMenu(fileName = "LevelConfig",
+        menuName = "Configs/LevelConfig")]
     public class LevelConfig : ScriptableObject
     {
-        //road rows
-        //row: speed, carType
+        public RowData[] WaterRowData => _waterRowData;
 
-
-        //water rows
-        //row: speed, distanceRange, objType:
-        // - logObj: lengthRange
-        // - bugsObj: lifetimeRange
-
-
-        //items: log, car, 3 bugs, 3 cars, crocodile
-
-        // row: item, optional item
+        [SerializeField]
+        private RowData[] _waterRowData;
     }
 }

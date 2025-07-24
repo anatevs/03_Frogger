@@ -24,7 +24,7 @@ namespace GameCore
 
         private readonly float _unspawnBorderX;
 
-        private (float dist, int nextNumb, MovingItem item) _currentLastInfo;
+        private (float dist, int nextNumb, MovingItem item) _currentLast;
 
         public RowController(RowData rowData,
             float cameraX, Transform parentTransform)
@@ -53,14 +53,14 @@ namespace GameCore
 
             while (!allInFOV)
             {
-                var item = _currentLastInfo.item;
+                var item = _currentLast.item;
 
                 if (IsNeedNext())
                 {
                     var nextXPos = item.transform.position.x -
-                        item.MoveDirection * (item.HalfX + _currentLastInfo.dist);
+                        item.MoveDirection * (item.HalfX + _currentLast.dist);
 
-                    AddItem(nextXPos, _currentLastInfo.nextNumb);
+                    AddItem(nextXPos, _currentLast.nextNumb);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace GameCore
         {
             if (IsNeedNext())
             {
-                AddItem(_currentLastInfo.nextNumb);
+                AddItem(_currentLast.nextNumb);
             }
 
             if (_itemsQueue.Peek().item
@@ -85,9 +85,9 @@ namespace GameCore
 
         private bool IsNeedNext()
         {
-            return (_currentLastInfo.item.IsBoardIntersectedX(
+            return (_currentLast.item.IsBoardIntersectedX(
                         -_direction,
-                        -_direction * (_cameraX - _currentLastInfo.dist)));
+                        -_direction * (_cameraX - _currentLast.dist)));
         }
 
         private void AddItem(int typeNumb)
@@ -107,12 +107,12 @@ namespace GameCore
 
             var nextDistance = UnityEngine.Random.Range(_distanceRange[0], _distanceRange[1]);
 
-            var nextNumb = ChooseNumber();
+            var nextNumb = ChooseNumber(typeNumb);
 
-            _currentLastInfo = (nextDistance, nextNumb, item);
+            _currentLast = (nextDistance, nextNumb, item);
         }
 
-        private int ChooseNumber()
+        private int ChooseNumber(int currentNumb)
         {
             if (_itemsRowData.Length > 1)
             {
@@ -120,7 +120,8 @@ namespace GameCore
 
                 var randomProb = UnityEngine.Random.value;
 
-                if (randomProb < _itemsRowData[checkNumb].AppearProb)
+                if (randomProb < _itemsRowData[checkNumb].AppearProb &&
+                    checkNumb != currentNumb)
                 {
                     return checkNumb;
                 }
@@ -131,55 +132,10 @@ namespace GameCore
 
         private void PoolFirstItem()
         {
-            var info = _itemsQueue.Dequeue();
+            var (typeNumb, item) = _itemsQueue.Dequeue();
 
-            _itemsRowData[info.typeNumb].Pool
-                .Unspawn(info.item);
+            _itemsRowData[typeNumb].Pool
+                .Unspawn(item);
         }
-    }
-
-    [Serializable]
-    public struct RowData
-    {
-        public float ZPos;
-        public float Speed;
-        public float[] DistanceRange;
-        public ItemRowData[] ItemsData;
-
-
-        public RowData(float speed,
-            float zPos,
-            float[] distanceRange,
-            ItemRowData[] itemsData)
-        {
-            Speed = speed;
-            ZPos = zPos;
-            DistanceRange = distanceRange;
-            ItemsData = itemsData;
-        }
-    }
-
-    [Serializable]
-    public struct ItemRowData
-    {
-        public float AppearProb;
-        public float[] LengthScaleRange;
-        public MovingItem Prefab;
-
-        public MovingItemPool Pool
-        {
-            readonly get => _pool;
-            set => _pool = value;
-        }
-
-        public float GetRandomLength()
-        {
-            return UnityEngine.Random.Range(
-                LengthScaleRange[0],
-                LengthScaleRange[^1]);
-        }
-        
-
-        private MovingItemPool _pool;
     }
 }

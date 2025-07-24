@@ -1256,7 +1256,7 @@ GameObject:
   - component: {fileID: 956557842}
   - component: {fileID: 956557843}
   m_Layer: 6
-  m_Name: LogsT
+  m_Name: WaterItems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1354,6 +1354,7 @@ MonoBehaviour:
       - 1
       - 1
       Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+  _levelConfig: {fileID: 11400000, guid: 9113600a2b8da9f489342dc27b19459e, type: 2}
   _poolService: {fileID: 956557843}
 --- !u!114 &956557843
 MonoBehaviour:
