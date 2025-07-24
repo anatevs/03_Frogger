@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class TPoolsService :
+    public class PoolsService :
         MonoBehaviour
     {
         [SerializeField]
@@ -33,13 +33,12 @@ namespace GameCore
 
         private void InitPools()
         {
-            var pool1 = new MovingItemPool(_logPrefab, _poolsTransform);
+            foreach (var prefab in _prefabs)
+            {
+                var pool = new MovingItemPool(prefab, _poolsTransform);
 
-            _pools.Add(typeof(LogItem), pool1);
-
-            var pool2 = new MovingItemPool(_cubePrefab, _poolsTransform);
-
-            _pools.Add(typeof(CubeItem), pool2);
+                _pools.Add(prefab.GetType(), pool);
+            }
         }
     }
 }

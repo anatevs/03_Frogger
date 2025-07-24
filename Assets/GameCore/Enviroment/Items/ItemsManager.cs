@@ -3,17 +3,15 @@ using VContainer;
 
 namespace GameCore
 {
-    public class ItemsManagerT : MonoBehaviour
+    public class ItemsManager : MonoBehaviour
     {
         [SerializeField]
         private RowData[] _rowData;
 
         [SerializeField]
-        private TPoolsService _poolService;
+        private PoolsService _poolService;
 
-        private RowControllerT[] _rowsControllers;
-
-        private float[] _zPositions;
+        private RowController[] _rowsControllers;
 
         private float _cameraX;
 
@@ -25,28 +23,25 @@ namespace GameCore
 
         private void Start()
         {
-            _zPositions = new float[_rowData.Length];
-
-            _rowsControllers = new RowControllerT[_rowData.Length];
-
+            _rowsControllers = new RowController[_rowData.Length];
 
             for (int i = 0; i < _rowData.Length; i++)
             {
-                _zPositions[i] = _rowData[i].ZPos + transform.position.z;
+                var rowData = _rowData[i];
 
-                for (int j = 0; j < _rowData[i].ItemsData.Length; j++)
+                rowData.ZPos += transform.position.z;
+
+                for (int j = 0; j < rowData.ItemsData.Length; j++)
                 {
-                    //Debug.Log($"{i}, {j}");
-
-                    var itemType = _rowData[i].ItemsData[j].Prefab.GetType();
+                    var itemType = rowData.ItemsData[j].Prefab.GetType();
 
                     var pool = _poolService.GetPool(itemType);
 
-                    _rowData[i].ItemsData[j].Pool = pool;
+                    rowData.ItemsData[j].Pool = pool;
                 }
 
-                _rowsControllers[i] = new RowControllerT(
-                    _rowData[i],
+                _rowsControllers[i] = new RowController(
+                    rowData,
                     _cameraX,
                     transform);
             }

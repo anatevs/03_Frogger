@@ -25,7 +25,7 @@ public class GameLifetimeScope : LifetimeScope
     private InputHandler _inputHandler;
 
     [SerializeField]
-    private ItemsManagerT _itemsManager;
+    private ItemsManager _itemsManager;
 
     protected override void Configure(IContainerBuilder builder)
     {

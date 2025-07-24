@@ -11,11 +11,6 @@ namespace GameCore
 
         private readonly Queue<T> _itemsQueue = new();
 
-        public TPool()
-        {
-            
-        }
-
         public TPool(T prefab, Transform poolTransform)
         {
             _prefab = prefab;

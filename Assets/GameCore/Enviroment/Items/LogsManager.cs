@@ -19,7 +19,7 @@ namespace GameCore
         [SerializeField]
         private LogPool _pool;
 
-        private RowController[] _rowsControllers;
+        private RowControllerLog[] _rowsControllers;
 
         private float[] _zPositions;
 
@@ -35,13 +35,13 @@ namespace GameCore
         {
             _zPositions = new float[_rowsInfo.Length];
 
-            _rowsControllers = new RowController[_rowsInfo.Length];
+            _rowsControllers = new RowControllerLog[_rowsInfo.Length];
 
             for (int i = 0; i < _rowsInfo.Length; i++)
             {
                 _zPositions[i] = _rowsInfo[i].ZPos + transform.position.z;
 
-                _rowsControllers[i] = new RowController(
+                _rowsControllers[i] = new RowControllerLog(
                     _zPositions[i],
                     _rowsInfo[i].Speed,
                     _distanceRange,
