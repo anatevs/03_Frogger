@@ -1,4 +1,5 @@
 ﻿using GameManagement;
+using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
@@ -18,6 +19,12 @@ namespace GameCore
         [SerializeField]
         private Transform _roadItemsTransform;
 
+        private readonly List<RowController> _rowControllers = new();
+
+        private readonly Dictionary<int, RowController> _waterRows = new();
+
+        private readonly Dictionary<int, RowController> _roadRows = new();
+
         private float _cameraX;
 
         private GameListenersManager _listenersManager;
@@ -31,27 +38,31 @@ namespace GameCore
             _listenersManager = listenersManager;
         }
 
-        private void Start()
+        private void InitLevelRows(LevelConfig levelConfig)
         {
-            InitItems(_levelConfig.WaterRowData, _waterItemsTransform);
+            InitZoneRows(levelConfig.WaterRowData, _waterItemsTransform, _waterRows);
+            //InitItems(levelConfig.RoadRowData, _roadItemsTransform, _roadRows);
         }
 
-        private void InitItems(RowData[] rowsData, Transform itemsTransform)
+        public void SetupLevelRows(LevelConfig levelConfig)
         {
-            for (int i = 0; i < rowsData.Length; i++)
+            SetupZoneRows(levelConfig.WaterRowData, _waterRows);
+            //SetupItems(levelConfig.RoadRowData, _roadRows);
+        }
+
+        private void Start()
+        {
+            InitLevelRows(_levelConfig);
+            //InitItems(_levelConfig.WaterRowData, _waterItemsTransform);
+        }
+
+        private void InitZoneRows(RowData[] rowsData,
+            Transform itemsTransform,
+            Dictionary<int, RowController> rows)
+        {
+            foreach (var rowData in rowsData)
             {
-                var rowData = rowsData[i];
-
-                rowData.ZPos += itemsTransform.position.z;
-
-                for (int j = 0; j < rowData.ItemsData.Length; j++)
-                {
-                    var itemType = rowData.ItemsData[j].Prefab.GetType();
-
-                    var pool = _poolService.GetPool(itemType);
-
-                    rowData.ItemsData[j].Pool = pool;
-                }
+                SetupRowPools(rowData);
 
                 var rowController = new RowController(
                     rowData,
@@ -59,6 +70,31 @@ namespace GameCore
                     itemsTransform);
 
                 _listenersManager.AddListener(rowController);
+
+                rows.Add(rowData.ZPos, rowController);
+            }
+        }
+
+        private void SetupZoneRows(RowData[] rowsData, Dictionary<int, RowController> rows)
+        {
+            foreach (var rowData in rowsData)
+            {
+                SetupRowPools(rowData);
+
+                rows[rowData.ZPos]
+                    .SetupController(rowData);
+            }
+        }
+
+        private void SetupRowPools(RowData rowData)
+        {
+            for (int j = 0; j < rowData.ItemsData.Length; j++)
+            {
+                var itemType = rowData.ItemsData[j].Prefab.GetType();
+
+                var pool = _poolService.GetPool(itemType);
+
+                rowData.ItemsData[j].Pool = pool;
             }
         }
     }

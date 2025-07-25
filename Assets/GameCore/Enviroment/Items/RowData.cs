@@ -5,13 +5,13 @@ namespace GameCore
     [Serializable]
     public struct RowData
     {
-        public float ZPos;
+        public int ZPos;
         public float Speed;
         public float[] DistanceRange;
         public ItemRowData[] ItemsData;
 
         public RowData(float speed,
-            float zPos,
+            int zPos,
             float[] distanceRange,
             ItemRowData[] itemsData)
         {

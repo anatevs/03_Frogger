@@ -8,36 +8,63 @@ namespace GameCore
     public class RowController : 
         IUpdateListener
     {
-        private readonly float _zPos;
-
-        private readonly float _speed;
-
-        private readonly int _direction;
-
-        private readonly float[] _distanceRange = { 1f, 2f };
-
-        private readonly ItemRowData[] _itemsRowData;
-
-        private readonly Queue<(int typeNumb, MovingItem item)> _itemsQueue = new();
+        private readonly float _cameraX;
 
         private readonly Transform _parentTransform;
 
-        private readonly float _cameraX;
+        private readonly float _zPos;
 
-        private readonly float _unspawnBorderX;
+        private float _speed;
+
+        private int _direction;
+
+        private float[] _distanceRange;
+
+        private ItemRowData[] _itemsRowData;
+
+        private float _unspawnBorderX;
+
+        private readonly Queue<(int typeNumb, MovingItem item)> _itemsQueue = new();
 
         private (float dist, int nextNumb, MovingItem item) _currentLast;
+
+
+        public RowController(float cameraX,
+            Transform parentTransform,
+            int rowZ)
+        {
+            _cameraX = cameraX;
+
+            _parentTransform = parentTransform;
+
+            _zPos = rowZ + _parentTransform.position.z;
+        }
 
         public RowController(RowData rowData,
             float cameraX, Transform parentTransform)
         {
-            _zPos = rowData.ZPos;
+            _cameraX = cameraX;
+            _parentTransform = parentTransform;
+            _zPos = rowData.ZPos + _parentTransform.position.z;
+
             _speed = rowData.Speed;
             _direction = Math.Sign(_speed);
             _distanceRange = rowData.DistanceRange;
 
-            _cameraX = cameraX;
-            _parentTransform = parentTransform;
+            _itemsRowData = rowData.ItemsData;
+
+            _unspawnBorderX = _direction * _cameraX;
+
+            InitLogs();
+        }
+
+        public void SetupController(RowData rowData)
+        {
+            ClearRow();
+
+            _speed = rowData.Speed;
+            _direction = Math.Sign(_speed);
+            _distanceRange = rowData.DistanceRange;
 
             _itemsRowData = rowData.ItemsData;
 
@@ -61,8 +88,20 @@ namespace GameCore
             if (_itemsQueue.Peek().item
                 .IsBoardIntersectedX(-_direction, _unspawnBorderX))
             {
-                PoolFirstItem();
+                UnspawnFirstItem();
             }
+        }
+        private void ClearRow()
+        {
+            _currentLast = new();
+
+            foreach (var (typeNumb, item) in _itemsQueue)
+            {
+                _itemsRowData[typeNumb].Pool
+                    .Unspawn(item);
+            }
+
+            _itemsQueue.Clear();
         }
 
         private void InitLogs()
@@ -136,7 +175,7 @@ namespace GameCore
             return 0;
         }
 
-        private void PoolFirstItem()
+        private void UnspawnFirstItem()
         {
             var (typeNumb, item) = _itemsQueue.Dequeue();
 
