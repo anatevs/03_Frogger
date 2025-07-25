@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameManagement;
+using UnityEngine;
 using VContainer;
 
 namespace GameCore
@@ -11,29 +12,37 @@ namespace GameCore
         [SerializeField]
         private PoolsService _poolService;
 
-        private RowController[] _rowsControllers;
+        [SerializeField]
+        private Transform _waterItemsTransform;
 
-        private RowData[] _rowData;
+        [SerializeField]
+        private Transform _roadItemsTransform;
 
         private float _cameraX;
 
+        private GameListenersManager _listenersManager;
+
         [Inject]
-        private void Construct(CameraBorders cameraBorders)
+        private void Construct(CameraBorders cameraBorders,
+            GameListenersManager listenersManager)
         {
             _cameraX = cameraBorders.CameraHalfX;
+
+            _listenersManager = listenersManager;
         }
 
         private void Start()
         {
-            _rowData = _levelConfig.WaterRowData;
+            InitItems(_levelConfig.WaterRowData, _waterItemsTransform);
+        }
 
-            _rowsControllers = new RowController[_rowData.Length];
-
-            for (int i = 0; i < _rowData.Length; i++)
+        private void InitItems(RowData[] rowsData, Transform itemsTransform)
+        {
+            for (int i = 0; i < rowsData.Length; i++)
             {
-                var rowData = _rowData[i];
+                var rowData = rowsData[i];
 
-                rowData.ZPos += transform.position.z;
+                rowData.ZPos += itemsTransform.position.z;
 
                 for (int j = 0; j < rowData.ItemsData.Length; j++)
                 {
@@ -44,18 +53,12 @@ namespace GameCore
                     rowData.ItemsData[j].Pool = pool;
                 }
 
-                _rowsControllers[i] = new RowController(
+                var rowController = new RowController(
                     rowData,
                     _cameraX,
-                    transform);
-            }
-        }
+                    itemsTransform);
 
-        private void Update()
-        {
-            foreach (var rowController in _rowsControllers)
-            {
-                rowController.UpdateRow();
+                _listenersManager.AddListener(rowController);
             }
         }
     }

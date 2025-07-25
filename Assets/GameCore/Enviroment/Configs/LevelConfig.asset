@@ -24,7 +24,7 @@ MonoBehaviour:
       - 0.5
       - 1
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-    - AppearProb: 0.2
+    - AppearProb: 0.6
       LengthScaleRange:
       - 1
       Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}

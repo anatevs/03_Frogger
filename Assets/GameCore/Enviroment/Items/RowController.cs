@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GameManagement;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class RowController
+    public class RowController : 
+        IUpdateListener
     {
         private readonly float _zPos;
 
@@ -39,10 +41,28 @@ namespace GameCore
 
             _itemsRowData = rowData.ItemsData;
 
-
             _unspawnBorderX = _direction * _cameraX;
 
             InitLogs();
+        }
+
+        public void OnUpdate()
+        {
+            UpdateRow();
+        }
+
+        public void UpdateRow()
+        {
+            if (IsNeedNext())
+            {
+                AddItem(_currentLast.nextNumb);
+            }
+
+            if (_itemsQueue.Peek().item
+                .IsBoardIntersectedX(-_direction, _unspawnBorderX))
+            {
+                PoolFirstItem();
+            }
         }
 
         private void InitLogs()
@@ -66,20 +86,6 @@ namespace GameCore
                 {
                     allInFOV = true;
                 }
-            }
-        }
-
-        public void UpdateRow()
-        {
-            if (IsNeedNext())
-            {
-                AddItem(_currentLast.nextNumb);
-            }
-
-            if (_itemsQueue.Peek().item
-                .IsBoardIntersectedX(-_direction, _unspawnBorderX))
-            {
-                PoolFirstItem();
             }
         }
 

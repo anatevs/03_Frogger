@@ -11,12 +11,6 @@ namespace GameCore
         private Transform _poolsTransform;
 
         [SerializeField]
-        private LogItem _logPrefab;
-
-        [SerializeField]
-        private CubeItem _cubePrefab;
-
-        [SerializeField]
         private MovingItem[] _prefabs;
 
         private readonly Dictionary<Type, MovingItemPool> _pools = new();

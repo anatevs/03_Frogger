@@ -152,6 +152,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1892122897}
+  - {fileID: 915557314}
   m_Father: {fileID: 323488625}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -477,7 +478,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1309988591}
-  - {fileID: 1761867051}
   - {fileID: 956557841}
   m_Father: {fileID: 323488625}
   m_RootOrder: -1
@@ -1191,6 +1191,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &915557313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 915557314}
+  m_Layer: 0
+  m_Name: RoadItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &915557314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915557313}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 20987295}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &939963165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,73 +1320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17068b6297fd28a409e41ecb875ba663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rowData:
-  - ZPos: -2
-    Speed: 5
-    DistanceRange:
-    - 2
-    - 5
-    ItemsData:
-    - AppearProb: 1
-      LengthScaleRange:
-      - 0.5
-      - 1
-      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-    - AppearProb: 0.2
-      LengthScaleRange:
-      - 1
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
-  - ZPos: -1
-    Speed: -1.5
-    DistanceRange:
-    - 3
-    - 5
-    ItemsData:
-    - AppearProb: 1
-      LengthScaleRange:
-      - 1
-      - 1
-      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-  - ZPos: 0
-    Speed: 1
-    DistanceRange:
-    - 2.5
-    - 6
-    ItemsData:
-    - AppearProb: 1
-      LengthScaleRange:
-      - 0.3
-      - 0.8
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
-  - ZPos: 1
-    Speed: -1
-    DistanceRange:
-    - 3
-    - 6
-    ItemsData:
-    - AppearProb: 1
-      LengthScaleRange:
-      - 1
-      - 1
-      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-    - AppearProb: 0.5
-      LengthScaleRange:
-      - 1
-      - 1
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
-  - ZPos: 2
-    Speed: 0.5
-    DistanceRange:
-    - 2
-    - 5
-    ItemsData:
-    - AppearProb: 1
-      LengthScaleRange:
-      - 1
-      - 1
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
   _levelConfig: {fileID: 11400000, guid: 9113600a2b8da9f489342dc27b19459e, type: 2}
   _poolService: {fileID: 956557843}
+  _waterItemsTransform: {fileID: 956557841}
+  _roadItemsTransform: {fileID: 915557314}
 --- !u!114 &956557843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2030,7 +1998,7 @@ GameObject:
   - component: {fileID: 1309988589}
   - component: {fileID: 1309988592}
   m_Layer: 4
-  m_Name: Water
+  m_Name: WaterView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2869,83 +2837,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1761867050
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1761867051}
-  - component: {fileID: 1761867052}
-  - component: {fileID: 1761867053}
-  m_Layer: 6
-  m_Name: Logs
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1761867051
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761867050}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 218955246}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1761867052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761867050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cdd91b2ff2a5cb40b13f837e6f2d4fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lengthScaleRange:
-  - 0.5
-  - 1
-  _distanceRange:
-  - 2
-  - 5
-  _rowsInfo:
-  - ZPos: -2
-    Speed: 1
-  - ZPos: -1
-    Speed: -1.5
-  - ZPos: 0
-    Speed: -1
-  - ZPos: 1
-    Speed: 1
-  - ZPos: 2
-    Speed: 0.5
-  _pool: {fileID: 1761867053}
---- !u!114 &1761867053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761867050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efe3e8ef656529346bc4a6f2ad3e0555, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 6216639171903889818, guid: 1546f4b05390fe24aa0484aca8e7b525, type: 3}
-  _poolTransform: {fileID: 73756761}
 --- !u!1 &1785627679
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,7 +65,8 @@ public class GameLifetimeScope : LifetimeScope
 
     private void RegisterManagement(IContainerBuilder builder)
     {
-        builder.Register<GameListenersManager>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<GameListenersManager>()
+            .AsSelf();
 
         builder.RegisterEntryPoint<GameListenersInstaller>()
             .AsSelf();

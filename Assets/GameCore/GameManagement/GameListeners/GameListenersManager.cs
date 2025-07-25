@@ -1,12 +1,16 @@
 using System.Collections.Generic;
+using VContainer.Unity;
 
 namespace GameManagement
 {
-    public sealed class GameListenersManager
+    public sealed class GameListenersManager :
+        ITickable
     {
         private readonly List<IGameListener> _gameListeners = new();
 
         private readonly List<IStartGameListener> _startGameListeners = new();
+
+        private readonly List<IUpdateListener> _updateListeners = new();
 
         private readonly List<IEndRoundListener> _endRoundlListeners = new();
 
@@ -31,6 +35,11 @@ namespace GameManagement
             if (listener is IStartGameListener startListener)
             {
                 _startGameListeners.Add(startListener);
+            }
+
+            if (listener is IUpdateListener updateListener)
+            {
+                _updateListeners.Add(updateListener);
             }
 
             if (listener is IEndRoundListener endRoundListener)
@@ -91,6 +100,19 @@ namespace GameManagement
             foreach (var listener in _appQuitListeners)
             {
                 listener.OnAppQuit();
+            }
+        }
+
+        void ITickable.Tick()
+        {
+            UpdateGame();
+        }
+
+        private void UpdateGame()
+        {
+            foreach (var listener in _updateListeners)
+            {
+                listener.OnUpdate();
             }
         }
     }
