@@ -240,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &73756761
 Transform:
   m_ObjectHideFlags: 0
@@ -1810,7 +1810,10 @@ MonoBehaviour:
   - {fileID: 524933544}
   - {fileID: 382668954}
   _inputHandler: {fileID: 1590453433}
-  _itemsManager: {fileID: 956557842}
+  _rowsManager: {fileID: 956557842}
+  _levelConfigs:
+  - {fileID: 11400000, guid: 9113600a2b8da9f489342dc27b19459e, type: 2}
+  - {fileID: 11400000, guid: e187f398f6a2b0b44a5102c245784397, type: 2}
 --- !u!1 &1127432972
 GameObject:
   m_ObjectHideFlags: 0

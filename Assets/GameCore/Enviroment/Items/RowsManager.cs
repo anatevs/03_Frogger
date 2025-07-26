@@ -5,8 +5,7 @@ using VContainer;
 
 namespace GameCore
 {
-    public class LevelZoneManager : MonoBehaviour,
-        IEndLevelListener
+    public class RowsManager : MonoBehaviour
     {
         [SerializeField]
         private LevelConfig[] _levelConfigs;
@@ -28,8 +27,6 @@ namespace GameCore
 
         private GameListenersManager _listenersManager;
 
-        private int _currentLevelIndex;
-
         [Inject]
         private void Construct(CameraBorders cameraBorders,
             GameListenersManager listenersManager)
@@ -37,45 +34,18 @@ namespace GameCore
             _cameraX = cameraBorders.CameraHalfX;
 
             _listenersManager = listenersManager;
-
-            _listenersManager.AddListener(this);
         }
 
-        public void OnEndLevel()
-        {
-            Debug.Log("on end level");
-
-            _currentLevelIndex++;
-
-            if (_currentLevelIndex >= _levelConfigs.Length)
-            {
-                _currentLevelIndex = 0;
-
-                Debug.Log("All levels completed, restarting from the first level.");
-
-                return;
-            }
-
-            SetupLevelRows(_levelConfigs[_currentLevelIndex]);
-        }
-
-        private void InitLevelRows(LevelConfig levelConfig)
+        public void InitLevelRows(LevelConfig levelConfig)
         {
             InitZoneRows(levelConfig.WaterRowData, _waterItemsTransform, _waterRows);
             //InitItems(levelConfig.RoadRowData, _roadItemsTransform, _roadRows);
         }
 
-        private void SetupLevelRows(LevelConfig levelConfig)
+        public void SetupLevelRows(LevelConfig levelConfig)
         {
             SetupZoneRows(levelConfig.WaterRowData, _waterRows);
             //SetupItems(levelConfig.RoadRowData, _roadRows);
-        }
-
-        private void Start()
-        {
-            _currentLevelIndex = 0;
-
-            InitLevelRows(_levelConfigs[_currentLevelIndex]);
         }
 
         private void InitZoneRows(RowData[] rowsData,

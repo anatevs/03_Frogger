@@ -12,11 +12,11 @@ namespace GameManagement
 
         private readonly List<IUpdateListener> _updateListeners = new();
 
-        private readonly List<IEndRoundListener> _endRoundlListeners = new();
+        private readonly List<IRoundEndListener> _roundEndListeners = new();
 
-        private readonly List<IEndLevelListener> _endLevelListeners = new();
+        private readonly List<ILevelEndListener> _levelEndListeners = new();
 
-        private readonly List<IEndGameListener> _endGameListeners = new();
+        private readonly List<IGameEndListener> _gameEndListeners = new();
 
         private readonly List<IAppQuitListener> _appQuitListeners = new();
 
@@ -42,19 +42,19 @@ namespace GameManagement
                 _updateListeners.Add(updateListener);
             }
 
-            if (listener is IEndRoundListener endRoundListener)
+            if (listener is IRoundEndListener roundEndListener)
             {
-                _endRoundlListeners.Add(endRoundListener);
+                _roundEndListeners.Add(roundEndListener);
             }
 
-            if (listener is IEndGameListener endLevelListener)
+            if (listener is ILevelEndListener levelEndListener)
             {
-                _endGameListeners.Add(endLevelListener);
+                _levelEndListeners.Add(levelEndListener);
             }
 
-            if (listener is IEndGameListener endGameListener)
+            if (listener is IGameEndListener gameEndListener)
             {
-                _endGameListeners.Add(endGameListener);
+                _gameEndListeners.Add(gameEndListener);
             }
 
             if (listener is IAppQuitListener quitListener)
@@ -73,7 +73,7 @@ namespace GameManagement
 
         public void EndRound()
         {
-            foreach (var listener in _endRoundlListeners)
+            foreach (var listener in _roundEndListeners)
             {
                 listener.OnEndRound();
             }
@@ -81,7 +81,7 @@ namespace GameManagement
 
         public void EndLevel()
         {
-            foreach (var listener in _endLevelListeners)
+            foreach (var listener in _levelEndListeners)
             {
                 listener.OnEndLevel();
             }
@@ -89,7 +89,7 @@ namespace GameManagement
 
         public void EndGame()
         {
-            foreach (var listener in _endGameListeners)
+            foreach (var listener in _gameEndListeners)
             {
                 listener.OnEndGame();
             }

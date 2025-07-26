@@ -14,17 +14,17 @@ namespace GameManagement
         public void OnUpdate();
     }
 
-    public interface IEndRoundListener : IGameListener
+    public interface IRoundEndListener : IGameListener
     {
         public void OnEndRound();
     }
 
-    public interface IEndLevelListener : IGameListener
+    public interface ILevelEndListener : IGameListener
     {
         public void OnEndLevel();
     }
 
-    public interface IEndGameListener : IGameListener
+    public interface IGameEndListener : IGameListener
     {
         public void OnEndGame();
     }

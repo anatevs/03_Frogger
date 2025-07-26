@@ -25,7 +25,10 @@ public class GameLifetimeScope : LifetimeScope
     private InputHandler _inputHandler;
 
     [SerializeField]
-    private LevelZoneManager _itemsManager;
+    private RowsManager _rowsManager;
+
+    [SerializeField]
+    private LevelConfig[] _levelConfigs;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -70,6 +73,9 @@ public class GameLifetimeScope : LifetimeScope
 
         builder.RegisterEntryPoint<GameListenersInstaller>()
             .AsSelf();
+
+        builder.RegisterEntryPoint<GameManager>()
+            .AsSelf();
     }
 
     private void RegisterGameControllers(IContainerBuilder builder)
@@ -86,7 +92,10 @@ public class GameLifetimeScope : LifetimeScope
             .AsSelf()
             .WithParameter(_winPlaces);
 
-        builder.RegisterComponent(_itemsManager)
+        builder.RegisterComponent(_rowsManager);
+
+        builder.Register<LevelManager>(Lifetime.Singleton)
+            .WithParameter<LevelConfig[]>(_levelConfigs)
             .AsImplementedInterfaces()
             .AsSelf();
     }

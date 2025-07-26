@@ -6,7 +6,7 @@ namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
     public sealed class PlayerCollisions : MonoBehaviour,
-        IEndRoundListener
+        IRoundEndListener
     {
         public event Action OnDamaged;
 
