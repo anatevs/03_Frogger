@@ -5,10 +5,11 @@ using VContainer;
 
 namespace GameCore
 {
-    public class ItemsManager : MonoBehaviour
+    public class LevelZoneManager : MonoBehaviour,
+        IEndLevelListener
     {
         [SerializeField]
-        private LevelConfig _levelConfig;
+        private LevelConfig[] _levelConfigs;
 
         [SerializeField]
         private PoolsService _poolService;
@@ -19,8 +20,6 @@ namespace GameCore
         [SerializeField]
         private Transform _roadItemsTransform;
 
-        private readonly List<RowController> _rowControllers = new();
-
         private readonly Dictionary<int, RowController> _waterRows = new();
 
         private readonly Dictionary<int, RowController> _roadRows = new();
@@ -29,6 +28,8 @@ namespace GameCore
 
         private GameListenersManager _listenersManager;
 
+        private int _currentLevelIndex;
+
         [Inject]
         private void Construct(CameraBorders cameraBorders,
             GameListenersManager listenersManager)
@@ -36,6 +37,26 @@ namespace GameCore
             _cameraX = cameraBorders.CameraHalfX;
 
             _listenersManager = listenersManager;
+
+            _listenersManager.AddListener(this);
+        }
+
+        public void OnEndLevel()
+        {
+            Debug.Log("on end level");
+
+            _currentLevelIndex++;
+
+            if (_currentLevelIndex >= _levelConfigs.Length)
+            {
+                _currentLevelIndex = 0;
+
+                Debug.Log("All levels completed, restarting from the first level.");
+
+                return;
+            }
+
+            SetupLevelRows(_levelConfigs[_currentLevelIndex]);
         }
 
         private void InitLevelRows(LevelConfig levelConfig)
@@ -44,7 +65,7 @@ namespace GameCore
             //InitItems(levelConfig.RoadRowData, _roadItemsTransform, _roadRows);
         }
 
-        public void SetupLevelRows(LevelConfig levelConfig)
+        private void SetupLevelRows(LevelConfig levelConfig)
         {
             SetupZoneRows(levelConfig.WaterRowData, _waterRows);
             //SetupItems(levelConfig.RoadRowData, _roadRows);
@@ -52,8 +73,9 @@ namespace GameCore
 
         private void Start()
         {
-            InitLevelRows(_levelConfig);
-            //InitItems(_levelConfig.WaterRowData, _waterItemsTransform);
+            _currentLevelIndex = 0;
+
+            InitLevelRows(_levelConfigs[_currentLevelIndex]);
         }
 
         private void InitZoneRows(RowData[] rowsData,

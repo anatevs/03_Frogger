@@ -10,24 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d47e1f731bddee4ebb056198f81b9af, type: 3}
-  m_Name: LevelConfig
+  m_Name: LevelConfig2
   m_EditorClassIdentifier: 
   _waterRowData:
   - ZPos: -2
-    Speed: 5
+    Speed: 2
     DistanceRange:
-    - 2
-    - 5
+    - 1
+    - 1.5
     ItemsData:
     - AppearProb: 1
       LengthScaleRange:
       - 0.5
       - 1
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-    - AppearProb: 0.6
-      LengthScaleRange:
-      - 1
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
   - ZPos: -1
     Speed: -1.5
     DistanceRange:
@@ -64,7 +60,7 @@ MonoBehaviour:
     - AppearProb: 0.5
       LengthScaleRange:
       - 1
-      - 1
+      - 2
       Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
   - ZPos: 2
     Speed: 0.5
@@ -76,4 +72,4 @@ MonoBehaviour:
       LengthScaleRange:
       - 1
       - 1
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}

@@ -25,7 +25,7 @@ public class GameLifetimeScope : LifetimeScope
     private InputHandler _inputHandler;
 
     [SerializeField]
-    private ItemsManager _itemsManager;
+    private LevelZoneManager _itemsManager;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -86,6 +86,8 @@ public class GameLifetimeScope : LifetimeScope
             .AsSelf()
             .WithParameter(_winPlaces);
 
-        builder.RegisterComponent(_itemsManager);
+        builder.RegisterComponent(_itemsManager)
+            .AsImplementedInterfaces()
+            .AsSelf();
     }
 }
