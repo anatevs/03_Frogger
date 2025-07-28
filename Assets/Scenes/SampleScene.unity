@@ -574,6 +574,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 323488625}
+  - component: {fileID: 323488627}
+  - component: {fileID: 323488626}
   m_Layer: 0
   m_Name: Enviroment
   m_TagString: Untagged
@@ -603,6 +605,41 @@ Transform:
   m_Father: {fileID: 1659850801}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323488626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323488624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17068b6297fd28a409e41ecb875ba663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelConfigs:
+  - {fileID: 11400000, guid: 9113600a2b8da9f489342dc27b19459e, type: 2}
+  - {fileID: 11400000, guid: e187f398f6a2b0b44a5102c245784397, type: 2}
+  _poolService: {fileID: 323488627}
+  _waterItemsTransform: {fileID: 956557841}
+  _roadItemsTransform: {fileID: 915557314}
+--- !u!114 &323488627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323488624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b53064d8c5899c40b5edf81c7f509d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolsTransform: {fileID: 73756761}
+  _prefabs:
+  - {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+  - {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+  - {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
 --- !u!1 &382668953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,8 +1321,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 956557841}
-  - component: {fileID: 956557842}
-  - component: {fileID: 956557843}
   m_Layer: 6
   m_Name: WaterItems
   m_TagString: Untagged
@@ -1308,40 +1343,6 @@ Transform:
   m_Father: {fileID: 218955246}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &956557842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956557840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17068b6297fd28a409e41ecb875ba663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelConfigs:
-  - {fileID: 11400000, guid: 9113600a2b8da9f489342dc27b19459e, type: 2}
-  - {fileID: 11400000, guid: e187f398f6a2b0b44a5102c245784397, type: 2}
-  _poolService: {fileID: 956557843}
-  _waterItemsTransform: {fileID: 956557841}
-  _roadItemsTransform: {fileID: 915557314}
---- !u!114 &956557843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956557840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b53064d8c5899c40b5edf81c7f509d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolsTransform: {fileID: 73756761}
-  _prefabs:
-  - {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-  - {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1811,7 @@ MonoBehaviour:
   - {fileID: 524933544}
   - {fileID: 382668954}
   _inputHandler: {fileID: 1590453433}
-  _rowsManager: {fileID: 956557842}
+  _rowsManager: {fileID: 323488626}
   _levelConfigs:
   - {fileID: 11400000, guid: 9113600a2b8da9f489342dc27b19459e, type: 2}
   - {fileID: 11400000, guid: e187f398f6a2b0b44a5102c245784397, type: 2}

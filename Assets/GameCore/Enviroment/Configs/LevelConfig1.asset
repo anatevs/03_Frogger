@@ -27,7 +27,7 @@ MonoBehaviour:
     - AppearProb: 0.6
       LengthScaleRange:
       - 1
-      Prefab: {fileID: 1473530805636014397, guid: b8dfdb0927281cf4bb0a0b098044791b, type: 3}
+      Prefab: {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
   - ZPos: -1
     Speed: -1.5
     DistanceRange:
@@ -77,3 +77,4 @@ MonoBehaviour:
       - 1
       - 1
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+  _roadRowData: []
