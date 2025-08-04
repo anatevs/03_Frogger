@@ -8,20 +8,12 @@ namespace GameCore
     public class RowsManager : MonoBehaviour
     {
         [SerializeField]
-        private LevelConfig[] _levelConfigs;
-
-        [SerializeField]
         private PoolsService _poolService;
 
         [SerializeField]
-        private Transform _waterItemsTransform;
+        private Transform _itemsTransform;
 
-        [SerializeField]
-        private Transform _roadItemsTransform;
-
-        private readonly Dictionary<int, RowController> _waterRows = new();
-
-        private readonly Dictionary<int, RowController> _roadRows = new();
+        private readonly Dictionary<int, RowController> _rows = new();
 
         private float _cameraX;
 
@@ -38,14 +30,12 @@ namespace GameCore
 
         public void InitLevelRows(LevelConfig levelConfig)
         {
-            InitZoneRows(levelConfig.WaterRowData, _waterItemsTransform, _waterRows);
-            //InitItems(levelConfig.RoadRowData, _roadItemsTransform, _roadRows);
+            InitZoneRows(levelConfig.RowData, _itemsTransform, _rows);
         }
 
         public void SetupLevelRows(LevelConfig levelConfig)
         {
-            SetupZoneRows(levelConfig.WaterRowData, _waterRows);
-            //SetupItems(levelConfig.RoadRowData, _roadRows);
+            SetupZoneRows(levelConfig.RowData, _rows);
         }
 
         private void InitZoneRows(RowData[] rowsData,

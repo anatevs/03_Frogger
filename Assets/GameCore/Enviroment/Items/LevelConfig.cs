@@ -6,14 +6,9 @@ namespace GameCore
         menuName = "Configs/LevelConfig")]
     public class LevelConfig : ScriptableObject
     {
-        public RowData[] WaterRowData => _waterRowData;
-
-        public RowData[] RoadRowData => _roadRowData;
+        public RowData[] RowData => _rowData;
 
         [SerializeField]
-        private RowData[] _waterRowData;
-
-        [SerializeField]
-        private RowData[] _roadRowData;
+        private RowData[] _rowData;
     }
 }
