@@ -7,13 +7,11 @@ namespace GameCore
         [SerializeField]
         private Transform _view;
 
-        private BoxCollider _boxCollider;
-
         private float _defaultHalfX;
 
         protected override void Awake()
         {
-            _boxCollider = GetComponent<BoxCollider>();
+            base.Awake();
 
             _defaultHalfX = _boxCollider.size.x / 2;
         }

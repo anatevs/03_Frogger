@@ -14,13 +14,17 @@ namespace GameCore
 
         public int MoveDirection => _moveDirectionX;
 
-        private float _speed;
+        protected float _speed;
 
-        private int _moveDirectionX = 1;
+        protected int _moveDirectionX = 1;
 
-        private float _halfX;
+        protected BoxCollider _boxCollider;
 
-        private Vector3 _directionVector = Vector3.right;
+        protected float _halfX;
+
+        protected int _lookDirection = 1;
+
+        protected Vector3 _directionVector = Vector3.right;
 
         public bool IsBoardIntersectedX(int boardDirection, float xPos)
         {
@@ -37,14 +41,19 @@ namespace GameCore
 
             _moveDirectionX = Math.Sign(speed);
 
+            if (_lookDirection != _moveDirectionX)
+            {
+                SetLookDirection();
+            }
+
             SetFirstBoardPosition(startPos);
         }
 
         protected virtual void Awake()
         {
-            var boxCollider = GetComponent<BoxCollider>();
+            _boxCollider = GetComponent<BoxCollider>();
 
-            _halfX = boxCollider.size.x / 2;
+            _halfX = _boxCollider.size.x / 2;
         }
 
         protected virtual void Update()
@@ -53,6 +62,8 @@ namespace GameCore
         }
 
         protected virtual void SetLength(float lengthScale) { }
+
+        protected virtual void SetLookDirection() { }
 
         private void SetFirstBoardPosition((float x, float z) startPos)
         {
