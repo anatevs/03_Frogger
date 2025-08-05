@@ -17,18 +17,18 @@ namespace GameCore
         private LayerMask _logsLayerMask;
 
         [SerializeField]
-        private LayerMask _carsLayerMask;
+        private LayerMask _damageLayerMask;
 
         [SerializeField]
         private LayerMask _wallLayer;
-
-        private LayerMask _waterLayer = 1 << 4;
 
         private bool _isOnLog;
 
         private Transform _currentLog;
 
         private float _currentLogShiftX;
+
+        private bool _isDamageCollided;
 
         public void OnEndRound()
         {
@@ -38,6 +38,8 @@ namespace GameCore
         public void SetToStart()
         {
             transform.position = _startPos.position;
+
+            _isDamageCollided = false;
         }
 
         private void Update()
@@ -71,18 +73,16 @@ namespace GameCore
                 return;
             }
 
-            if ((collisionLayer & _carsLayerMask.value) > 0)
+            if ((collisionLayer & _damageLayerMask.value) > 0)
             {
-                Debug.Log("car collision");
+                if (!_isDamageCollided)
+                {
+                    OnDamaged?.Invoke();
 
-                OnDamaged?.Invoke();
-            }
+                    _isDamageCollided = true;
+                }
 
-            if ((collisionLayer & _waterLayer) > 0)
-            {
-                Debug.Log($"water collision");
-
-                OnDamaged?.Invoke();
+                return;
             }
 
             if (_isOnLog && (collisionLayer & _wallLayer) > 0)
@@ -92,6 +92,8 @@ namespace GameCore
                 _isOnLog = false;
 
                 OnDamaged?.Invoke();
+
+                return;
             }
         }
 

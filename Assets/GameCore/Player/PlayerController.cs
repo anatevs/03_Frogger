@@ -25,7 +25,7 @@ namespace GameCore
 
         private bool _isAlive = true;
 
-        private int _startLifes = 3;
+        private int _startLifes = 10;
 
         public PlayerController(InputHandler inputHandler,
             PlayerJump playerJump,
