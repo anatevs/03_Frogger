@@ -17,10 +17,8 @@ namespace GameCore
         [SerializeField]
         private GameObject _achevedView;
 
-        [SerializeField]
         private float _viewAnimHalfDuration = 0.15f;
 
-        [SerializeField]
         private float _viewAnimScale = 1.2f;
 
         private readonly Vector3[] _viewScales = new Vector3[2];
@@ -65,14 +63,13 @@ namespace GameCore
             _viewScales[1] = _achevedView.transform.localScale * _viewAnimScale;
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void OnPlayerTriggered(PlayerJump playerJump)
         {
             if (!_isDanger)
             {
-                if (other.gameObject.TryGetComponent<PlayerJump>(out _playerJump))
-                {
-                    _playerJump.OnJumpEnd += MakeOnAchieved;
-                }
+                _playerJump = playerJump;
+
+                _playerJump.OnJumpEnd += MakeOnAchieved;
             }
         }
 
@@ -80,16 +77,23 @@ namespace GameCore
         {
             SetAchieved(true);
 
-            AnimateAchievedView();
+            var sequence = AnimateAchievedView();
 
-            OnAchieved?.Invoke(_id);
+            sequence
+                .OnStart(() => _playerJump.gameObject.SetActive(false))
+                .OnComplete(() =>
+                {
+                    OnAchieved?.Invoke(_id);
+                    _playerJump.gameObject.SetActive(true);
+                })
+                .Play();
 
             _playerJump.OnJumpEnd -= MakeOnAchieved;
         }
 
-        private void AnimateAchievedView()
+        private Sequence AnimateAchievedView()
         {
-            DOTween.Sequence()
+            return DOTween.Sequence().Pause()
                 .Append(_achevedView.transform.DOScale(_viewScales[1], _viewAnimHalfDuration))
                 .Append(_achevedView.transform.DOScale(_viewScales[0], _viewAnimHalfDuration));
         }

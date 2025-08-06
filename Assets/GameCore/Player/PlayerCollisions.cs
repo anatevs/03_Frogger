@@ -30,6 +30,8 @@ namespace GameCore
 
         private bool _isDamageCollided;
 
+        private PlayerJump _playerJump;
+
         public void OnEndRound()
         {
             SetToStart();
@@ -40,6 +42,11 @@ namespace GameCore
             transform.position = _startPos.position;
 
             _isDamageCollided = false;
+        }
+
+        private void Awake()
+        {
+            _playerJump = GetComponent<PlayerJump>();
         }
 
         private void Update()
@@ -92,6 +99,18 @@ namespace GameCore
                 _isOnLog = false;
 
                 OnDamaged?.Invoke();
+
+                return;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent<WinPlace>(out var winPlace))
+            {
+                Debug.Log("winPlace");
+
+                winPlace.OnPlayerTriggered(_playerJump);
 
                 return;
             }
