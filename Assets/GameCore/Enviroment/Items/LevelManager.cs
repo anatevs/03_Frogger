@@ -23,7 +23,7 @@ namespace GameCore
         {
             _currentLevelIndex = 0;
 
-            //_rowsManager.InitLevelRows(_levelConfigs[_currentLevelIndex]);
+            _rowsManager.InitLevelRows(_levelConfigs[_currentLevelIndex]);
         }
 
         public void OnEndLevel()

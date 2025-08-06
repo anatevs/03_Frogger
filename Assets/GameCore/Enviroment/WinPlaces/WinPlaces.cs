@@ -40,7 +40,7 @@ namespace GameCore
 
         public bool IsAllWin()
         {
-            return _currentAchieved.Count == _places.Length;
+            return _currentAchieved.Count == 2;// _places.Length;
         }
 
         private void AddAchievedPlace(int placeId)
@@ -52,6 +52,11 @@ namespace GameCore
             if (IsAllWin())
             {
                 _listenersManager.EndLevel();
+
+                foreach (var place in _places)
+                {
+                    place.SetAchieved(false);
+                }
 
                 _currentAchieved.Clear();
 

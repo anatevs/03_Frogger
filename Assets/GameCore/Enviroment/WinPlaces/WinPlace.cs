@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using UnityEngine;
 
 namespace GameCore
@@ -16,36 +17,62 @@ namespace GameCore
         [SerializeField]
         private GameObject _achevedView;
 
+        [SerializeField]
+        private float _viewAnimHalfDuration = 0.15f;
+
+        [SerializeField]
+        private float _viewAnimScale = 1.2f;
+
+        private readonly Vector3[] _viewScales = new Vector3[2];
+
         private int _id;
 
         private LayerMask _defaultLayer = 0;
 
         private PlayerJump _playerJump;
 
+        private bool _containGO;
+
+        private bool _isDanger;
+
         public void SetAchieved(bool isAcheved)
         {
             _achevedView.SetActive(isAcheved);
+        }
 
-            if (isAcheved)
+        public void PlaceGO(Sequence sequence, bool isEnemy)
+        {
+            if (!_containGO)
             {
-                gameObject.layer = _wallLayer;
+                _containGO = true;
 
-                return;
+                _isDanger = isEnemy;
+
+                sequence.OnComplete(() => {
+                    _containGO = false;
+                    _isDanger = false;
+                });
+
+                sequence.Play();
             }
-
-            gameObject.layer = _defaultLayer;
         }
 
         private void Awake()
         {
             _id = (int)transform.position.x;
+
+            _viewScales[0] = _achevedView.transform.localScale;
+            _viewScales[1] = _achevedView.transform.localScale * _viewAnimScale;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent<PlayerJump>(out _playerJump))
+            if (!_isDanger)
             {
-                _playerJump.OnJumpEnd += MakeOnAchieved;
+                if (other.gameObject.TryGetComponent<PlayerJump>(out _playerJump))
+                {
+                    _playerJump.OnJumpEnd += MakeOnAchieved;
+                }
             }
         }
 
@@ -53,9 +80,18 @@ namespace GameCore
         {
             SetAchieved(true);
 
+            AnimateAchievedView();
+
             OnAchieved?.Invoke(_id);
 
             _playerJump.OnJumpEnd -= MakeOnAchieved;
+        }
+
+        private void AnimateAchievedView()
+        {
+            DOTween.Sequence()
+                .Append(_achevedView.transform.DOScale(_viewScales[1], _viewAnimHalfDuration))
+                .Append(_achevedView.transform.DOScale(_viewScales[0], _viewAnimHalfDuration));
         }
     }
 }
