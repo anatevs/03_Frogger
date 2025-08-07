@@ -67,10 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7bc3552dab365429d4ab0192a209fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wallLayer: 8
+  _damageLayer: 7
   _achevedView: {fileID: 6385129499553357263}
-  _viewAnimHalfDuration: 0.15
-  _viewAnimScale: 1.2
 --- !u!1 &6385129499553357263
 GameObject:
   m_ObjectHideFlags: 0

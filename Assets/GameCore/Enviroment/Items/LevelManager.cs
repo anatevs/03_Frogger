@@ -11,19 +11,26 @@ namespace GameCore
 
         private readonly RowsManager _rowsManager;
 
+        private readonly WinPlaces _winPlaces;
+
         private int _currentLevelIndex;
 
-        public LevelManager(LevelConfig[] levelConfigs, RowsManager rowsManager)
+        public LevelManager(LevelConfig[] levelConfigs,
+            RowsManager rowsManager,
+            WinPlaces winPlaces)
         {
             _levelConfigs = levelConfigs;
             _rowsManager = rowsManager;
+            _winPlaces = winPlaces;
         }
 
         public void OnStartGame()
         {
             _currentLevelIndex = 0;
 
-            _rowsManager.InitLevelRows(_levelConfigs[_currentLevelIndex]);
+            _rowsManager.InitLevelRows(_levelConfigs[_currentLevelIndex].RowData);
+
+            _winPlaces.SetupWinPlaces(_levelConfigs[_currentLevelIndex].WinPlaceGOData);
         }
 
         public void OnEndLevel()
@@ -39,7 +46,9 @@ namespace GameCore
                 return;
             }
 
-            _rowsManager.SetupLevelRows(_levelConfigs[_currentLevelIndex]);
+            _rowsManager.SetupLevelRows(_levelConfigs[_currentLevelIndex].RowData);
+
+            _winPlaces.SetupWinPlaces(_levelConfigs[_currentLevelIndex].WinPlaceGOData);
         }
     }
 }

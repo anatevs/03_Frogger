@@ -28,14 +28,14 @@ namespace GameCore
             _listenersManager = listenersManager;
         }
 
-        public void InitLevelRows(LevelConfig levelConfig)
+        public void InitLevelRows(RowData[] rowData)
         {
-            InitZoneRows(levelConfig.RowData, _itemsTransform, _rows);
+            InitZoneRows(rowData, _itemsTransform, _rows);
         }
 
-        public void SetupLevelRows(LevelConfig levelConfig)
+        public void SetupLevelRows(RowData[] rowData)
         {
-            SetupZoneRows(levelConfig.RowData, _rows);
+            SetupZoneRows(rowData, _rows);
         }
 
         private void InitZoneRows(RowData[] rowsData,

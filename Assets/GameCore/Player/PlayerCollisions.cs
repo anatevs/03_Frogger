@@ -106,10 +106,34 @@ namespace GameCore
 
         private void OnTriggerEnter(Collider other)
         {
+
+
+
+
+
+
+            //todo: all objects as triggers!!!!
+            var collisionLayer = 1 << other.gameObject.layer;
+
+            if ((collisionLayer & _damageLayerMask.value) > 0)
+            {
+                if (!_isDamageCollided)
+                {
+                    OnDamaged?.Invoke();
+
+                    _isDamageCollided = true;
+                }
+
+                return;
+            }
+
+
+
+
+
+
             if (other.gameObject.TryGetComponent<WinPlace>(out var winPlace))
             {
-                Debug.Log("winPlace");
-
                 winPlace.OnPlayerTriggered(_playerJump);
 
                 return;

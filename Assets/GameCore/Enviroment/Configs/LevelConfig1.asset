@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d47e1f731bddee4ebb056198f81b9af, type: 3}
   m_Name: LevelConfig1
   m_EditorClassIdentifier: 
-  _winPlaceEnemy: {fileID: 0}
-  _winPlaceEnemyProb: 0
+  _winPlaceGOData:
+  - Config: {fileID: 11400000, guid: 2689d92ac420ff744a3302c113f1f674, type: 2}
+    _showPeriod: 5
   _rowData:
   - ZPos: 1
     Speed: 1.2
     DistanceRange:
     - 2
-    - 4
+    - 3
     ItemsData:
     - AppearProb: 1
       LengthScaleRange:
@@ -29,8 +30,8 @@ MonoBehaviour:
   - ZPos: 2
     Speed: -0.8
     DistanceRange:
-    - 3
-    - 4
+    - 1.5
+    - 2
     ItemsData:
     - AppearProb: 0
       LengthScaleRange:
@@ -39,8 +40,8 @@ MonoBehaviour:
   - ZPos: 3
     Speed: 1
     DistanceRange:
-    - 2
-    - 4
+    - 1
+    - 1.5
     ItemsData:
     - AppearProb: 0
       LengthScaleRange:
@@ -60,7 +61,7 @@ MonoBehaviour:
   - ZPos: 5
     Speed: 0.6
     DistanceRange:
-    - 2
+    - 1
     - 3
     ItemsData:
     - AppearProb: 0

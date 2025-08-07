@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace GameCore
@@ -12,20 +13,24 @@ namespace GameCore
         public int Id => _id;
 
         [SerializeField]
-        private int _wallLayer;
+        private int _damageLayer; //todo: assign this at init in some manager script!!!!!!
+
+
+
+
 
         [SerializeField]
         private GameObject _achevedView;
 
-        private float _viewAnimHalfDuration = 0.15f;
+        private float _achieveAnimHalfDuration = 0.15f;
 
-        private float _viewAnimScale = 1.2f;
+        private float _achieveAnimScale = 1.2f;
 
         private readonly Vector3[] _viewScales = new Vector3[2];
 
         private int _id;
 
-        private LayerMask _defaultLayer = 0;
+        private int _defaultLayer;
 
         private PlayerJump _playerJump;
 
@@ -46,9 +51,15 @@ namespace GameCore
 
                 _isDanger = isEnemy;
 
+                if (isEnemy)
+                {
+                    gameObject.layer = _damageLayer;
+                }
+
                 sequence.OnComplete(() => {
                     _containGO = false;
                     _isDanger = false;
+                    gameObject.layer = _defaultLayer;
                 });
 
                 sequence.Play();
@@ -60,7 +71,9 @@ namespace GameCore
             _id = (int)transform.position.x;
 
             _viewScales[0] = _achevedView.transform.localScale;
-            _viewScales[1] = _achevedView.transform.localScale * _viewAnimScale;
+            _viewScales[1] = _achevedView.transform.localScale * _achieveAnimScale;
+
+            _defaultLayer = gameObject.layer;
         }
 
         public void OnPlayerTriggered(PlayerJump playerJump)
@@ -94,8 +107,8 @@ namespace GameCore
         private Sequence AnimateAchievedView()
         {
             return DOTween.Sequence().Pause()
-                .Append(_achevedView.transform.DOScale(_viewScales[1], _viewAnimHalfDuration))
-                .Append(_achevedView.transform.DOScale(_viewScales[0], _viewAnimHalfDuration));
+                .Append(_achevedView.transform.DOScale(_viewScales[1], _achieveAnimHalfDuration))
+                .Append(_achevedView.transform.DOScale(_viewScales[0], _achieveAnimHalfDuration));
         }
     }
 }

@@ -7,31 +7,35 @@ namespace GameCore
         menuName = "Configs/WinPlaceGO")]
     public class WinPlaceGOConfig : ScriptableObject
     {
+        public GameObject Prefab => _prefab;
+
+        public float ActiveDuration => _setDuration + 2 * _setDuration;
+
         [SerializeField]
-        private GameObject _placeGO;
+        private GameObject _prefab;
 
         [SerializeField]
         private bool _isEnemy;
 
         [SerializeField]
-        private float[] _zPoints = new float[2];// { 8.8f, 7.36f };
+        private float[] _zPoints = { 8.8f, 7.36f };
 
         [SerializeField]
-        private float _setDuration = 0.15f;
+        private float _setDuration = 0.4f;
 
         [SerializeField]
-        private float _stayDuration = 0.5f;
+        private float _stayDuration = 2f;
 
-        public (Sequence, bool) Show(float xPos)
+        public (Sequence, bool) Show(Transform goTransform, float xPos)
         {
-            _placeGO.transform.position = new (xPos, 0, _zPoints[0]);
+            goTransform.position = new (xPos, 0, _zPoints[0]);
 
             var sequence = DOTween.Sequence().Pause();
 
             sequence
-                .Append(_placeGO.transform.DOMoveZ(_zPoints[1], _setDuration))
+                .Append(goTransform.DOMoveZ(_zPoints[1], _setDuration))
                 .AppendInterval(_stayDuration)
-                .Append(_placeGO.transform.DOMoveZ(_zPoints[0], _stayDuration));
+                .Append(goTransform.DOMoveZ(_zPoints[0], _setDuration));
 
             return (sequence, _isEnemy);
         }
