@@ -80,17 +80,15 @@ namespace GameCore
                 return;
             }
 
-            if ((collisionLayer & _damageLayerMask.value) > 0)
+            if (IsDamageCollision(collisionLayer))
             {
-                if (!_isDamageCollided)
-                {
-                    OnDamaged?.Invoke();
-
-                    _isDamageCollided = true;
-                }
-
                 return;
             }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var collisionLayer = 1 << other.gameObject.layer;
 
             if (_isOnLog && (collisionLayer & _wallLayer) > 0)
             {
@@ -102,19 +100,24 @@ namespace GameCore
 
                 return;
             }
+
+            if (IsDamageCollision(collisionLayer))
+            {
+                return;
+            }
+
+            if (other.gameObject.TryGetComponent<WinPlace>(out var winPlace))
+            {
+                Debug.Log("collision with win");
+
+                winPlace.OnPlayerTriggered(_playerJump);
+
+                return;
+            }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private bool IsDamageCollision(int collisionLayer)
         {
-
-
-
-
-
-
-            //todo: all objects as triggers!!!!
-            var collisionLayer = 1 << other.gameObject.layer;
-
             if ((collisionLayer & _damageLayerMask.value) > 0)
             {
                 if (!_isDamageCollided)
@@ -124,20 +127,10 @@ namespace GameCore
                     _isDamageCollided = true;
                 }
 
-                return;
+                return true;
             }
 
-
-
-
-
-
-            if (other.gameObject.TryGetComponent<WinPlace>(out var winPlace))
-            {
-                winPlace.OnPlayerTriggered(_playerJump);
-
-                return;
-            }
+            return false;
         }
 
         private void OnCollisionExit(Collision collision)
