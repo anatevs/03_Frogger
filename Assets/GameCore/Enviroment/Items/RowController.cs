@@ -47,30 +47,46 @@ namespace GameCore
             _parentTransform = parentTransform;
             _zPos = rowData.ZPos + _parentTransform.position.z;
 
-            _speed = rowData.Speed;
-            _direction = Math.Sign(_speed);
-            _distanceRange = rowData.DistanceRange;
+            InitController(rowData);
 
-            _itemsRowData = rowData.ItemsData;
+            //_speed = rowData.Speed;
+            //_direction = Math.Sign(_speed);
+            //_distanceRange = new float[2] { rowData.MinDistance, rowData.MaxDistance };
 
-            _unspawnBorderX = _direction * _cameraX;
+            //_itemsRowData = rowData.ItemsData;
 
-            InitLogs();
+            //_unspawnBorderX = _direction * _cameraX;
+
+            //InitLogs();
         }
 
         public void SetupController(RowData rowData)
         {
             ClearRow();
 
+            InitController(rowData);
+            //_speed = rowData.Speed;
+            //_direction = Math.Sign(_speed);
+            //_distanceRange = new float[2] { rowData.MinDistance, rowData.MaxDistance };
+
+            //_itemsRowData = rowData.ItemsData;
+
+            //_unspawnBorderX = _direction * _cameraX;
+
+            //InitLogs();
+        }
+
+        private void InitController(RowData rowData)
+        {
             _speed = rowData.Speed;
             _direction = Math.Sign(_speed);
-            _distanceRange = rowData.DistanceRange;
+            _distanceRange = new float[2] { rowData.MinDistance, rowData.MaxDistance };
 
             _itemsRowData = rowData.ItemsData;
 
             _unspawnBorderX = _direction * _cameraX;
 
-            InitLogs();
+            InitItems();
         }
 
         public void OnUpdate()
@@ -104,7 +120,7 @@ namespace GameCore
             _itemsQueue.Clear();
         }
 
-        private void InitLogs()
+        private void InitItems()
         {
             AddItem(_unspawnBorderX, 0);
 

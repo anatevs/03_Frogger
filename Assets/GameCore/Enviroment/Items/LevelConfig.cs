@@ -21,18 +21,13 @@ namespace GameCore
     [Serializable]
     public struct WinPlacesGOData
     {
-        public readonly float AppearPeriod => _appearPeriod;
+        [field: SerializeField]
+        public float ShowPeriod { get; private set; }
 
-        public WinPlaceGOConfig Config;
+        [field: SerializeField]
+        public float FirstDelay { get; private set; }
 
-        [SerializeField]
-        private float _showPeriod;
-
-        private float _appearPeriod;
-
-        public void SetupPeriodDuration()
-        {
-            _appearPeriod = _showPeriod + Config.ActiveDuration;
-        }
+        [field: SerializeField]
+        public WinPlaceGOConfig Config { get; private set; }
     }
 }

@@ -28,9 +28,11 @@ namespace GameCore
         {
             _currentLevelIndex = 0;
 
-            _rowsManager.InitLevelRows(_levelConfigs[_currentLevelIndex].RowData);
+            var cnf = _levelConfigs[_currentLevelIndex];
 
-            _winPlaces.SetupWinPlaces(_levelConfigs[_currentLevelIndex].WinPlaceGOData);
+            _rowsManager.InitLevelRows(cnf.RowData);
+
+            _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
         }
 
         public void OnEndLevel()
@@ -46,9 +48,11 @@ namespace GameCore
                 return;
             }
 
-            _rowsManager.SetupLevelRows(_levelConfigs[_currentLevelIndex].RowData);
+            var cnf = _levelConfigs[_currentLevelIndex];
 
-            _winPlaces.SetupWinPlaces(_levelConfigs[_currentLevelIndex].WinPlaceGOData);
+            _rowsManager.SetupLevelRows(cnf.RowData);
+
+            _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
         }
     }
 }

@@ -1,24 +1,24 @@
 ﻿using System;
+using UnityEngine;
 
 namespace GameCore
 {
     [Serializable]
     public struct RowData
     {
-        public int ZPos;
-        public float Speed;
-        public float[] DistanceRange;
-        public ItemRowData[] ItemsData;
+        [field: SerializeField]
+        public int ZPos { get; private set; }
 
-        public RowData(float speed,
-            int zPos,
-            float[] distanceRange,
-            ItemRowData[] itemsData)
-        {
-            Speed = speed;
-            ZPos = zPos;
-            DistanceRange = distanceRange;
-            ItemsData = itemsData;
-        }
+        [field: SerializeField]
+        public float Speed { get; private set; }
+
+        [field: SerializeField]
+        public float MinDistance { get; private set; }
+
+        [field: SerializeField]
+        public float MaxDistance { get; private set; }
+
+        [field: SerializeField]
+        public ItemRowData[] ItemsData { get; private set; }
     }
 }

@@ -1,6 +1,8 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using System;
-using Unity.VisualScripting.FullSerializer;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore
@@ -13,11 +15,7 @@ namespace GameCore
         public int Id => _id;
 
         [SerializeField]
-        private int _damageLayer; //todo: assign this at init in some manager script!!!!!!
-
-
-
-
+        private int _damageLayer;
 
         [SerializeField]
         private GameObject _achevedView;
@@ -43,7 +41,7 @@ namespace GameCore
             _achevedView.SetActive(isAcheved);
         }
 
-        public void PlaceGO(Sequence sequence, bool isEnemy)
+        public async UniTask PlaceGO(Sequence sequence, bool isEnemy, CancellationToken token)
         {
             if (!_containGO)
             {
@@ -56,13 +54,12 @@ namespace GameCore
                     gameObject.layer = _damageLayer;
                 }
 
-                sequence.OnComplete(() => {
+                await sequence.Play().OnComplete(() => {
                     _containGO = false;
                     _isDanger = false;
                     gameObject.layer = _defaultLayer;
-                });
-
-                sequence.Play();
+                })
+                    .WithCancellation(token);
             }
         }
 

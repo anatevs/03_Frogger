@@ -56,14 +56,6 @@ namespace GameCore
                 _currentFree.Add(i);
             }
 
-            if (_accidentalGO != null)
-            {
-                foreach (var go in _accidentalGO)
-                {
-                    GameObject.Destroy(go);
-                }
-            }
-
             _ctn = new CancellationTokenSource();
 
             _goData = goData;
@@ -83,23 +75,21 @@ namespace GameCore
 
         private async UniTaskVoid ShowAccidentalGO(int goID, CancellationToken token)
         {
-            for (int i = 0; i <= 3; i++)
+            var appearPeriod = _goData[goID].ShowPeriod;
+
+            await UniTask.WaitForSeconds(_goData[goID].FirstDelay);
+
+            while (!IsAllWin())
             {
                 var randomIndex = UnityEngine.Random.Range(0, _currentFree.Count);
 
                 var placeId = _currentFree[randomIndex];
 
-                ShowGO(placeId, goID);
+                await ShowGO(placeId, goID, token);
 
-                await UniTask.WaitForSeconds(_goData[goID].AppearPeriod,
+                await UniTask.WaitForSeconds(appearPeriod,
                     cancellationToken: token);
             }
-
-
-            //while (!IsAllWin())
-            //{
-
-            //}
         }
 
         private void AddAchievedPlace(int placeId)
@@ -111,6 +101,13 @@ namespace GameCore
 
             if (IsAllWin())
             {
+                _ctn.Cancel();
+
+                foreach (var go in _accidentalGO)
+                {
+                    GameObject.Destroy(go);
+                }
+
                 _listenersManager.EndLevel();
 
                 _currentAchieved.Clear();
@@ -123,13 +120,6 @@ namespace GameCore
                     _currentFree.Add(i);
                 }
 
-                foreach (var go in _accidentalGO)
-                {
-                    GameObject.Destroy(go);
-                }
-
-                _ctn.Cancel();
-
                 return;
             }
         }
@@ -138,13 +128,13 @@ namespace GameCore
             return _currentAchieved.Count == 1;// _places.Length;
         }
 
-        private void ShowGO(int placeId, int goId)
+        private UniTask ShowGO(int placeId, int goId, CancellationToken token)
         {
             var (sequence, isEnemy) = _goData[goId].Config
                 .Show(_accidentalGO[goId].transform,
                 _places[placeId].transform.position.x);
 
-            _places[placeId].PlaceGO(sequence, isEnemy);
+            return _places[placeId].PlaceGO(sequence, isEnemy, token);
         }
     }
 }

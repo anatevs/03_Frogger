@@ -9,7 +9,7 @@ namespace GameCore
     {
         public GameObject Prefab => _prefab;
 
-        public float ActiveDuration => _setDuration + 2 * _setDuration;
+        public float ActiveDuration => _stayDuration + 2 * _setDuration;
 
         [SerializeField]
         private GameObject _prefab;
