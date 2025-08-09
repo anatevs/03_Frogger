@@ -15,7 +15,7 @@ MonoBehaviour:
   _winPlaceGOData: []
   _rowData:
   - <ZPos>k__BackingField: 1
-    <Speed>k__BackingField: 0.5
+    <Speed>k__BackingField: 0.7
     <MinDistance>k__BackingField: 1.6
     <MaxDistance>k__BackingField: 3
     <ItemsData>k__BackingField:
@@ -24,13 +24,13 @@ MonoBehaviour:
       - 0.6
       - 1.2
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-    - AppearProb: 0.5
+    - AppearProb: 0.8
       LengthScaleRange:
       - 0.6
       - 1
       Prefab: {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
   - <ZPos>k__BackingField: 2
-    <Speed>k__BackingField: -0.6
+    <Speed>k__BackingField: -0.9
     <MinDistance>k__BackingField: 2
     <MaxDistance>k__BackingField: 4
     <ItemsData>k__BackingField:
@@ -40,7 +40,7 @@ MonoBehaviour:
       - 1
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - <ZPos>k__BackingField: 3
-    <Speed>k__BackingField: -0.3
+    <Speed>k__BackingField: -0.6
     <MinDistance>k__BackingField: 1.8
     <MaxDistance>k__BackingField: 2
     <ItemsData>k__BackingField:
@@ -49,7 +49,7 @@ MonoBehaviour:
       - 0.6
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - <ZPos>k__BackingField: 4
-    <Speed>k__BackingField: 0.7
+    <Speed>k__BackingField: 1.2
     <MinDistance>k__BackingField: 3
     <MaxDistance>k__BackingField: 5
     <ItemsData>k__BackingField:
@@ -64,7 +64,7 @@ MonoBehaviour:
       - 1.2
       Prefab: {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
   - <ZPos>k__BackingField: 5
-    <Speed>k__BackingField: 0.3
+    <Speed>k__BackingField: 0.8
     <MinDistance>k__BackingField: 1.6
     <MaxDistance>k__BackingField: 3
     <ItemsData>k__BackingField:
