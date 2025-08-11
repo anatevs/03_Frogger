@@ -9,6 +9,27 @@ namespace GameCore
     {
         public event Action<int> OnPointsChanged;
 
-        private int _points;
+        public int Value => _points;
+
+        private int _points = 100;
+
+
+
+
+        [SerializeField]
+        bool _isChange;
+
+        [SerializeField]
+        int _changeAmount = 10;
+
+        private void Update()
+        {
+            if (_isChange)
+            {
+                _isChange = false;
+                _points += _changeAmount;
+                OnPointsChanged?.Invoke(_changeAmount);
+            }
+        }
     }
 }

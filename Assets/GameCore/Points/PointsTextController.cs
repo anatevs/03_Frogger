@@ -5,12 +5,16 @@ namespace GameCore
 {
     public class PointsTextController : MonoBehaviour
     {
+        [SerializeField]
         private PointsView _view;
 
+        [SerializeField]
         private PointsStorage _storage;
 
         private void OnEnable()
         {
+            _view.SetText(_storage.Value.ToString());
+
             _storage.OnPointsChanged += SetupText;
         }
 
@@ -19,9 +23,9 @@ namespace GameCore
             _storage.OnPointsChanged -= SetupText;
         }
 
-        public void SetupText(int points)
+        public void SetupText(int deltaPoints)
         {
-            _view.SetText(points.ToString());
+            _view.SetText(_storage.Value - deltaPoints, deltaPoints).Forget();
         }
     }
 }
