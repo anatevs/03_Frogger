@@ -14,6 +14,8 @@ namespace GameCore
     {
         private readonly WinPlace[] _places;
 
+        private readonly Dictionary<int, WinPlace> _winPlaces = new();
+
         private readonly GameListenersManager _listenersManager;
 
         private readonly List<int> _currentAchieved = new();
@@ -35,9 +37,15 @@ namespace GameCore
 
         void IInitializable.Initialize()
         {
-            foreach (var place in _places)
+            for (int i = 0; i < _places.Length; i++)
             {
-                place.OnAchieved += AddAchievedPlace;
+                _places[i].OnAchieved += AddAchievedPlace;
+
+                _places[i].InitID();
+
+                _winPlaces.Add(_places[i].Id, _places[i]);
+
+                _currentFree.Add(_places[i].Id);
             }
         }
 
@@ -51,11 +59,6 @@ namespace GameCore
 
         public void SetupWinPlaces(WinPlacesGOData[] goData)
         {
-            for (int i = 0; i < _places.Length; i++)
-            {
-                _currentFree.Add(i);
-            }
-
             _ctn = new CancellationTokenSource();
 
             _goData = goData;
@@ -125,16 +128,18 @@ namespace GameCore
         }
         private bool IsAllWin()
         {
-            return _currentAchieved.Count == 1;// _places.Length;
+            return _currentAchieved.Count == 5;// _places.Length;
         }
 
         private UniTask ShowGO(int placeId, int goId, CancellationToken token)
         {
+            var place = _winPlaces[placeId];
+
             var (sequence, isEnemy) = _goData[goId].Config
                 .Show(_accidentalGO[goId].transform,
-                _places[placeId].transform.position.x);
+                place.transform.position.x);
 
-            return _places[placeId].PlaceGO(sequence, isEnemy, token);
+            return place.PlaceGO(sequence, isEnemy, token);
         }
     }
 }

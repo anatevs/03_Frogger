@@ -65,12 +65,15 @@ namespace GameCore
 
         private void Awake()
         {
-            _id = (int)transform.position.x;
-
             _viewScales[0] = _achevedView.transform.localScale;
             _viewScales[1] = _achevedView.transform.localScale * _achieveAnimScale;
 
             _defaultLayer = gameObject.layer;
+        }
+
+        public void InitID()
+        {
+            _id = (int)transform.position.x;
         }
 
         public void OnPlayerTriggered(PlayerJump playerJump)

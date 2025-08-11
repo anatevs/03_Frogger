@@ -8,7 +8,7 @@ namespace GameCore
 
         public int Value => _points;
 
-        private int _points = 100;
+        private int _points = 0;
 
         public void Init(int value)
         {

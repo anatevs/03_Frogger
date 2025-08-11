@@ -72,7 +72,8 @@ public class GameLifetimeScope : LifetimeScope
             .WithParameter(borders);
 
 
-        builder.RegisterEntryPoint<PointsCounter>()
+        builder.Register<PointsCounter>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
             .AsSelf()
             .WithParameter<PlayerJump>(_playerJump);
     }

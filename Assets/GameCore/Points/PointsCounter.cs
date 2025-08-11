@@ -1,3 +1,4 @@
+using GameManagement;
 using System;
 using System.Collections;
 using VContainer.Unity;
@@ -6,10 +7,19 @@ namespace GameCore
 {
     public class PointsCounter :
         IInitializable,
-        IDisposable
+        IDisposable,
+        IRoundEndListener,
+        ILevelEndListener
     {
-        private int _zMoveCost = 50;
+        private int _fowrdMoveReward = 10;
 
+        private int _roundEndReward = 50;
+
+        private int _levelEndReward = 1000;
+
+        private int _flyOrFriendReward = 200;
+
+        private int _halfSecondReward = 10;
 
         private PointsStorage _storage;
 
@@ -22,19 +32,29 @@ namespace GameCore
             _playerJump = playerJump;
         }
 
+        public void OnEndRound()
+        {
+            _storage.ChangeValue(_roundEndReward);
+        }
+
+        public void OnEndLevel()
+        {
+            _storage.ChangeValue(_levelEndReward);
+        }
+
         void IInitializable.Initialize()
         {
-            _playerJump.OnZMove += CalcFromZMove;
+            _playerJump.OnFrwdMove += CalcFromZMove;
         }
 
         void IDisposable.Dispose()
         {
-            _playerJump.OnZMove -= CalcFromZMove;
+            _playerJump.OnFrwdMove -= CalcFromZMove;
         }
 
         private void CalcFromZMove(int zDirection)
         {
-            _storage.ChangeValue(zDirection * _zMoveCost);
+            _storage.ChangeValue(_fowrdMoveReward);
         }
     }
 }
