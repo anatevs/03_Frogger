@@ -1,5 +1,6 @@
 ﻿using UI;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore
 {
@@ -8,8 +9,13 @@ namespace GameCore
         [SerializeField]
         private PointsView _view;
 
-        [SerializeField]
         private PointsStorage _storage;
+
+        [Inject]
+        public void Construct(PointsStorage storage)
+        {
+            _storage = storage;
+        }
 
         private void OnEnable()
         {
@@ -23,9 +29,9 @@ namespace GameCore
             _storage.OnPointsChanged -= SetupText;
         }
 
-        public void SetupText(int deltaPoints)
+        public void SetupText(int startPoints, int deltaPoints)
         {
-            _view.SetText(_storage.Value - deltaPoints, deltaPoints).Forget();
+            _view.SetText(startPoints, deltaPoints).Forget();
         }
     }
 }

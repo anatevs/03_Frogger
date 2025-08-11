@@ -9,6 +9,8 @@ namespace GameCore
     {
         public event Action OnJumpEnd;
 
+        public event Action<int> OnZMove;
+
         [SerializeField]
         private FrogAnimation _frogAnimation;
 
@@ -103,6 +105,8 @@ namespace GameCore
                     transform.DOMoveZ(transform.position.z + direction.z, _moveJumpDuration)
                         .SetDelay(_frogAnimation.StartJumpDelay)
                         .OnComplete(EndJump);
+
+                    OnZMove?.Invoke(direction.z);
                 }
 
                 _frogAnimation.Jump();

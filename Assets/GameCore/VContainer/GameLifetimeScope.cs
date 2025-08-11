@@ -32,6 +32,8 @@ public class GameLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
+        RegisterInfoComponents(builder);
+
         RegisterComponents(builder);
 
         RegisterManagement(builder);
@@ -41,10 +43,14 @@ public class GameLifetimeScope : LifetimeScope
         RegisterManagementComponents(builder);
     }
 
+    private void RegisterInfoComponents(IContainerBuilder builder)
+    {
+        builder.Register<PointsStorage>(Lifetime.Singleton);
+    }
+
     private void RegisterComponents(IContainerBuilder builder)
     {
         builder.Register<PlayerLifes>(Lifetime.Singleton);
-
 
 
 
@@ -64,6 +70,11 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<CameraBorders>()
             .AsSelf()
             .WithParameter(borders);
+
+
+        builder.RegisterEntryPoint<PointsCounter>()
+            .AsSelf()
+            .WithParameter<PlayerJump>(_playerJump);
     }
 
     private void RegisterManagement(IContainerBuilder builder)
