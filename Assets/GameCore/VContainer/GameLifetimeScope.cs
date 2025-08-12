@@ -102,7 +102,8 @@ public class GameLifetimeScope : LifetimeScope
     {
         builder.RegisterEntryPoint<WinPlaces>()
             .AsSelf()
-            .WithParameter(_winPlaces);
+            .WithParameter<WinPlace[]>(_winPlaces)
+            .WithParameter<PlayerJump>(_playerJump);
 
         builder.RegisterComponent(_rowsManager);
 

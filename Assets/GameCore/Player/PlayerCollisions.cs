@@ -105,15 +105,6 @@ namespace GameCore
             {
                 return;
             }
-
-            if (other.gameObject.TryGetComponent<WinPlace>(out var winPlace))
-            {
-                Debug.Log("collision with win");
-
-                winPlace.OnPlayerTriggered(_playerJump);
-
-                return;
-            }
         }
 
         private bool IsDamageCollision(int collisionLayer)

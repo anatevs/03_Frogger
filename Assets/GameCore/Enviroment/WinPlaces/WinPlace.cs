@@ -71,9 +71,10 @@ namespace GameCore
             _defaultLayer = gameObject.layer;
         }
 
-        public void InitID()
+        public void Init(PlayerJump playerJump)
         {
             _id = (int)transform.position.x;
+            _playerJump = playerJump;
         }
 
         public void OnPlayerTriggered(PlayerJump playerJump)
@@ -83,6 +84,14 @@ namespace GameCore
                 _playerJump = playerJump;
 
                 _playerJump.OnJumpEnd += MakeOnAchieved;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == _playerJump.gameObject)
+            {
+                OnPlayerTriggered(_playerJump);
             }
         }
 

@@ -18,6 +18,8 @@ namespace GameCore
 
         private readonly GameListenersManager _listenersManager;
 
+        private readonly PlayerJump _playerJump;
+
         private readonly List<int> _currentAchieved = new();
 
         private readonly List<int> _currentFree = new();
@@ -29,10 +31,12 @@ namespace GameCore
         private CancellationTokenSource _ctn;
 
         public WinPlaces(WinPlace[] places,
-            GameListenersManager listenersManager)
+            GameListenersManager listenersManager,
+            PlayerJump playerJump)
         {
             _places = places;
             _listenersManager = listenersManager;
+            _playerJump = playerJump;
         }
 
         void IInitializable.Initialize()
@@ -41,7 +45,7 @@ namespace GameCore
             {
                 _places[i].OnAchieved += AddAchievedPlace;
 
-                _places[i].InitID();
+                _places[i].Init(_playerJump);
 
                 _winPlaces.Add(_places[i].Id, _places[i]);
 
