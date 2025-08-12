@@ -1,5 +1,6 @@
 using GameManagement;
 using System;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace GameCore
@@ -18,11 +19,13 @@ namespace GameCore
 
         private int _flyOrFriendReward = 200;
 
-        private int _halfSecondReward = 10;
+        //private int _halfSecondReward = 10;
 
         private PointsStorage _storage;
 
         private PlayerJump _playerJump;
+
+        private int _extraReward = 0;
 
         public PointsCounter(PointsStorage storage,
             PlayerJump playerJump)
@@ -31,9 +34,17 @@ namespace GameCore
             _playerJump = playerJump;
         }
 
+        public void AddExtraPoints()
+        {
+            _extraReward += _flyOrFriendReward;
+            Debug.Log(_extraReward);
+        }
+
         public void OnEndRound()
         {
-            _storage.ChangeValue(_roundEndReward);
+            _storage.ChangeValue(_roundEndReward + _extraReward);
+
+            _extraReward = 0;
         }
 
         public void OnEndLevel()

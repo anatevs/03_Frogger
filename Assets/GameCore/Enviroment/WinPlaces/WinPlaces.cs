@@ -20,6 +20,8 @@ namespace GameCore
 
         private readonly PlayerJump _playerJump;
 
+        private readonly PointsCounter _playersCounter;
+
         private readonly List<int> _currentAchieved = new();
 
         private readonly List<int> _currentFree = new();
@@ -32,11 +34,13 @@ namespace GameCore
 
         public WinPlaces(WinPlace[] places,
             GameListenersManager listenersManager,
-            PlayerJump playerJump)
+            PlayerJump playerJump,
+            PointsCounter playersCounter)
         {
             _places = places;
             _listenersManager = listenersManager;
             _playerJump = playerJump;
+            _playersCounter = playersCounter;
         }
 
         void IInitializable.Initialize()
@@ -74,17 +78,24 @@ namespace GameCore
                 var go = GameObject.Instantiate(_goData[i].Config.Prefab,
                     _places[0].transform.parent);
 
+                if (go.TryGetComponent<Fly>(out var fly))
+                {
+                    fly.Init(_playerJump.gameObject, _playersCounter);
+                }
+
+                go.SetActive(false);
+
                 _accidentalGO[i] = go;
 
                 ShowAccidentalGO(i, _ctn.Token).Forget();
             }
         }
 
-        private async UniTaskVoid ShowAccidentalGO(int goID, CancellationToken token)
+        private async UniTaskVoid ShowAccidentalGO(int goId, CancellationToken token)
         {
-            var appearPeriod = _goData[goID].ShowPeriod;
+            var appearPeriod = _goData[goId].ShowPeriod;
 
-            await UniTask.WaitForSeconds(_goData[goID].FirstDelay);
+            await UniTask.WaitForSeconds(_goData[goId].FirstDelay);
 
             while (!IsAllWin())
             {
@@ -92,7 +103,11 @@ namespace GameCore
 
                 var placeId = _currentFree[randomIndex];
 
-                await ShowGO(placeId, goID, token);
+                _accidentalGO[goId].SetActive(true);
+
+                await ShowGO(placeId, goId, token);
+
+                _accidentalGO[goId].SetActive(false);
 
                 await UniTask.WaitForSeconds(appearPeriod,
                     cancellationToken: token);

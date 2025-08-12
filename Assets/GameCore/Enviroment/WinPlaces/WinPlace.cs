@@ -61,6 +61,12 @@ namespace GameCore
                 })
                     .WithCancellation(token);
             }
+            else
+            {
+                sequence.Kill();
+
+                await UniTask.Yield();
+            }
         }
 
         private void Awake()

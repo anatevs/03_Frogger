@@ -16,6 +16,9 @@ MonoBehaviour:
   - <ShowPeriod>k__BackingField: 5
     <FirstDelay>k__BackingField: 5
     <Config>k__BackingField: {fileID: 11400000, guid: 2689d92ac420ff744a3302c113f1f674, type: 2}
+  - <ShowPeriod>k__BackingField: 3
+    <FirstDelay>k__BackingField: 1
+    <Config>k__BackingField: {fileID: 11400000, guid: 440df11dc77d69641a63ff35e659d8eb, type: 2}
   _rowData:
   - <ZPos>k__BackingField: 1
     <Speed>k__BackingField: 0.5
@@ -47,7 +50,7 @@ MonoBehaviour:
       - 0.6
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - <ZPos>k__BackingField: 4
-    <Speed>k__BackingField: 0.7
+    <Speed>k__BackingField: 1
     <MinDistance>k__BackingField: 3
     <MaxDistance>k__BackingField: 5
     <ItemsData>k__BackingField:
@@ -57,7 +60,7 @@ MonoBehaviour:
       - 1
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - <ZPos>k__BackingField: 5
-    <Speed>k__BackingField: 0.3
+    <Speed>k__BackingField: 0.6
     <MinDistance>k__BackingField: 1.6
     <MaxDistance>k__BackingField: 3
     <ItemsData>k__BackingField:
