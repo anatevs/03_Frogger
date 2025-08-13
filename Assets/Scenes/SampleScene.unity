@@ -1337,34 +1337,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7bc3552dab365429d4ab0192a209fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1152368239 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6696247888891252567, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-  m_PrefabInstance: {fileID: 3501423474821278114}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1152368240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
   m_PrefabInstance: {fileID: 3501423474821278114}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1152368242
+--- !u!114 &1152368242 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+  m_PrefabInstance: {fileID: 3501423474821278114}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1152368239}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69cb563f37fb9264ba68ff59c042c895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerArmature: {fileID: 112043257}
-  _playerGO: {fileID: 1590453431}
-  _activeLogs: {fileID: 323488628}
-  _data:
-    <StayDuration>k__BackingField: 5
-    <Period>k__BackingField: 2
 --- !u!1001 &1197658365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2453,7 +2441,7 @@ MonoBehaviour:
   _deathGO: {fileID: 1817858280}
   _playerView: {fileID: 443051887}
   _deathAnimScale: 2
-  _deathHalfDuration: 0.3
+  _deathHalfDuration: 2
 --- !u!1 &1632676205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,25 +3591,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 323488625}
     m_Modifications:
-    - target: {fileID: 693191955793203471, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.36
-      objectReference: {fileID: 0}
     - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: m_RootOrder
       value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3667,21 +3639,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrogFriend
       objectReference: {fileID: 0}
-    - target: {fileID: 6696247888891252567, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6787507248077559172, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      propertyPath: m_IsTrigger
+    - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: _playerGO
+      value: 
+      objectReference: {fileID: 1590453431}
+    - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: _activeLogs
+      value: 
+      objectReference: {fileID: 323488628}
+    - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: _playerArmature
+      value: 
+      objectReference: {fileID: 112043257}
+    - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: _data.<Period>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: _data.<StayDuration>k__BackingField
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6696247888891252567, guid: 80cef204bb07801459bb2bd728701143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1152368242}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80cef204bb07801459bb2bd728701143, type: 3}
 --- !u!1001 &5607792796018222372
 PrefabInstance:

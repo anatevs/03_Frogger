@@ -30,7 +30,8 @@ namespace GameCore
         public PlayerController(InputHandler inputHandler,
             PlayerJump playerJump,
             PlayerCollisions player,
-            PlayerLifes playerLifes)
+            PlayerLifes playerLifes,
+            GameListenersManager listenersManager)
         {
             _inputHandler = inputHandler;
             _playerJump = playerJump;
@@ -41,6 +42,8 @@ namespace GameCore
             {
                 Debug.LogError("PlayerView component is not found on PlayerCollisions");
             }
+
+            _listenersManager = listenersManager;
         }
 
         void IInitializable.Initialize()
@@ -89,6 +92,8 @@ namespace GameCore
 
                 _isAlive = true;
                 _playerView.ShowFrog(true);
+
+                _listenersManager.RestartRound();
 
                 Debug.Log($"you have {_playerLifes.Lifes} lifes left");
             }

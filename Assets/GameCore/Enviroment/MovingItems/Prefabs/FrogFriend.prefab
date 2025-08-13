@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5492519302976010547}
   - component: {fileID: 6787507248077559172}
+  - component: {fileID: 8430296521723116643}
   m_Layer: 0
   m_Name: FrogFriend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5492519302976010547
 Transform:
   m_ObjectHideFlags: 0
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6696247888891252567}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48,12 +49,30 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.9, y: 0.37618634, z: 0.72500527}
   m_Center: {x: 0, y: 0.1896824, z: -0.020757005}
+--- !u!114 &8430296521723116643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696247888891252567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cb563f37fb9264ba68ff59c042c895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerArmature: {fileID: 0}
+  _playerGO: {fileID: 0}
+  _activeLogs: {fileID: 0}
+  _data:
+    <StayDuration>k__BackingField: 5
+    <Period>k__BackingField: 2
 --- !u!1001 &7992283850711827147
 PrefabInstance:
   m_ObjectHideFlags: 0

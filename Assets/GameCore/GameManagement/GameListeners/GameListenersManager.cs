@@ -12,6 +12,8 @@ namespace GameManagement
 
         private readonly List<IUpdateListener> _updateListeners = new();
 
+        private readonly List<IRestartRoundListener> _restartRoundListeners = new();
+
         private readonly List<IRoundEndListener> _roundEndListeners = new();
 
         private readonly List<ILevelEndListener> _levelEndListeners = new();
@@ -42,6 +44,11 @@ namespace GameManagement
                 _updateListeners.Add(updateListener);
             }
 
+            if (listener is IRestartRoundListener restartRoundListener)
+            {
+                _restartRoundListeners.Add(restartRoundListener);
+            }
+
             if (listener is IRoundEndListener roundEndListener)
             {
                 _roundEndListeners.Add(roundEndListener);
@@ -68,6 +75,14 @@ namespace GameManagement
             foreach (var listener in _startGameListeners)
             {
                 listener.OnStartGame();
+            }
+        }
+
+        public void RestartRound()
+        {
+            foreach (var listener in _restartRoundListeners)
+            {
+                listener.OnRestartRound();
             }
         }
 

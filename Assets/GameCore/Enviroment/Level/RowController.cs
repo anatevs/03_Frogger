@@ -48,16 +48,6 @@ namespace GameCore
             _zPos = rowData.ZPos + _parentTransform.position.z;
 
             InitController(rowData);
-
-            //_speed = rowData.Speed;
-            //_direction = Math.Sign(_speed);
-            //_distanceRange = new float[2] { rowData.MinDistance, rowData.MaxDistance };
-
-            //_itemsRowData = rowData.ItemsData;
-
-            //_unspawnBorderX = _direction * _cameraX;
-
-            //InitLogs();
         }
 
         public void SetupController(RowData rowData)
@@ -65,15 +55,6 @@ namespace GameCore
             ClearRow();
 
             InitController(rowData);
-            //_speed = rowData.Speed;
-            //_direction = Math.Sign(_speed);
-            //_distanceRange = new float[2] { rowData.MinDistance, rowData.MaxDistance };
-
-            //_itemsRowData = rowData.ItemsData;
-
-            //_unspawnBorderX = _direction * _cameraX;
-
-            //InitLogs();
         }
 
         private void InitController(RowData rowData)

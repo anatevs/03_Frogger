@@ -34,6 +34,8 @@ namespace GameCore
 
             var cnf = _levelConfigs[_currentLevelIndex];
 
+            _frogFriend.EnableActiveLogs();
+
             _rowsManager.InitLevelRows(cnf.RowData);
 
             _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
@@ -60,7 +62,7 @@ namespace GameCore
 
             _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
 
-            _frogFriend.AppearFriend().Forget();
+            _frogFriend.AppearFriendProcess().Forget();
         }
     }
 }

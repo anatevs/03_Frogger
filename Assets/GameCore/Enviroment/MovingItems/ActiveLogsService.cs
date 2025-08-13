@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class OnSceneLogsService : MonoBehaviour
+    public class ActiveLogsService : MonoBehaviour
     {
         public List<MovingItem> Logs => _logs;
 
@@ -14,8 +14,7 @@ namespace GameCore
 
         private readonly List<MovingItem> _logs = new();
 
-
-        private void Start ()
+        public void Init()
         {
             _logsPool = _poolsService.GetPool(typeof(LogItem));
 
@@ -47,6 +46,5 @@ namespace GameCore
         {
             _logs.Remove(item);
         }
-
     }
 }

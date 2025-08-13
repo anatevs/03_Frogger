@@ -8,7 +8,8 @@ namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
     public class FrogFriend : MonoBehaviour,
-        IRoundEndListener
+        IRoundEndListener,
+        IRestartRoundListener
     {
         public bool IsAtPlayer => _isAtPlayer;
 
@@ -19,7 +20,7 @@ namespace GameCore
         private GameObject _playerGO;
 
         [SerializeField]
-        private OnSceneLogsService _activeLogs;
+        private ActiveLogsService _activeLogs;
 
         private Transform _defaultParent;
 
@@ -30,16 +31,32 @@ namespace GameCore
 
         private bool _isAtPlayer;
 
+        public void EnableActiveLogs()
+        {
+            _activeLogs.Init();
+        }
+
         public void Init()//(FrogFriendData data)
         {
             _defaultParent = transform.parent;
 
             //_data = data;
 
-            AppearFriend().Forget();
+            AppearFriendProcess().Forget();
         }
 
         public void OnEndRound()
+        {
+            Reset();
+        }
+
+        public void OnRestartRound()
+        {
+            Reset();
+            AppearFriendProcess().Forget();
+        }
+
+        public void Reset()
         {
             gameObject.SetActive(false);
             transform.parent = _defaultParent;
@@ -49,6 +66,8 @@ namespace GameCore
         {
             _ctn.Cancel();
 
+            transform.rotation = _playerGO.transform.rotation;
+
             transform.parent = _playerArmature;
 
             transform.localPosition = Vector3.zero;
@@ -57,7 +76,7 @@ namespace GameCore
         }
 
 
-        public async UniTaskVoid AppearFriend()
+        public async UniTaskVoid AppearFriendProcess()
         {
             _ctn = new CancellationTokenSource();
 
