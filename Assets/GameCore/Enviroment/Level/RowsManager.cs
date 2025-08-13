@@ -70,13 +70,13 @@ namespace GameCore
 
         private void SetupRowPools(RowData rowData)
         {
-            for (int j = 0; j < rowData.ItemsData.Length; j++)
+            for (int i = 0; i < rowData.ItemsData.Length; i++)
             {
-                var itemType = rowData.ItemsData[j].Prefab.GetType();
+                var itemType = rowData.ItemsData[i].Prefab.GetType();
 
                 var pool = _poolService.GetPool(itemType);
 
-                rowData.ItemsData[j].Pool = pool;
+                rowData.ItemsData[i].Pool = pool;
             }
         }
     }

@@ -13,15 +13,19 @@ namespace GameCore
 
         private readonly WinPlaces _winPlaces;
 
+        private readonly FrogFriend _frogFriend;
+
         private int _currentLevelIndex;
 
         public LevelManager(LevelConfig[] levelConfigs,
             RowsManager rowsManager,
-            WinPlaces winPlaces)
+            WinPlaces winPlaces,
+            FrogFriend frogFriend)
         {
             _levelConfigs = levelConfigs;
             _rowsManager = rowsManager;
             _winPlaces = winPlaces;
+            _frogFriend = frogFriend;
         }
 
         public void OnStartGame()
@@ -33,6 +37,8 @@ namespace GameCore
             _rowsManager.InitLevelRows(cnf.RowData);
 
             _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
+
+            _frogFriend.Init();
         }
 
         public void OnEndLevel()
@@ -53,6 +59,8 @@ namespace GameCore
             _rowsManager.SetupLevelRows(cnf.RowData);
 
             _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
+
+            _frogFriend.AppearFriend().Forget();
         }
     }
 }

@@ -19,6 +19,9 @@ public class GameLifetimeScope : LifetimeScope
     private PlayerJump _playerJump;
 
     [SerializeField]
+    private FrogFriend _frogFriend;
+
+    [SerializeField]
     private WinPlace[] _winPlaces;
 
     [SerializeField]
@@ -75,7 +78,8 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<PointsCounter>(Lifetime.Singleton)
             .AsImplementedInterfaces()
             .AsSelf()
-            .WithParameter<PlayerJump>(_playerJump);
+            .WithParameter<PlayerJump>(_playerJump)
+            .WithParameter<FrogFriend>(_frogFriend);
     }
 
     private void RegisterManagement(IContainerBuilder builder)
@@ -109,6 +113,7 @@ public class GameLifetimeScope : LifetimeScope
 
         builder.Register<LevelManager>(Lifetime.Singleton)
             .WithParameter<LevelConfig[]>(_levelConfigs)
+            .WithParameter<FrogFriend>(_frogFriend)
             .AsImplementedInterfaces()
             .AsSelf();
     }

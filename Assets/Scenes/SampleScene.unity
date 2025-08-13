@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 323488625}
   - component: {fileID: 323488627}
   - component: {fileID: 323488626}
+  - component: {fileID: 323488628}
   m_Layer: 0
   m_Name: Enviroment
   m_TagString: Untagged
@@ -366,6 +367,19 @@ MonoBehaviour:
   _prefabs:
   - {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
+--- !u!114 &323488628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323488624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e56132b9ff0723489a47f7936c8316f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolsService: {fileID: 323488627}
 --- !u!4 &410424646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3427590627796141019, guid: a5814a166b195f54584d0cafa719aa43, type: 3}
@@ -1295,6 +1309,7 @@ MonoBehaviour:
   - {fileID: 887405704}
   _playerCollisions: {fileID: 1590453434}
   _playerJump: {fileID: 1590453437}
+  _frogFriend: {fileID: 1152368242}
   _winPlaces:
   - {fileID: 1128957413}
   - {fileID: 917040016}
@@ -1322,11 +1337,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7bc3552dab365429d4ab0192a209fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1152368239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6696247888891252567, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+  m_PrefabInstance: {fileID: 3501423474821278114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1152368240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
   m_PrefabInstance: {fileID: 3501423474821278114}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1152368242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152368239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cb563f37fb9264ba68ff59c042c895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerArmature: {fileID: 112043257}
+  _playerGO: {fileID: 1590453431}
+  _activeLogs: {fileID: 323488628}
+  _data:
+    <StayDuration>k__BackingField: 5
+    <Period>k__BackingField: 2
 --- !u!1001 &1197658365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3587,7 +3625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 5492519302976010547, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3629,6 +3667,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrogFriend
       objectReference: {fileID: 0}
+    - target: {fileID: 6696247888891252567, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6787507248077559172, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -3636,7 +3678,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6696247888891252567, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1152368242}
   m_SourcePrefab: {fileID: 100100000, guid: 80cef204bb07801459bb2bd728701143, type: 3}
 --- !u!1001 &5607792796018222372
 PrefabInstance:

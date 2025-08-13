@@ -25,13 +25,17 @@ namespace GameCore
 
         private PlayerJump _playerJump;
 
+        private FrogFriend _frogFriend;
+
         private int _extraReward = 0;
 
         public PointsCounter(PointsStorage storage,
-            PlayerJump playerJump)
+            PlayerJump playerJump,
+            FrogFriend frogFriend)
         {
             _storage = storage;
             _playerJump = playerJump;
+            _frogFriend = frogFriend;
         }
 
         public void AddExtraPoints()

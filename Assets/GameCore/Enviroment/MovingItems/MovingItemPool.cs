@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
 {
     public class MovingItemPool
     {
+        public event Action<MovingItem> OnSpawn;
+
+        public event Action<MovingItem> OnUnspawn;
+
         private readonly MovingItem _prefab;
 
         private readonly Transform _poolTransform;
@@ -29,6 +34,8 @@ namespace GameCore
 
             item.gameObject.SetActive(true);
 
+            OnSpawn?.Invoke(item);
+
             return item;
         }
 
@@ -36,6 +43,8 @@ namespace GameCore
         {
             item.gameObject.SetActive(false);
             item.transform.SetParent(_poolTransform);
+
+            OnUnspawn?.Invoke(item);
 
             _itemsQueue.Enqueue(item);
         }
