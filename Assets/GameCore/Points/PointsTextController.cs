@@ -9,6 +9,9 @@ namespace GameCore
         [SerializeField]
         private PointsView _view;
 
+        [SerializeField]
+        private PointsView _viewLevel;
+
         private PointsStorage _storage;
 
         [Inject]
@@ -29,9 +32,11 @@ namespace GameCore
             _storage.OnPointsChanged -= SetupText;
         }
 
-        public void SetupText(int startPoints, int deltaPoints)
+        public void SetupText(int fromPoints, int fromLevelPoints, int deltaPoints)
         {
-            _view.SetText(startPoints, deltaPoints).Forget();
+            _view.SetText(fromPoints, deltaPoints).Forget();
+
+            _viewLevel.SetText(fromLevelPoints, deltaPoints).Forget();
         }
     }
 }

@@ -42,6 +42,8 @@ namespace GameCore
         public void OnDamage()
         {
             _extraReward = 0;
+
+            _storage.OnDamage();
         }
 
         public void OnEndRound()
@@ -49,6 +51,8 @@ namespace GameCore
             _storage.ChangeValue(_roundEndReward + _extraReward);
 
             _extraReward = 0;
+
+            _storage.OnEndRound();
         }
 
         public void OnEndLevel()
@@ -56,6 +60,8 @@ namespace GameCore
             _storage.ChangeValue(_levelEndReward);
 
             _extraReward = 0;
+
+            _storage.OnEndLevel();
         }
 
         void IInitializable.Initialize()
