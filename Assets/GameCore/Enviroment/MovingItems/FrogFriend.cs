@@ -9,7 +9,8 @@ namespace GameCore
     [RequireComponent(typeof(BoxCollider))]
     public class FrogFriend : MonoBehaviour,
         IRoundEndListener,
-        IRestartRoundListener
+        IDamageListener,
+        IDisposable
     {
         public bool IsAtPlayer => _isAtPlayer;
 
@@ -20,6 +21,8 @@ namespace GameCore
         private GameObject _playerGO;
 
         [SerializeField]
+        private PoolsService _poolsService;
+
         private ActiveLogsService _activeLogs;
 
         private Transform _defaultParent;
@@ -31,13 +34,15 @@ namespace GameCore
 
         private bool _isAtPlayer;
 
-        public void EnableActiveLogs()
+        void IDisposable.Dispose()
         {
-            _activeLogs.Init();
+            _activeLogs.Dispose();
         }
 
-        public void Init()//(FrogFriendData data)
+        public void StartInit()//(FrogFriendData data)
         {
+            _activeLogs = new ActiveLogsService(_poolsService);
+
             _defaultParent = transform.parent;
 
             //_data = data;
@@ -45,38 +50,41 @@ namespace GameCore
             AppearFriendProcess().Forget();
         }
 
-        public void OnEndRound()
-        {
-            Reset();
-        }
-
-        public void OnRestartRound()
-        {
-            Reset();
-            AppearFriendProcess().Forget();
-        }
-
-        public void Reset()
-        {
-            gameObject.SetActive(false);
-            transform.parent = _defaultParent;
-        }
-
-        public void FollowPlayer()
+        public void SetupLevel()//(FrogFriendData data)
         {
             _ctn.Cancel();
 
-            transform.rotation = _playerGO.transform.rotation;
+            //_data = data;
 
-            transform.parent = _playerArmature;
-
-            transform.localPosition = Vector3.zero;
-
-            _isAtPlayer = true;
+            Reset();
         }
 
+        public void OnEndRound()
+        {
+            if (_isAtPlayer)
+            {
+                Reset();
+            }
+        }
 
-        public async UniTaskVoid AppearFriendProcess()
+        public void OnDamage()
+        {
+            if (_isAtPlayer)
+            {
+                Reset();
+            }
+        }
+
+        private void Reset()
+        {
+            _isAtPlayer = false;
+            gameObject.SetActive(false);
+            transform.parent = _defaultParent;
+
+            AppearFriendProcess().Forget();
+        }
+
+        private async UniTaskVoid AppearFriendProcess()
         {
             _ctn = new CancellationTokenSource();
 
@@ -115,6 +123,19 @@ namespace GameCore
             {
                 FollowPlayer();
             }
+        }
+
+        private void FollowPlayer()
+        {
+            _ctn.Cancel();
+
+            transform.rotation = _playerGO.transform.rotation;
+
+            transform.parent = _playerArmature;
+
+            transform.localPosition = Vector3.zero;
+
+            _isAtPlayer = true;
         }
     }
 

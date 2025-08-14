@@ -305,7 +305,6 @@ GameObject:
   - component: {fileID: 323488625}
   - component: {fileID: 323488627}
   - component: {fileID: 323488626}
-  - component: {fileID: 323488628}
   m_Layer: 0
   m_Name: Enviroment
   m_TagString: Untagged
@@ -367,19 +366,6 @@ MonoBehaviour:
   _prefabs:
   - {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
---- !u!114 &323488628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323488624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e56132b9ff0723489a47f7936c8316f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poolsService: {fileID: 323488627}
 --- !u!4 &410424646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3427590627796141019, guid: a5814a166b195f54584d0cafa719aa43, type: 3}
@@ -1788,7 +1774,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1989,7 +1975,7 @@ GameObject:
   - component: {fileID: 1523906738}
   - component: {fileID: 1523906737}
   - component: {fileID: 1523906739}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CenterPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2110,7 +2096,7 @@ GameObject:
   - component: {fileID: 1539759882}
   - component: {fileID: 1539759881}
   - component: {fileID: 1539759880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EdgePlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2351,7 +2337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPos: {fileID: 1992919355}
-  _logsLayerMask:
+  _floatingLayerMask:
     serializedVersion: 2
     m_Bits: 64
   _damageLayerMask:
@@ -2399,6 +2385,9 @@ MonoBehaviour:
   _wallLayer:
     serializedVersion: 2
     m_Bits: 256
+  _landingLayer:
+    serializedVersion: 2
+    m_Bits: 576
 --- !u!54 &1590453438
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2441,7 +2430,7 @@ MonoBehaviour:
   _deathGO: {fileID: 1817858280}
   _playerView: {fileID: 443051887}
   _deathAnimScale: 2
-  _deathHalfDuration: 2
+  _deathHalfDuration: 0.2
 --- !u!1 &1632676205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2639,7 +2628,7 @@ GameObject:
   - component: {fileID: 1785627683}
   - component: {fileID: 1785627682}
   - component: {fileID: 1785627681}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StartPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2760,7 +2749,7 @@ GameObject:
   - component: {fileID: 1892122899}
   - component: {fileID: 1892122898}
   - component: {fileID: 1892122901}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RoadView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3646,7 +3635,11 @@ PrefabInstance:
     - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: _activeLogs
       value: 
-      objectReference: {fileID: 323488628}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
+      propertyPath: _poolsService
+      value: 
+      objectReference: {fileID: 323488627}
     - target: {fileID: 8430296521723116643, guid: 80cef204bb07801459bb2bd728701143, type: 3}
       propertyPath: _playerArmature
       value: 

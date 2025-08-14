@@ -23,6 +23,9 @@ namespace GameCore
         [SerializeField]
         private LayerMask _wallLayer;
 
+        [SerializeField]
+        private LayerMask _landingLayer;
+
         private BoxCollider _collider;
 
         private Rigidbody _rigidbody;
@@ -118,8 +121,14 @@ namespace GameCore
 
         private void EndJump()
         {
-            Physics.Raycast(_collider.bounds.center, Vector3.down, out var hitInfo, 3f);
-            var yPos = hitInfo.point.y + _collider.size.y / 2;
+            Physics.Raycast(_collider.bounds.center, Vector3.down, out var hitInfo, 3f, _landingLayer);
+
+            var yPos = 0f;
+
+            if (hitInfo.collider != null)
+            {
+                yPos = hitInfo.point.y + _collider.size.y / 2;
+            }
 
             transform.position = new Vector3(
                 transform.position.x,

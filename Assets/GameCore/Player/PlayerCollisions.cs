@@ -14,7 +14,7 @@ namespace GameCore
         private Transform _startPos;
 
         [SerializeField]
-        private LayerMask _logsLayerMask;
+        private LayerMask _floatingLayerMask;
 
         [SerializeField]
         private LayerMask _damageLayerMask;
@@ -22,7 +22,7 @@ namespace GameCore
         [SerializeField]
         private LayerMask _wallLayer;
 
-        private bool _isOnLog;
+        private bool _isOnFloating;
 
         private Transform _currentLog;
 
@@ -51,13 +51,13 @@ namespace GameCore
 
         private void Update()
         {
-            if (_isOnLog)
+            if (_isOnFloating)
             {
-                MoveAfterLog();
+                MoveAfterFloating();
             }
         }
 
-        private void MoveAfterLog()
+        private void MoveAfterFloating()
         {
             transform.position = new Vector3(
                 _currentLog.position.x - _currentLogShiftX,
@@ -69,9 +69,9 @@ namespace GameCore
         {
             var collisionLayer = 1 << collision.gameObject.layer;
 
-            if ((collisionLayer & _logsLayerMask.value) > 0)
+            if ((collisionLayer & _floatingLayerMask.value) > 0)
             {
-                _isOnLog = true;
+                _isOnFloating = true;
 
                 _currentLog = collision.transform;
 
@@ -90,11 +90,11 @@ namespace GameCore
         {
             var collisionLayer = 1 << other.gameObject.layer;
 
-            if (_isOnLog && (collisionLayer & _wallLayer) > 0)
+            if (_isOnFloating && (collisionLayer & _wallLayer) > 0)
             {
                 Debug.Log("collision with bounds!");
 
-                _isOnLog = false;
+                _isOnFloating = false;
 
                 OnDamaged?.Invoke();
 
@@ -128,9 +128,9 @@ namespace GameCore
         {
             var collisionLayer = 1 << collision.gameObject.layer;
 
-            if ((collisionLayer & _logsLayerMask.value) > 0)
+            if ((collisionLayer & _floatingLayerMask.value) > 0)
             {
-                _isOnLog = false;
+                _isOnFloating = false;
 
                 _currentLog = null;
             }

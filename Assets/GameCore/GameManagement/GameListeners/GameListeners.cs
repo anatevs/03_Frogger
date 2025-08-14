@@ -14,9 +14,9 @@ namespace GameManagement
         public void OnUpdate();
     }
 
-    public interface IRestartRoundListener : IGameListener
+    public interface IDamageListener : IGameListener
     {
-        public void OnRestartRound();
+        public void OnDamage();
     }
 
     public interface IRoundEndListener : IGameListener

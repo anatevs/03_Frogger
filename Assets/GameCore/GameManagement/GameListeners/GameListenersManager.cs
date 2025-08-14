@@ -12,7 +12,7 @@ namespace GameManagement
 
         private readonly List<IUpdateListener> _updateListeners = new();
 
-        private readonly List<IRestartRoundListener> _restartRoundListeners = new();
+        private readonly List<IDamageListener> _restartRoundListeners = new();
 
         private readonly List<IRoundEndListener> _roundEndListeners = new();
 
@@ -44,7 +44,7 @@ namespace GameManagement
                 _updateListeners.Add(updateListener);
             }
 
-            if (listener is IRestartRoundListener restartRoundListener)
+            if (listener is IDamageListener restartRoundListener)
             {
                 _restartRoundListeners.Add(restartRoundListener);
             }
@@ -82,7 +82,7 @@ namespace GameManagement
         {
             foreach (var listener in _restartRoundListeners)
             {
-                listener.OnRestartRound();
+                listener.OnDamage();
             }
         }
 

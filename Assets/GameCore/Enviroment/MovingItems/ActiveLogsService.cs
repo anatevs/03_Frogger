@@ -1,37 +1,24 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace GameCore
 {
-    public class ActiveLogsService : MonoBehaviour
+    public class ActiveLogsService
     {
         public List<MovingItem> Logs => _logs;
 
-        [SerializeField]
-        private PoolsService _poolsService;
-
-        private MovingItemPool _logsPool;
+        private readonly MovingItemPool _logsPool;
 
         private readonly List<MovingItem> _logs = new();
 
-        public void Init()
+        public ActiveLogsService(PoolsService poolsService)
         {
-            _logsPool = _poolsService.GetPool(typeof(LogItem));
+            _logsPool = poolsService.GetPool(typeof(LogItem));
 
             _logsPool.OnSpawn += AddItem;
             _logsPool.OnUnspawn += RemoveItem;
         }
 
-        private void OnEnable()
-        {
-            if (_logsPool != null)
-            {
-                _logsPool.OnSpawn += AddItem;
-                _logsPool.OnUnspawn += RemoveItem;
-            }
-        }
-
-        private void OnDisable()
+        public void Dispose()
         {
             _logsPool.OnSpawn -= AddItem;
             _logsPool.OnUnspawn -= RemoveItem;
