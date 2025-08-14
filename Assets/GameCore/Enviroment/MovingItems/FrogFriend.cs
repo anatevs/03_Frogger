@@ -3,6 +3,7 @@ using GameManagement;
 using System;
 using System.Threading;
 using UnityEngine;
+using VContainer;
 
 namespace GameCore
 {
@@ -12,8 +13,6 @@ namespace GameCore
         IDamageListener,
         IDisposable
     {
-        public bool IsAtPlayer => _isAtPlayer;
-
         [SerializeField]
         private Transform _playerArmature;
 
@@ -23,26 +22,37 @@ namespace GameCore
         [SerializeField]
         private PoolsService _poolsService;
 
+        [SerializeField]
+        private FrogFriendData _data;
+
+        private PointsCounter _pointsCounter;
+
         private ActiveLogsService _activeLogs;
 
         private Transform _defaultParent;
 
         private CancellationTokenSource _ctn;
 
-        [SerializeField]
-        private FrogFriendData _data;
-
         private bool _isAtPlayer;
+
+        [Inject]
+        public void Construct(PointsCounter pointsCounter)
+        {
+            _pointsCounter = pointsCounter;
+        }
 
         void IDisposable.Dispose()
         {
             _activeLogs.Dispose();
         }
 
-        public void StartInit()//(FrogFriendData data)
+        public void EnableActiveLogs()
         {
             _activeLogs = new ActiveLogsService(_poolsService);
+        }
 
+        public void StartInit()//(FrogFriendData data)
+        {
             _defaultParent = transform.parent;
 
             //_data = data;
@@ -136,6 +146,8 @@ namespace GameCore
             transform.localPosition = Vector3.zero;
 
             _isAtPlayer = true;
+
+            _pointsCounter.AddExtraPoints();
         }
     }
 

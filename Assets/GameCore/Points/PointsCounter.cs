@@ -1,6 +1,5 @@
 using GameManagement;
 using System;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace GameCore
@@ -8,9 +7,14 @@ namespace GameCore
     public class PointsCounter :
         IInitializable,
         IDisposable,
+        IDamageListener,
         IRoundEndListener,
         ILevelEndListener
     {
+        private readonly PointsStorage _storage;
+
+        private readonly PlayerJump _playerJump;
+
         private int _fowrdMoveReward = 10;
 
         private int _roundEndReward = 50;
@@ -21,27 +25,23 @@ namespace GameCore
 
         //private int _halfSecondReward = 10;
 
-        private PointsStorage _storage;
-
-        private PlayerJump _playerJump;
-
-        private FrogFriend _frogFriend;
-
         private int _extraReward = 0;
 
         public PointsCounter(PointsStorage storage,
-            PlayerJump playerJump,
-            FrogFriend frogFriend)
+            PlayerJump playerJump)
         {
             _storage = storage;
             _playerJump = playerJump;
-            _frogFriend = frogFriend;
         }
 
         public void AddExtraPoints()
         {
             _extraReward += _flyOrFriendReward;
-            Debug.Log(_extraReward);
+        }
+
+        public void OnDamage()
+        {
+            _extraReward = 0;
         }
 
         public void OnEndRound()
@@ -54,6 +54,8 @@ namespace GameCore
         public void OnEndLevel()
         {
             _storage.ChangeValue(_levelEndReward);
+
+            _extraReward = 0;
         }
 
         void IInitializable.Initialize()

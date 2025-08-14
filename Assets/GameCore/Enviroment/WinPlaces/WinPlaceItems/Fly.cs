@@ -22,6 +22,7 @@ namespace GameCore
             if (other.gameObject == _playerGO)
             {
                 _pointsCounter.AddExtraPoints();
+
                 gameObject.SetActive(false);
             }
         }

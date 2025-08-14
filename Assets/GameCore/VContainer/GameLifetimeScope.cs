@@ -74,14 +74,14 @@ public class GameLifetimeScope : LifetimeScope
             .AsSelf()
             .WithParameter(borders);
 
-        builder.RegisterComponent<FrogFriend>(_frogFriend)
-            .AsImplementedInterfaces()
-            .AsSelf();
-
         builder.Register<PointsCounter>(Lifetime.Singleton)
             .AsImplementedInterfaces()
             .AsSelf()
             .WithParameter<PlayerJump>(_playerJump);
+
+        builder.RegisterComponent<FrogFriend>(_frogFriend)
+            .AsImplementedInterfaces()
+            .AsSelf();
     }
 
     private void RegisterManagement(IContainerBuilder builder)
