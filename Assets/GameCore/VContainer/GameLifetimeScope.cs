@@ -70,9 +70,14 @@ public class GameLifetimeScope : LifetimeScope
         borders[0] = _horizontalBorders;
         borders[1] = _verticalBorders;
 
-        builder.RegisterEntryPoint<CameraBorders>()
-            .AsSelf()
-            .WithParameter(borders);
+        //builder.Register<CameraBorders>(Lifetime.Singleton)
+        //    .AsImplementedInterfaces()
+        //    //.AsSelf()
+        //    .WithParameter(borders);
+
+        builder.Register<FixedBorders>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
+            .WithParameter(_horizontalBorders);
 
         builder.Register<PointsCounter>(Lifetime.Singleton)
             .AsImplementedInterfaces()

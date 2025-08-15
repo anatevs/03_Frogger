@@ -3,15 +3,17 @@ using VContainer.Unity;
 
 namespace GameCore
 {
-    public class CameraBorders : IInitializable
+    public class CameraBorders :
+        IInitializable,
+        IBorders
     {
-        public float CameraHalfX => _cameraHalfX;
+        public float BordersHalfX => _bordersHalfX;
 
         private readonly BoxCollider[] _horizontalBorders;
 
         private readonly BoxCollider[] _verticalBorders;
 
-        private readonly float _cameraHalfX;
+        private readonly float _bordersHalfX;
 
         private readonly Camera _camera;
 
@@ -22,7 +24,7 @@ namespace GameCore
 
             _camera = Camera.main;
 
-            _cameraHalfX = _camera.orthographicSize * _camera.aspect;
+            _bordersHalfX = _camera.orthographicSize * _camera.aspect;
         }
 
         void IInitializable.Initialize()
@@ -37,7 +39,7 @@ namespace GameCore
 
             var horBoxSize = _horizontalBorders[0].size.x;
 
-            var horBoxPosX = (int)(_cameraHalfX / horBoxSize) + horBoxSize / 2;
+            var horBoxPosX = (int)(_bordersHalfX / horBoxSize) + horBoxSize / 2;
 
             _horizontalBorders[0].transform.position = new Vector3(-horBoxPosX, posY, 0);
             _horizontalBorders[1].transform.position = new Vector3(horBoxPosX, posY, 0);

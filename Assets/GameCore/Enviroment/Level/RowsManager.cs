@@ -15,15 +15,15 @@ namespace GameCore
 
         private readonly Dictionary<int, RowController> _rows = new();
 
-        private float _cameraX;
+        private float _bordersX;
 
         private GameListenersManager _listenersManager;
 
         [Inject]
-        private void Construct(CameraBorders cameraBorders,
+        private void Construct(IBorders borders,
             GameListenersManager listenersManager)
         {
-            _cameraX = cameraBorders.CameraHalfX;
+            _bordersX = borders.BordersHalfX;
 
             _listenersManager = listenersManager;
         }
@@ -48,7 +48,7 @@ namespace GameCore
 
                 var rowController = new RowController(
                     rowData,
-                    _cameraX,
+                    _bordersX,
                     itemsTransform);
 
                 _listenersManager.AddListener(rowController);

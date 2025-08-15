@@ -42,6 +42,8 @@ namespace GameCore
             transform.position = _startPos.position;
 
             _isDamageCollided = false;
+
+            _isOnFloating = false;
         }
 
         private void Awake()
@@ -90,11 +92,9 @@ namespace GameCore
         {
             var collisionLayer = 1 << other.gameObject.layer;
 
-            if (_isOnFloating && (collisionLayer & _wallLayer) > 0)
+            if ((collisionLayer & _wallLayer) > 0)
             {
-                Debug.Log("collision with bounds!");
-
-                _isOnFloating = false;
+                Debug.Log("collision with wall!");
 
                 OnDamaged?.Invoke();
 
