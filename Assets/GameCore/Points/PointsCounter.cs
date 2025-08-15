@@ -15,15 +15,15 @@ namespace GameCore
 
         private readonly PlayerJump _playerJump;
 
-        private int _fowrdMoveReward = 10;
+        private int _fowrdMoveReward = 1;
 
-        private int _roundEndReward = 50;
+        private int _roundEndReward = 5;
 
-        private int _levelEndReward = 1000;
+        private int _levelEndReward = 100;
 
-        private int _flyOrFriendReward = 200;
+        private int _flyOrFriendReward = 20;
 
-        //private int _halfSecondReward = 10;
+        //private int _halfSecondReward = 1;
 
         private int _extraReward = 0;
 
