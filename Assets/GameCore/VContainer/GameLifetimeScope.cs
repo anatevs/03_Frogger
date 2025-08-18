@@ -3,6 +3,7 @@ using VContainer.Unity;
 using UnityEngine;
 using GameManagement;
 using GameCore;
+using UI;
 
 public class GameLifetimeScope : LifetimeScope
 {
@@ -20,6 +21,9 @@ public class GameLifetimeScope : LifetimeScope
 
     [SerializeField]
     private FrogFriend _frogFriend;
+
+    [SerializeField]
+    private TimerView _timerView;
 
     [SerializeField]
     private WinPlace[] _winPlaces;
@@ -83,6 +87,11 @@ public class GameLifetimeScope : LifetimeScope
             .AsImplementedInterfaces()
             .AsSelf()
             .WithParameter<PlayerJump>(_playerJump);
+
+        builder.Register<TimeCounter>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
+            .AsSelf()
+            .WithParameter(_timerView);
 
         builder.RegisterComponent<FrogFriend>(_frogFriend)
             .AsImplementedInterfaces()

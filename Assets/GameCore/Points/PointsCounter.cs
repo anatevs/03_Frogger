@@ -27,6 +27,8 @@ namespace GameCore
 
         private int _extraReward = 0;
 
+        private int _ticksReward;
+
         public PointsCounter(PointsStorage storage,
             PlayerJump playerJump)
         {
@@ -37,6 +39,11 @@ namespace GameCore
         public void AddExtraPoints()
         {
             _extraReward += _flyOrFriendReward;
+        }
+
+        public void SetTicksReward(int ticks)
+        {
+            _ticksReward = ticks;
         }
 
         public void OnDamage()
