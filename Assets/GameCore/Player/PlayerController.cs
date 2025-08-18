@@ -23,6 +23,8 @@ namespace GameCore
 
         private readonly GameListenersManager _listenersManager;
 
+        private readonly TimeCounter _timeCounter;
+
         private bool _isAlive = true;
 
         private int _startLifes = 10;
@@ -31,7 +33,8 @@ namespace GameCore
             PlayerJump playerJump,
             PlayerCollisions player,
             PlayerLifes playerLifes,
-            GameListenersManager listenersManager)
+            GameListenersManager listenersManager,
+            TimeCounter timeCounter)
         {
             _inputHandler = inputHandler;
             _playerJump = playerJump;
@@ -44,6 +47,7 @@ namespace GameCore
             }
 
             _listenersManager = listenersManager;
+            _timeCounter = timeCounter;
         }
 
         void IInitializable.Initialize()
@@ -54,7 +58,7 @@ namespace GameCore
 
             _playerCollisions.OnDamaged += MakeOnDamage;
 
-            
+            _timeCounter.OnTimeIsUp += MakeOnDamage;
         }
 
         void IDisposable.Dispose()
@@ -62,6 +66,8 @@ namespace GameCore
             _inputHandler.OnMoved -= MakeJump;
 
             _playerCollisions.OnDamaged -= MakeOnDamage;
+
+            _timeCounter.OnTimeIsUp -= MakeOnDamage;
         }
 
         private void MakeJump(Vector3Int direction)
