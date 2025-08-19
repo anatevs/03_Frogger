@@ -3,7 +3,6 @@ using GameManagement;
 using System;
 using System.Threading;
 using UI;
-using UnityEngine;
 
 namespace GameCore
 {
@@ -19,8 +18,6 @@ namespace GameCore
 
         private readonly TimerView _view;
 
-        private readonly PointsCounter _pointsCounter;
-
         private readonly float _tickDuration = 0.5f;
 
         private readonly int _maxTicks = 60;
@@ -29,11 +26,9 @@ namespace GameCore
 
         private CancellationTokenSource _ctn;
 
-        public TimeCounter(TimerView view,
-            PointsCounter pointsCounter)
+        public TimeCounter(TimerView view)
         {
             _view = view;
-            _pointsCounter = pointsCounter;
         }
 
         public void OnStartGame()
@@ -89,8 +84,6 @@ namespace GameCore
             _currentTick = tick;
 
             _view.SetValue(tick);
-
-            _pointsCounter.SetTicksReward(_currentTick);
         }
     }
 }

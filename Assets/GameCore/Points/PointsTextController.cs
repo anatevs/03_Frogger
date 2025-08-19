@@ -1,49 +1,35 @@
 ﻿using UI;
-using UnityEngine;
-using VContainer;
 
 namespace GameCore
 {
-    public class PointsTextController : MonoBehaviour
+    public class PointsTextController
     {
-        [SerializeField]
-        private PointsView _view;
+        private readonly PointsView _view;
 
-        [SerializeField]
-        private PointsView _viewLevel;
+        private readonly PointsStorage _storage;
 
-        private PointsStorages _storage;
-
-        [Inject]
-        public void Construct(PointsStorages storage)
+        public PointsTextController(PointsView view,
+            PointsStorage storage)
         {
+            _view = view;
             _storage = storage;
         }
 
-        private void OnEnable()
+        public void Enable()
         {
             _view.SetText(_storage.Value.ToString());
 
-            _storage.OnTotalChanged += SetupTotalText;
-
-            _storage.OnLevelChanged += SetupLevelText;
+            _storage.OnChanged += SetupTotalText;
         }
 
-        private void OnDisable()
+        public void Disable()
         {
-            _storage.OnTotalChanged -= SetupTotalText;
-
-            _storage.OnLevelChanged -= SetupLevelText;
+            _storage.OnChanged -= SetupTotalText;
         }
 
         public void SetupTotalText(int fromPoints, int deltaPoints)
         {
             _view.SetText(fromPoints, deltaPoints).Forget();
-        }
-
-        public void SetupLevelText(int fromLevelPoints, int deltaPoints)
-        {
-            _viewLevel.SetText(fromLevelPoints, deltaPoints).Forget();
         }
     }
 }

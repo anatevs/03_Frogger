@@ -11,9 +11,6 @@ public class GameLifetimeScope : LifetimeScope
     private BoxCollider[] _horizontalBorders = new BoxCollider[2];
 
     [SerializeField]
-    private BoxCollider[] _verticalBorders = new BoxCollider[2];
-
-    [SerializeField]
     private PlayerCollisions _playerCollisions;
 
     [SerializeField]
@@ -52,7 +49,7 @@ public class GameLifetimeScope : LifetimeScope
 
     private void RegisterInfoComponents(IContainerBuilder builder)
     {
-        builder.Register<PointsStorages>(Lifetime.Singleton);
+        builder.Register<PointsStorageController>(Lifetime.Singleton);
     }
 
     private void RegisterComponents(IContainerBuilder builder)
@@ -69,29 +66,19 @@ public class GameLifetimeScope : LifetimeScope
             .AsImplementedInterfaces()
             .AsSelf();
 
-        BoxCollider[][] borders = new BoxCollider[2][];
-
-        borders[0] = _horizontalBorders;
-        borders[1] = _verticalBorders;
-
-        //builder.Register<CameraBorders>(Lifetime.Singleton)
-        //    .AsImplementedInterfaces()
-        //    //.AsSelf()
-        //    .WithParameter(borders);
-
         builder.Register<FixedBorders>(Lifetime.Singleton)
             .AsImplementedInterfaces()
             .WithParameter(_horizontalBorders);
-
-        builder.Register<PointsCounter>(Lifetime.Singleton)
-            .AsImplementedInterfaces()
-            .AsSelf()
-            .WithParameter<PlayerJump>(_playerJump);
 
         builder.Register<TimeCounter>(Lifetime.Singleton)
             .AsImplementedInterfaces()
             .AsSelf()
             .WithParameter(_timerView);
+
+        builder.Register<PointsCounter>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
+            .AsSelf()
+            .WithParameter<PlayerJump>(_playerJump);
 
         builder.RegisterComponent<FrogFriend>(_frogFriend)
             .AsImplementedInterfaces()

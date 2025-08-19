@@ -150,7 +150,7 @@ namespace GameCore
         }
         private bool IsAllWin()
         {
-            return _currentAchieved.Count == 2;// _places.Length;
+            return _currentAchieved.Count == _places.Length;
         }
 
         private UniTask ShowGO(int placeId, int goId, CancellationToken token)
