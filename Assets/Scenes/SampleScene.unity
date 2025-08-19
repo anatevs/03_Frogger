@@ -969,7 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 887405703}
   - component: {fileID: 887405704}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: BorderBox (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 939963166}
   - component: {fileID: 939963167}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: BorderBox (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1437,7 +1437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008611116}
   - component: {fileID: 1008611117}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: BorderBox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1490,7 +1490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1028810137}
   - component: {fileID: 1028810138}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: BorderBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1618,9 +1618,6 @@ MonoBehaviour:
   _horizontalBorders:
   - {fileID: 1028810138}
   - {fileID: 1008611117}
-  _verticalBorders:
-  - {fileID: 939963167}
-  - {fileID: 887405704}
   _playerCollisions: {fileID: 1590453434}
   _playerJump: {fileID: 1590453437}
   _frogFriend: {fileID: 1152368242}
