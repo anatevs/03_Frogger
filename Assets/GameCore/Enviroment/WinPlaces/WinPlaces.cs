@@ -107,7 +107,10 @@ namespace GameCore
 
                 await ShowGO(placeId, goId, token);
 
-                _accidentalGO[goId].SetActive(false);
+                if (!token.IsCancellationRequested)
+                {
+                    _accidentalGO[goId].SetActive(false);
+                }
 
                 await UniTask.WaitForSeconds(appearPeriod,
                     cancellationToken: token);
@@ -147,7 +150,7 @@ namespace GameCore
         }
         private bool IsAllWin()
         {
-            return _currentAchieved.Count == 5;// _places.Length;
+            return _currentAchieved.Count == 2;// _places.Length;
         }
 
         private UniTask ShowGO(int placeId, int goId, CancellationToken token)

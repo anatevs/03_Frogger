@@ -52,7 +52,7 @@ public class GameLifetimeScope : LifetimeScope
 
     private void RegisterInfoComponents(IContainerBuilder builder)
     {
-        builder.Register<PointsStorage>(Lifetime.Singleton);
+        builder.Register<PointsStorages>(Lifetime.Singleton);
     }
 
     private void RegisterComponents(IContainerBuilder builder)

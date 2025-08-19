@@ -96,7 +96,7 @@ namespace GameCore
             {
                 Debug.Log("collision with wall!");
 
-                OnDamaged?.Invoke();
+                //OnDamaged?.Invoke();
 
                 return;
             }
