@@ -47,7 +47,9 @@ namespace GameCore
         {
             for (int i = 0; i < _places.Length; i++)
             {
-                _places[i].OnAchieved += AddAchievedPlace;
+                _places[i].OnAchieveStarted += AddAchievedPlace;
+
+                _places[i].OnAchieveEnded += MakeOnAchieveEnd;
 
                 _places[i].Init(_playerJump);
 
@@ -61,7 +63,9 @@ namespace GameCore
         {
             foreach (var place in _places)
             {
-                place.OnAchieved -= AddAchievedPlace;
+                place.OnAchieveStarted -= AddAchievedPlace;
+
+                place.OnAchieveEnded -= MakeOnAchieveEnd;
             }
         }
 
@@ -128,12 +132,20 @@ namespace GameCore
             {
                 _ctn.Cancel();
 
+                _listenersManager.EndLevel();
+            }
+        }
+
+        private void MakeOnAchieveEnd()
+        {
+            if (IsAllWin())
+            {
                 foreach (var go in _accidentalGO)
                 {
                     GameObject.Destroy(go);
                 }
 
-                _listenersManager.EndLevel();
+                _listenersManager.StartLevel();
 
                 _currentAchieved.Clear();
                 _currentFree.Clear();
@@ -144,10 +156,11 @@ namespace GameCore
 
                     _currentFree.Add(i);
                 }
-
-                return;
             }
+
+            _listenersManager.StartRound();
         }
+
         private bool IsAllWin()
         {
             return _currentAchieved.Count == _places.Length;

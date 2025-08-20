@@ -62,8 +62,6 @@ namespace GameCore
 
         public void SetupLevel()//(FrogFriendData data)
         {
-            _ctn.Cancel();
-
             //_data = data;
 
             Reset();
@@ -87,6 +85,8 @@ namespace GameCore
 
         private void Reset()
         {
+            _ctn.Cancel();
+
             _isAtPlayer = false;
             gameObject.SetActive(false);
             transform.parent = _defaultParent;

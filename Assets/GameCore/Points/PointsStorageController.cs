@@ -1,6 +1,10 @@
+using GameManagement;
+
 namespace GameCore
 {
-    public class PointsStorageController
+    public class PointsStorageController :
+        IRoundStartListener,
+        ILevelStartListener
     {
         public PointsStorage LevelStorage => _levelStorage;
 
@@ -34,16 +38,14 @@ namespace GameCore
             ChangeValue(-_roundPoints);
         }
 
-        public void OnEndRound()
+        public void OnStartRound()
         {
             _roundPoints = 0;
         }
 
-        public void OnEndLevel()
+        public void OnStartLevel()
         {
             _levelStorage.ChangeValue(-_levelStorage.Value);
-
-            _roundPoints = 0;
         }
     }
 }

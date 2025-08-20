@@ -12,9 +12,10 @@ namespace GameCore
         [SerializeField]
         private PointsView _viewLevel;
 
+        [SerializeField]
+        private float _animDuration;
 
         private PointsTextController[] _controllers;
-
 
         private PointsStorageController _storage;
 
@@ -22,6 +23,9 @@ namespace GameCore
         public void Construct(PointsStorageController storage)
         {
             _storage = storage;
+
+            _view.SetupDuration(_animDuration);
+            _viewLevel.SetupDuration(_animDuration);
 
             _controllers = new PointsTextController[2];
 

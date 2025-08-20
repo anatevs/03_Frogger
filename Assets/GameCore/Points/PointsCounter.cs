@@ -9,6 +9,7 @@ namespace GameCore
         IDisposable,
         IDamageListener,
         IRoundEndListener,
+        IRoundStartListener,
         ILevelEndListener
     {
         private readonly PointsStorageController _storages;
@@ -57,14 +58,13 @@ namespace GameCore
             _ticksReward = _timeCounter.CurrentTick * _halfSecondMultiplier;
 
             _storages.ChangeValue(_roundEndReward + _extraReward + _ticksReward);
+        }
 
+        public void OnStartRound()
+        {
             _extraReward = 0;
 
             _ticksReward = 0;
-
-            _storages.OnEndRound();
-
-            _timeCounter.StartTimer();
         }
 
         public void OnEndLevel()
@@ -74,8 +74,6 @@ namespace GameCore
             _extraReward = 0;
 
             _ticksReward = 0;
-
-            _storages.OnEndLevel();
         }
 
         void IInitializable.Initialize()

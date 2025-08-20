@@ -5,7 +5,8 @@ namespace GameCore
 {
     public class LevelManager :
         IStartGameListener,
-        ILevelEndListener
+        ILevelEndListener,
+        ILevelStartListener
     {
         private readonly LevelConfig[] _levelConfigs;
 
@@ -55,12 +56,15 @@ namespace GameCore
 
                 return;
             }
+        }
 
-            var cnf = _levelConfigs[_currentLevelIndex];
+        public void OnStartLevel()
+        {
+            var config = _levelConfigs[_currentLevelIndex];
 
-            _rowsManager.SetupLevelRows(cnf.RowData);
+            _rowsManager.SetupLevelRows(config.RowData);
 
-            _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
+            _winPlaces.SetupWinPlaces(config.WinPlaceGOData);
 
             _frogFriend.SetupLevel();
         }

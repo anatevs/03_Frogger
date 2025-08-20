@@ -8,8 +8,8 @@ namespace GameCore
 {
     public class TimeCounter :
         IStartGameListener,
-        ILevelEndListener,
         IRoundEndListener,
+        IRoundStartListener,
         IDamageListener
     {
         public event Action OnTimeIsUp;
@@ -36,12 +36,6 @@ namespace GameCore
             StartTimer();
         }
 
-        public void OnEndLevel()
-        {
-            CancelTimer();
-            StartTimer();
-        }
-
         public void OnDamage()
         {
             CancelTimer();
@@ -51,6 +45,11 @@ namespace GameCore
         public void OnEndRound()
         {
             CancelTimer();
+        }
+
+        public void OnStartRound()
+        {
+            StartTimer();
         }
 
         public void StartTimer()

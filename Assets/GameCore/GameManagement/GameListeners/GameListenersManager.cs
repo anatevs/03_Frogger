@@ -16,7 +16,11 @@ namespace GameManagement
 
         private readonly List<IRoundEndListener> _roundEndListeners = new();
 
+        private readonly List<IRoundStartListener> _roundStartListeners = new();
+
         private readonly List<ILevelEndListener> _levelEndListeners = new();
+
+        private readonly List<ILevelStartListener> _levelStartListeners = new();
 
         private readonly List<IGameEndListener> _gameEndListeners = new();
 
@@ -54,9 +58,19 @@ namespace GameManagement
                 _roundEndListeners.Add(roundEndListener);
             }
 
+            if (listener is IRoundStartListener roundStartListener)
+            {
+                _roundStartListeners.Add(roundStartListener);
+            }
+
             if (listener is ILevelEndListener levelEndListener)
             {
                 _levelEndListeners.Add(levelEndListener);
+            }
+
+            if (listener is ILevelStartListener levelStartListener)
+            {
+                _levelStartListeners.Add(levelStartListener);
             }
 
             if (listener is IGameEndListener gameEndListener)
@@ -94,11 +108,27 @@ namespace GameManagement
             }
         }
 
+        public void StartRound()
+        {
+            foreach (var listener in _roundStartListeners)
+            {
+                listener.OnStartRound();
+            }
+        }
+
         public void EndLevel()
         {
             foreach (var listener in _levelEndListeners)
             {
                 listener.OnEndLevel();
+            }
+        }
+
+        public void StartLevel()
+        {
+            foreach (var listener in _levelStartListeners)
+            {
+                listener.OnStartLevel();
             }
         }
 

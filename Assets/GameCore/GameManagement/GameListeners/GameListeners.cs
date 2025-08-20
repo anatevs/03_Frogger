@@ -24,9 +24,19 @@ namespace GameManagement
         public void OnEndRound();
     }
 
+    public interface IRoundStartListener : IGameListener
+    {
+        public void OnStartRound();
+    }
+
     public interface ILevelEndListener : IGameListener
     {
         public void OnEndLevel();
+    }
+
+    public interface ILevelStartListener : IGameListener
+    {
+        public void OnStartLevel();
     }
 
     public interface IGameEndListener : IGameListener

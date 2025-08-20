@@ -6,7 +6,7 @@ namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
     public sealed class PlayerCollisions : MonoBehaviour,
-        IRoundEndListener
+        IRoundStartListener
     {
         public event Action OnDamaged;
 
@@ -32,7 +32,7 @@ namespace GameCore
 
         private PlayerJump _playerJump;
 
-        public void OnEndRound()
+        public void OnStartRound()
         {
             SetToStart();
         }

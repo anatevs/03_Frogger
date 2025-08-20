@@ -10,8 +10,12 @@ namespace UI
         [SerializeField]
         private TMP_Text _pointsText;
 
-        [SerializeField]
         private float _animDuration;
+
+        public void SetupDuration(float animDuration)
+        {
+            _animDuration = animDuration;
+        }
 
         public void SetText(string value)
         {

@@ -10,7 +10,9 @@ namespace GameCore
     [RequireComponent(typeof(BoxCollider))]
     public class WinPlace : MonoBehaviour
     {
-        public event Action<int> OnAchieved;
+        public event Action<int> OnAchieveStarted;
+
+        public event Action OnAchieveEnded;
 
         public int Id => _id;
 
@@ -83,21 +85,14 @@ namespace GameCore
             _playerJump = playerJump;
         }
 
-        public void OnPlayerTriggered(PlayerJump playerJump)
-        {
-            if (!_isDanger)
-            {
-                _playerJump = playerJump;
-
-                _playerJump.OnJumpEnd += MakeOnAchieved;
-            }
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject == _playerJump.gameObject)
             {
-                OnPlayerTriggered(_playerJump);
+                if (!_isDanger)
+                {
+                    _playerJump.OnJumpEnd += MakeOnAchieved;
+                }
             }
         }
 
@@ -108,10 +103,14 @@ namespace GameCore
             var sequence = AnimateAchievedView();
 
             sequence
-                .OnStart(() => _playerJump.gameObject.SetActive(false))
+                .OnStart(() =>
+                {
+                    _playerJump.gameObject.SetActive(false);
+                    OnAchieveStarted?.Invoke(_id);
+                })
                 .OnComplete(() =>
                 {
-                    OnAchieved?.Invoke(_id);
+                    OnAchieveEnded?.Invoke();
                     _playerJump.gameObject.SetActive(true);
                 })
                 .Play();
