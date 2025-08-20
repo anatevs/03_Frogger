@@ -49,7 +49,7 @@ public class GameLifetimeScope : LifetimeScope
 
     private void RegisterInfoComponents(IContainerBuilder builder)
     {
-        builder.Register<PointsStorageController>(Lifetime.Singleton)
+        builder.Register<PointsStorageManager>(Lifetime.Singleton)
             .AsImplementedInterfaces()
             .AsSelf();
     }

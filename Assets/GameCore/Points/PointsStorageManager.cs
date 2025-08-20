@@ -2,7 +2,7 @@ using GameManagement;
 
 namespace GameCore
 {
-    public class PointsStorageController :
+    public class PointsStorageManager :
         IRoundStartListener,
         ILevelStartListener
     {
@@ -10,18 +10,31 @@ namespace GameCore
 
         public PointsStorage TotalStorage => _totalStorage;
 
+        public int BestScore => _bestScore;
+
         private PointsStorage _totalStorage;
 
         private PointsStorage _levelStorage;
 
+        private int _bestScore = 0;
+
         private int _roundPoints = 0;
 
 
-        public PointsStorageController()
+        public PointsStorageManager()
         {
             _totalStorage = new PointsStorage();
 
             _levelStorage = new PointsStorage();
+        }
+
+        public void SetupStorages(int total, int level, int bestScore)
+        {
+            _totalStorage.ChangeValue(total);
+
+            _levelStorage.ChangeValue(level);
+
+            _bestScore = bestScore;
         }
 
         public void ChangeValue(int amount)

@@ -17,20 +17,20 @@ namespace GameCore
 
         private PointsTextController[] _controllers;
 
-        private PointsStorageController _storage;
+        private PointsStorageManager _storages;
 
         [Inject]
-        public void Construct(PointsStorageController storage)
+        public void Construct(PointsStorageManager storages)
         {
-            _storage = storage;
+            _storages = storages;
 
             _view.SetupDuration(_animDuration);
             _viewLevel.SetupDuration(_animDuration);
 
             _controllers = new PointsTextController[2];
 
-            _controllers[0] = new PointsTextController(_view, _storage.TotalStorage);
-            _controllers[1] = new PointsTextController(_viewLevel, _storage.LevelStorage);
+            _controllers[0] = new PointsTextController(_view, _storages.TotalStorage);
+            _controllers[1] = new PointsTextController(_viewLevel, _storages.LevelStorage);
         }
 
         private void OnEnable()

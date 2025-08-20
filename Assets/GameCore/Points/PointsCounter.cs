@@ -12,7 +12,7 @@ namespace GameCore
         IRoundStartListener,
         ILevelEndListener
     {
-        private readonly PointsStorageController _storages;
+        private readonly PointsStorageManager _storages;
 
         private readonly PlayerJump _playerJump;
 
@@ -32,7 +32,7 @@ namespace GameCore
 
         private int _ticksReward = 0;
 
-        public PointsCounter(PointsStorageController storages,
+        public PointsCounter(PointsStorageManager storages,
             PlayerJump playerJump,
             TimeCounter timeCounter)
         {
