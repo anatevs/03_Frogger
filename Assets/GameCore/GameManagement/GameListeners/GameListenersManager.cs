@@ -12,6 +12,10 @@ namespace GameManagement
 
         private readonly List<IUpdateListener> _updateListeners = new();
 
+        private readonly List<IPauseListener> _pauseListeners = new();
+
+        private readonly List<IResumeListener> _resumeListeners = new();
+
         private readonly List<IDamageListener> _restartRoundListeners = new();
 
         private readonly List<IRoundEndListener> _roundEndListeners = new();
@@ -46,6 +50,16 @@ namespace GameManagement
             if (listener is IUpdateListener updateListener)
             {
                 _updateListeners.Add(updateListener);
+            }
+
+            if (listener is IPauseListener pauseListener)
+            {
+                _pauseListeners.Add(pauseListener);
+            }
+
+            if (listener is IResumeListener resumeListener)
+            {
+                _resumeListeners.Add(resumeListener);
             }
 
             if (listener is IDamageListener restartRoundListener)
@@ -89,6 +103,22 @@ namespace GameManagement
             foreach (var listener in _startGameListeners)
             {
                 listener.OnStartGame();
+            }
+        }
+
+        public void PauseGame()
+        {
+            foreach (var listener in _pauseListeners)
+            {
+                listener.OnPause();
+            }
+        }
+
+        public void ResumeGame()
+        {
+            foreach (var listener in _resumeListeners)
+            {
+                listener.OnResume();
             }
         }
 

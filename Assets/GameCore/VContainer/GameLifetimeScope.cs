@@ -34,6 +34,12 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField]
     private LevelConfig[] _levelConfigs;
 
+    [SerializeField]
+    private PauseMenuView _pauseMenuView;
+
+    [SerializeField]
+    private GameplayUIView _gameplayUIView;
+
     protected override void Configure(IContainerBuilder builder)
     {
         RegisterInfoComponents(builder);
@@ -57,8 +63,6 @@ public class GameLifetimeScope : LifetimeScope
     private void RegisterComponents(IContainerBuilder builder)
     {
         builder.Register<PlayerLifes>(Lifetime.Singleton);
-
-
 
         builder.RegisterComponent(_inputHandler)
             .AsImplementedInterfaces()
@@ -103,6 +107,16 @@ public class GameLifetimeScope : LifetimeScope
     {
         builder.Register<PlayerController>(Lifetime.Singleton)
             .WithParameter<PlayerJump>(_playerJump)
+            .AsImplementedInterfaces()
+            .AsSelf();
+
+        builder.Register<GameplayUIController>(Lifetime.Singleton)
+            .WithParameter<GameplayUIView>(_gameplayUIView)
+            .AsImplementedInterfaces()
+            .AsSelf();
+
+        builder.Register<PauseMenuController>(Lifetime.Singleton)
+            .WithParameter<PauseMenuView>(_pauseMenuView)
             .AsImplementedInterfaces()
             .AsSelf();
     }

@@ -17,6 +17,8 @@ namespace UI
 
         public void Show(string bestScore)
         {
+            _resumeButton.onClick.AddListener(ClickResume);
+
             _bestScoreText.text = bestScore;
 
             gameObject.SetActive(true);
@@ -24,9 +26,15 @@ namespace UI
 
         public void Hide()
         {
+            _resumeButton.onClick.RemoveAllListeners();
+
             gameObject.SetActive(false);
         }
 
+        private void ClickResume()
+        {
+            OnResumeClicked?.Invoke();
+        }
 
         //current info: completed levels, total score
     }

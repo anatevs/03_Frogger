@@ -14,6 +14,16 @@ namespace GameManagement
         public void OnUpdate();
     }
 
+    public interface IPauseListener : IGameListener
+    {
+        public void OnPause();
+    }
+
+    public interface IResumeListener : IGameListener
+    {
+        public void OnResume();
+    }
+
     public interface IDamageListener : IGameListener
     {
         public void OnDamage();
