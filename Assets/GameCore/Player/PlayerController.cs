@@ -9,7 +9,9 @@ namespace GameCore
 {
     public class PlayerController :
         IInitializable,
-        IDisposable
+        IDisposable,
+        IPauseListener,
+        IResumeListener
     {
         private readonly InputHandler _inputHandler;
 
@@ -68,6 +70,16 @@ namespace GameCore
             _playerCollisions.OnDamaged -= MakeOnDamage;
 
             _timeCounter.OnTimeIsUp -= MakeOnDamage;
+        }
+
+        public void OnPause()
+        {
+            _isAlive = false;
+        }
+
+        public void OnResume()
+        {
+            _isAlive = true;
         }
 
         private void MakeJump(Vector3Int direction)

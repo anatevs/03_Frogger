@@ -1,5 +1,6 @@
 ﻿using GameCore;
 using GameManagement;
+using UnityEngine;
 
 namespace UI
 {
@@ -40,6 +41,10 @@ namespace UI
         public void Hide()
         {
             _listenersManager.ResumeGame();
+
+
+            Time.timeScale = 1f;
+
 
             _view.OnResumeClicked -= Hide;
 

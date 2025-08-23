@@ -99,7 +99,7 @@ namespace GameCore
         {
             var appearPeriod = _goData[goId].ShowPeriod;
 
-            await UniTask.WaitForSeconds(_goData[goId].FirstDelay);
+            await UniTask.WaitForSeconds(_goData[goId].FirstDelay, cancellationToken: token);
 
             while (!IsAllWin())
             {

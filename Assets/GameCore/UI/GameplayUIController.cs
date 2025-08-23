@@ -1,4 +1,5 @@
 ﻿using GameManagement;
+using UnityEngine;
 
 namespace UI
 {
@@ -37,6 +38,11 @@ namespace UI
         public void Hide()
         {
             _listenersManager.PauseGame();
+
+
+            Time.timeScale = 0f;
+
+
 
             _view.OnPauseClicked -= Hide;
 
