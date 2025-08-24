@@ -58,6 +58,10 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<PointsStorageManager>(Lifetime.Singleton)
             .AsImplementedInterfaces()
             .AsSelf();
+
+        builder.Register<TimeScaleSetter>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
+            .AsSelf();
     }
 
     private void RegisterComponents(IContainerBuilder builder)

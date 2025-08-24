@@ -39,11 +39,6 @@ namespace UI
         {
             _listenersManager.PauseGame();
 
-
-            Time.timeScale = 0f;
-
-
-
             _view.OnPauseClicked -= Hide;
 
             _view.Hide();

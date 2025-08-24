@@ -16,17 +16,21 @@ namespace GameCore
 
         private readonly FrogFriend _frogFriend;
 
+        private readonly GameListenersManager _listenersManager;
+
         private int _currentLevelIndex;
 
         public LevelManager(LevelConfig[] levelConfigs,
             RowsManager rowsManager,
             WinPlaces winPlaces,
-            FrogFriend frogFriend)
+            FrogFriend frogFriend,
+            GameListenersManager listenersManager)
         {
             _levelConfigs = levelConfigs;
             _rowsManager = rowsManager;
             _winPlaces = winPlaces;
             _frogFriend = frogFriend;
+            _listenersManager = listenersManager;
         }
 
         public void OnStartGame()
@@ -50,6 +54,8 @@ namespace GameCore
 
             if (_currentLevelIndex >= _levelConfigs.Length)
             {
+                _listenersManager.EndGame();
+
                 _currentLevelIndex = 0;
 
                 Debug.Log("All levels completed, restarting from the first level.");

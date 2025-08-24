@@ -42,10 +42,6 @@ namespace UI
         {
             _listenersManager.ResumeGame();
 
-
-            Time.timeScale = 1f;
-
-
             _view.OnResumeClicked -= Hide;
 
             _view.Hide();
