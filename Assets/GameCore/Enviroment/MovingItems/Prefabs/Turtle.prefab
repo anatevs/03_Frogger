@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34957523404755352}
   - component: {fileID: 6538072042694183401}
+  - component: {fileID: 9045965137956789004}
   m_Layer: 6
   m_Name: Turtle
   m_TagString: Untagged
@@ -52,8 +53,23 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.5, z: 0.65}
+  m_Size: {x: 0.8, y: 0.36, z: 0.65}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9045965137956789004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7978204230994453840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789cf9f7656a29c42af81964da6ec56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changeDuration: 1
+  _stayDuration: 1.5
+  _isDive: 0
 --- !u!1001 &4915524904532854053
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -39,13 +39,13 @@ namespace GameCore
 
             var cnf = _levelConfigs[_currentLevelIndex];
 
-            _frogFriend.EnableActiveLogs();
+            //_frogFriend.EnableActiveLogs();
 
-            _rowsManager.InitLevelRows(cnf.RowData);
+            //_rowsManager.InitLevelRows(cnf.RowData);
 
-            _winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
+            //_winPlaces.SetupWinPlaces(cnf.WinPlaceGOData);
 
-            _frogFriend.StartInit();
+            //_frogFriend.StartInit();
         }
 
         public void OnEndLevel()
