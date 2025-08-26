@@ -12,11 +12,14 @@ namespace GameCore
 
         private Vector3 _diveColliderPos;
 
-        private readonly float _defaultPosY = 0.06f;
+        private readonly float _defaultPosY = 0f;
 
-        private readonly float[] _divePosY = {-0.07f, -0.14f };
+        private readonly float[] _divePosY = {-0.13f, -0.2f };
 
         private BoxCollider _collider;
+
+        [SerializeField]
+        private SpriteRenderer[] _circleSprites;
 
         [SerializeField]
         private float _changeDuration;
@@ -48,7 +51,6 @@ namespace GameCore
 
                 Dive(_changeDuration, _stayDuration).Play();
             }
-
         }
 
 
@@ -70,15 +72,25 @@ namespace GameCore
 
             sequence
                 .Append(transform.DOLocalMoveY(_divePosY[0], changeDuration))
+                .Join(_circleSprites[0].DOFade(1, changeDuration))
+
                 .AppendInterval(stayDuration)
+
                 .AppendCallback(() => _collider.center = _diveColliderPos)
                 .Append(transform.DOMoveY(_divePosY[1], changeDuration))
+                .Join(_circleSprites[1].DOFade(1, changeDuration))
+
                 .AppendInterval(stayDuration)
                 .AppendInterval(stayDuration)
+
                 .Append(transform.DOMoveY(_divePosY[0], changeDuration))
+                .Join(_circleSprites[1].DOFade(0, changeDuration))
                 .AppendCallback(() => _collider.center = _defaultColliderPos)
+
                 .AppendInterval(stayDuration)
-                .Append(transform.DOMoveY(_defaultPosY, changeDuration));
+
+                .Append(transform.DOMoveY(_defaultPosY, changeDuration))
+                .Join(_circleSprites[0].DOFade(0, changeDuration));
 
             return sequence;
         }
