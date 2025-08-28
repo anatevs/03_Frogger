@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore
@@ -13,18 +12,11 @@ namespace GameCore
         [SerializeField]
         private MovingItem[] _prefabs;
 
-        private readonly Dictionary<Type, MovingItemPool> _pools = new();
-
-        private readonly Dictionary<string, MovingItemPool> _poolNames = new();
-
-        public MovingItemPool GetPool(Type itemType)
-        {
-            return _pools[itemType];
-        }
+        private readonly Dictionary<string, MovingItemPool> _pools = new();
 
         public MovingItemPool GetPool(string name)
         {
-            return _poolNames[name];
+            return _pools[name];
         }
 
         private void Awake()
@@ -38,9 +30,7 @@ namespace GameCore
             {
                 var pool = new MovingItemPool(prefab, _poolsTransform);
 
-                _pools.Add(prefab.GetType(), pool);
-
-                _poolNames.Add(prefab.Id, pool);
+                _pools.Add(prefab.Id, pool);
             }
         }
     }

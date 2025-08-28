@@ -23,6 +23,9 @@ namespace GameCore
         private PoolsService _poolsService;
 
         [SerializeField]
+        private LogItem _logPrefab;
+
+        [SerializeField]
         private FrogFriendData _data;
 
         private PointsCounter _pointsCounter;
@@ -48,7 +51,7 @@ namespace GameCore
 
         public void EnableActiveLogs()
         {
-            _activeLogs = new ActiveLogsService(_poolsService);
+            _activeLogs = new ActiveLogsService(_poolsService, _logPrefab);
         }
 
         public void StartInit()//(FrogFriendData data)

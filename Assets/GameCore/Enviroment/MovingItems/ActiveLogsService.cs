@@ -10,9 +10,9 @@ namespace GameCore
 
         private readonly List<MovingItem> _logs = new();
 
-        public ActiveLogsService(PoolsService poolsService)
+        public ActiveLogsService(PoolsService poolsService, LogItem logPrefab)
         {
-            _logsPool = poolsService.GetPool(typeof(LogItem));
+            _logsPool = poolsService.GetPool(logPrefab.Id);
 
             _logsPool.OnSpawn += AddItem;
             _logsPool.OnUnspawn += RemoveItem;

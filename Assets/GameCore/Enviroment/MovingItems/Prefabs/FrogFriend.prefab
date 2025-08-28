@@ -69,7 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerArmature: {fileID: 0}
   _playerGO: {fileID: 0}
-  _activeLogs: {fileID: 0}
+  _poolsService: {fileID: 0}
+  _logPrefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   _data:
     <StayDuration>k__BackingField: 5
     <Period>k__BackingField: 2

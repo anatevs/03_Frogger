@@ -27,9 +27,9 @@ MonoBehaviour:
     <ItemsData>k__BackingField:
     - AppearProb: 0
       LengthScaleRange:
-      - 0.6
-      - 1.2
-      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+      - 1
+      - 1
+      Prefab: {fileID: 285723175976736418, guid: a491071afecfee6449bc382b6e092125, type: 3}
   - <ZPos>k__BackingField: 2
     <Speed>k__BackingField: -0.6
     <MinDistance>k__BackingField: 2
