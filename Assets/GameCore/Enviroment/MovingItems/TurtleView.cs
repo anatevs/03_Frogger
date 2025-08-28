@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System.Collections;
 using UnityEngine;
 
 namespace GameCore
@@ -8,27 +7,27 @@ namespace GameCore
     {
         private readonly float _colliderDiveShift = -0.06f;
 
-        private Vector3 _defaultColliderPos;
-
-        private Vector3 _diveColliderPos;
-
         private readonly float _defaultPosY = 0f;
 
         private readonly float[] _divePosY = {-0.13f, -0.2f };
 
-        private BoxCollider _collider;
-
         [SerializeField]
         private SpriteRenderer[] _circleSprites;
 
-        [SerializeField]
-        private float _changeDuration;
+        //[SerializeField]
+        //private float _changeDuration;
 
-        [SerializeField]
-        private float _stayDuration;
+        //[SerializeField]
+        //private float _stayDuration;
 
-        [SerializeField]
-        private bool _isDive;
+        private Vector3 _defaultColliderPos;
+
+        private Vector3 _diveColliderPos;
+
+        private BoxCollider _collider;
+
+        //[SerializeField]
+        //private bool _isDive;
 
         private void Awake()
         {
@@ -43,15 +42,15 @@ namespace GameCore
         }
 
 
-        private void Update()
-        {
-            if (_isDive)
-            {
-                _isDive = false;
+        //private void Update()
+        //{
+        //    if (_isDive)
+        //    {
+        //        _isDive = false;
 
-                Dive(_changeDuration, _stayDuration).Play();
-            }
-        }
+        //        Dive(_changeDuration, _stayDuration).Play();
+        //    }
+        //}
 
 
 

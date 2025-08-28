@@ -14,6 +14,11 @@ namespace GameCore
 
         public int MoveDirection => _moveDirectionX;
 
+        public string Id => _id;
+
+        [SerializeField]
+        private string _id;
+
         protected float _speed;
 
         protected int _moveDirectionX = 1;

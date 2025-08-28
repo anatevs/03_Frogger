@@ -72,9 +72,15 @@ namespace GameCore
         {
             for (int i = 0; i < rowData.ItemsData.Length; i++)
             {
-                var itemType = rowData.ItemsData[i].Prefab.GetType();
+                //var itemType = rowData.ItemsData[i].Prefab.GetType();
 
-                var pool = _poolService.GetPool(itemType);
+                //var pool = _poolService.GetPool(itemType);
+
+
+                var itemId = rowData.ItemsData[i].Prefab.Id;
+
+                var pool = _poolService.GetPool(itemId);
+
 
                 rowData.ItemsData[i].Pool = pool;
             }

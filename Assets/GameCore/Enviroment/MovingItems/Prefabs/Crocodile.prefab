@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8929587f37f27de45ba82dba29d87ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: Crocodile
   _viewTransform: {fileID: 2596890205671053634}
 --- !u!1001 &2558247583181684393
 PrefabInstance:
