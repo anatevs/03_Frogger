@@ -372,6 +372,11 @@ MonoBehaviour:
   - {fileID: 3280346816184696229, guid: 09fdad35535a69e499083741fd5e6d49, type: 3}
   - {fileID: 285723175976736418, guid: a491071afecfee6449bc382b6e092125, type: 3}
   - {fileID: 752787103509172903, guid: 6e0dc0ddd53d24c46b990926930597da, type: 3}
+  - {fileID: 2697964278936713183, guid: 78f039aeffad3b041a283cd5789d5336, type: 3}
+  - {fileID: 8950926597977774773, guid: c7e209159ef18214aa876f6138e437cf, type: 3}
+  - {fileID: 3360412627429711159, guid: 687108b02520c0143b961bace41c4bdd, type: 3}
+  - {fileID: 1824120866299927730, guid: 702464af49d8a0644a2460a68b5938ae, type: 3}
+  - {fileID: 2476672701519416320, guid: 50422a0db866e1e4e9dc3afd4b03e031, type: 3}
 --- !u!4 &410424646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3427590627796141019, guid: a5814a166b195f54584d0cafa719aa43, type: 3}
