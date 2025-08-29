@@ -3,7 +3,7 @@
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class Fly : MonoBehaviour
+    public sealed class Fly : MonoBehaviour
     {
         private GameObject _playerGO;
 

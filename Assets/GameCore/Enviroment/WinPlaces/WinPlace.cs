@@ -8,7 +8,7 @@ using UnityEngine;
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class WinPlace : MonoBehaviour
+    public sealed class WinPlace : MonoBehaviour
     {
         public event Action<int> OnAchieveStarted;
 

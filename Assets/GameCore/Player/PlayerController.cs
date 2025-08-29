@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace GameCore
 {
-    public class PlayerController :
+    public sealed class PlayerController :
         IInitializable,
         IDisposable,
         IPauseListener,

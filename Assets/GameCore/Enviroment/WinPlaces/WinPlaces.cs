@@ -8,7 +8,7 @@ using VContainer.Unity;
 
 namespace GameCore
 {
-    public class WinPlaces :
+    public sealed class WinPlaces :
         IInitializable,
         IDisposable
     {

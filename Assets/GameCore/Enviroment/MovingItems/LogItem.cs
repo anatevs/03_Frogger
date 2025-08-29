@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class LogItem : MovingItem
+    public sealed class LogItem : MovingItem
     {
         [SerializeField]
         private Transform _view;

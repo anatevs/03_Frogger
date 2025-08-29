@@ -5,7 +5,7 @@ using VContainer;
 
 namespace GameCore
 {
-    public class RowsManager : MonoBehaviour
+    public sealed class RowsManager : MonoBehaviour
     {
         [SerializeField]
         private PoolsService _poolService;

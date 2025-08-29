@@ -2,7 +2,7 @@
 
 namespace GameManagement
 {
-    public class GameManager :
+    public sealed class GameManager :
         IStartable
     {
         private readonly GameListenersManager _listenersManager;

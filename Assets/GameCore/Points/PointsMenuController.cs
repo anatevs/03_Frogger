@@ -4,7 +4,7 @@ using VContainer;
 
 namespace GameCore
 {
-    public class PointsMenuController : MonoBehaviour
+    public sealed class PointsMenuController : MonoBehaviour
     {
         [SerializeField]
         private PointsView _view;

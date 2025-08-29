@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class PauseMenuView : MonoBehaviour
+    public sealed class PauseMenuView : MonoBehaviour
     {
         public event Action OnResumeClicked;
 

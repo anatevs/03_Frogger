@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class PointsStorage
+    public sealed class PointsStorage
     {
         public event Action<int, int> OnChanged;
 

@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class FixedBorders :
+    public sealed class FixedBorders :
         IBorders
     {
         public float BordersHalfX => _bordersHalfX;

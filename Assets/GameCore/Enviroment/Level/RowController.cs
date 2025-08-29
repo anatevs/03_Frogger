@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class RowController : 
+    public sealed class RowController : 
         IUpdateListener
     {
         private readonly float _cameraX;

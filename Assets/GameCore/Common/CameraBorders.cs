@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace GameCore
 {
-    public class CameraBorders :
+    public sealed class CameraBorders :
         IInitializable,
         IBorders
     {

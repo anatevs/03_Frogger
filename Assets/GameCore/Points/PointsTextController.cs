@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class PointsTextController
+    public sealed class PointsTextController
     {
         private readonly PointsView _view;
 

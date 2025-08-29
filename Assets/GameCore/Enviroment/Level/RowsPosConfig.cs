@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class RowsPosConfig : ScriptableObject
+    public sealed class RowsPosConfig : ScriptableObject
     {
         [SerializeField]
         private float[] _rowZPos = new float[10];

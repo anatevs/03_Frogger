@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class PlayerView : MonoBehaviour
+    public sealed class PlayerView : MonoBehaviour
     {
         [SerializeField]
         private GameObject _deathGO;

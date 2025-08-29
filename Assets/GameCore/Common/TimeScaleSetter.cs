@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class TimeScaleSetter :
+    public sealed class TimeScaleSetter :
         IPauseListener,
         IResumeListener,
         IStartGameListener,

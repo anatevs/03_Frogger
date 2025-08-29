@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class GameplayUIView : MonoBehaviour
+    public sealed class GameplayUIView : MonoBehaviour
     {
         public event Action OnPauseClicked;
 

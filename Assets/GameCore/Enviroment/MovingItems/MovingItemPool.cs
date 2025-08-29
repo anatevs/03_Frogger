@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class MovingItemPool
+    public sealed class MovingItemPool
     {
         public event Action<MovingItem> OnSpawn;
 

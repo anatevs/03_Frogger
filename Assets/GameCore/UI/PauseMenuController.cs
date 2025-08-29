@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class PauseMenuController :
+    public sealed class PauseMenuController :
         IPauseListener
     {
         private readonly PauseMenuView _view;

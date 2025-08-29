@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace GameCore
 {
-    public class PointsCounter :
+    public sealed class PointsCounter :
         IInitializable,
         IDisposable,
         IDamageListener,

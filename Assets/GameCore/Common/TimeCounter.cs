@@ -6,7 +6,7 @@ using UI;
 
 namespace GameCore
 {
-    public class TimeCounter :
+    public sealed class TimeCounter :
         IStartGameListener,
         IRoundEndListener,
         IRoundStartListener,

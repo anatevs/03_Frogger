@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class LevelManager :
+    public sealed class LevelManager :
         IStartGameListener,
         ILevelEndListener,
         ILevelStartListener

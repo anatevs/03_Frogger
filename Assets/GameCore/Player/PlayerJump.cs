@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class PlayerJump : MonoBehaviour
+    public sealed class PlayerJump : MonoBehaviour
     {
         public event Action OnJumpEnd;
 

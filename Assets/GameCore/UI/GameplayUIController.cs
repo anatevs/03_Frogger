@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class GameplayUIController :
+    public sealed class GameplayUIController :
         IStartGameListener,
         IResumeListener
     {

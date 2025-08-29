@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class PlayerLifes
+    public sealed class PlayerLifes
     {
         public event Action<int> OnLifesChanged;
 

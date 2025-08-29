@@ -239,8 +239,8 @@ MonoBehaviour:
   _circleSprites:
   - {fileID: 4074959621002916714}
   - {fileID: 6417638481382205256}
-  _changeDuration: 1
-  _stayDuration: 1
+  _changeDuration: 0.5
+  _stayDuration: 0.5
   _isDive: 0
 --- !u!1 &8105732981492509361
 GameObject:

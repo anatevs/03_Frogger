@@ -2,7 +2,7 @@ using GameManagement;
 
 namespace GameCore
 {
-    public class PointsStorageManager :
+    public sealed class PointsStorageManager :
         IRoundStartListener,
         ILevelStartListener
     {

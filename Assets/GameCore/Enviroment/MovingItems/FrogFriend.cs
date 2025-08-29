@@ -8,7 +8,7 @@ using VContainer;
 namespace GameCore
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class FrogFriend : MonoBehaviour,
+    public sealed class FrogFriend : MonoBehaviour,
         IRoundEndListener,
         IDamageListener,
         IDisposable

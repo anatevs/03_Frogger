@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class Crocodile : MovingItem
+    public sealed class Crocodile : MovingItem
     {
         [SerializeField]
         private Transform _viewTransform;

@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class ActiveLogsService
+    public sealed class ActiveLogsService
     {
         public List<MovingItem> Logs => _logs;
 

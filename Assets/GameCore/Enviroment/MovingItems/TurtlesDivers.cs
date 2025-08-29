@@ -5,27 +5,22 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class TurtlesDivers : MovingItem
+    public sealed class TurtlesDivers : MovingItem
     {
-        [SerializeField]
-        private float _changeDuration;
-
-        [SerializeField]
-        private float _stayDuration;
-
-        [SerializeField]
-        private float _divePeriod;
-
-        [SerializeField]
-        private float[] _startDelay = { 0f, 2f };
-
         [SerializeField]
         private TurtleDiverView[] _views;
 
+        private float _changeDuration = 0.5f;
+
+        private float _stayDuration = 0.6f;
+
+        private float _divePeriod = 3f;
+
+        private float[] _startDelay = { 0f, 2f };
+
         private readonly float _lookRot = 180;
 
-        private CancellationTokenSource _cts = new CancellationTokenSource();
-
+        private CancellationTokenSource _cts = new();
 
         private void OnDisable()
         {

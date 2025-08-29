@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class TurtleDiverView : MonoBehaviour
+    public sealed class TurtleDiverView : MonoBehaviour
     {
         private readonly float _colliderDiveShift = -0.06f;
 
@@ -21,15 +21,6 @@ namespace GameCore
 
         private BoxCollider _collider;
 
-        [SerializeField]
-        private float _changeDuration;
-
-        [SerializeField]
-        private float _stayDuration;
-
-        [SerializeField]
-        private bool _isDive;
-
         private void Awake()
         {
             _collider = GetComponent<BoxCollider>();
@@ -41,20 +32,6 @@ namespace GameCore
                 _colliderDiveShift,
                 _diveColliderPos.z);
         }
-
-
-        private void Update()
-        {
-            if (_isDive)
-            {
-                _isDive = false;
-
-                Dive(_changeDuration, _stayDuration).Play();
-            }
-        }
-
-
-
 
         public void SetToDefaultPos()
         {

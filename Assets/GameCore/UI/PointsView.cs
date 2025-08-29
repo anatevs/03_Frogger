@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class PointsView : MonoBehaviour
+    public sealed class PointsView : MonoBehaviour
     {
         [SerializeField]
         private TMP_Text _pointsText;

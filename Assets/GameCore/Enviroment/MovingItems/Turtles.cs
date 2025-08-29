@@ -2,7 +2,7 @@
 
 namespace GameCore
 {
-    public class Turtles : MovingItem
+    public sealed class Turtles : MovingItem
     {
         [SerializeField]
         private Transform[] _viewTransforms;

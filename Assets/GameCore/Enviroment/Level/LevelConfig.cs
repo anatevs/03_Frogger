@@ -5,7 +5,7 @@ namespace GameCore
 {
     [CreateAssetMenu(fileName = "LevelConfig",
         menuName = "Configs/LevelConfig")]
-    public class LevelConfig : ScriptableObject
+    public sealed class LevelConfig : ScriptableObject
     {
         public RowData[] RowData => _rowData;
 

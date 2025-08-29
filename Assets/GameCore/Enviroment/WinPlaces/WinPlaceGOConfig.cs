@@ -5,7 +5,7 @@ namespace GameCore
 {
     [CreateAssetMenu(fileName = "WinPlaceGO",
         menuName = "Configs/WinPlaceGO")]
-    public class WinPlaceGOConfig : ScriptableObject
+    public sealed class WinPlaceGOConfig : ScriptableObject
     {
         public GameObject Prefab => _prefab;
 

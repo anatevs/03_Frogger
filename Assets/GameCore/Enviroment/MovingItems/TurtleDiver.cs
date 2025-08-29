@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GameCore
 {
-    public class TurtlesDiver : MovingItem
+    public sealed class TurtlesDiver : MovingItem
     {
         [SerializeField]
         private float _changeDuration;
