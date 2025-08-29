@@ -46,7 +46,10 @@ namespace GameCore
 
         void IDisposable.Dispose()
         {
-            _activeLogs.Dispose();
+            if (_activeLogs != null)
+            {
+                _activeLogs.Dispose();
+            }
         }
 
         public void EnableActiveLogs()

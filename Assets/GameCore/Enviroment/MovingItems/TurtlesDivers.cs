@@ -1,12 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using System.Collections;
 using System.Threading;
 using UnityEngine;
 
 namespace GameCore
 {
-    public class TurtlesDiver : MovingItem
+    public class TurtlesDivers : MovingItem
     {
         [SerializeField]
         private float _changeDuration;
@@ -16,6 +15,9 @@ namespace GameCore
 
         [SerializeField]
         private float _divePeriod;
+
+        [SerializeField]
+        private float[] _startDelay = { 0f, 2f };
 
         [SerializeField]
         private TurtleDiverView[] _views;
@@ -35,6 +37,12 @@ namespace GameCore
             base.Init(speed, startPos, lengthScale);
 
             _cts = new CancellationTokenSource();
+
+            UniTask
+                .WaitForSeconds(Random.Range(_startDelay[0], _startDelay[1]),
+                cancellationToken: _cts.Token)
+                .Forget();
+
 
             for (int i = 0; i < _views.Length; i++)
             {

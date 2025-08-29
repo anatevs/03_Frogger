@@ -29,7 +29,12 @@ MonoBehaviour:
       LengthScaleRange:
       - 1
       - 1
-      Prefab: {fileID: 285723175976736418, guid: a491071afecfee6449bc382b6e092125, type: 3}
+      Prefab: {fileID: 3280346816184696229, guid: 09fdad35535a69e499083741fd5e6d49, type: 3}
+    - AppearProb: 0.5
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 752787103509172903, guid: 6e0dc0ddd53d24c46b990926930597da, type: 3}
   - <ZPos>k__BackingField: 2
     <Speed>k__BackingField: -0.6
     <MinDistance>k__BackingField: 2
@@ -50,15 +55,20 @@ MonoBehaviour:
       - 0.6
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
   - <ZPos>k__BackingField: 4
-    <Speed>k__BackingField: 1
+    <Speed>k__BackingField: -1
     <MinDistance>k__BackingField: 3
     <MaxDistance>k__BackingField: 5
     <ItemsData>k__BackingField:
     - AppearProb: 0
       LengthScaleRange:
-      - 0.5
       - 1
-      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+      - 1
+      Prefab: {fileID: 4651966662976527334, guid: 68415909b957bb34986b36ace08bd680, type: 3}
+    - AppearProb: 0.5
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 285723175976736418, guid: a491071afecfee6449bc382b6e092125, type: 3}
   - <ZPos>k__BackingField: 5
     <Speed>k__BackingField: 0.6
     <MinDistance>k__BackingField: 1.6
