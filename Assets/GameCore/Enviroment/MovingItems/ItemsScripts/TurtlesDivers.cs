@@ -63,7 +63,7 @@ namespace GameCore
             {
                 await view.Dive(_changeDuration, _stayDuration)
                     .Play()
-                    .WithCancellation(token);
+                    .AsyncWaitForCompletion();
 
                 await UniTask.WaitForSeconds(_divePeriod, cancellationToken: token);
             }

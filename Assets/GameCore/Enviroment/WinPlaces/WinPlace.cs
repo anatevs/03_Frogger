@@ -2,7 +2,6 @@
 using DG.Tweening;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore
@@ -56,12 +55,13 @@ namespace GameCore
                     gameObject.layer = _damageLayer;
                 }
 
-                await sequence.Play().OnComplete(() => {
+                await sequence.Play().OnComplete(() =>
+                {
                     _containGO = false;
                     _isDanger = false;
                     gameObject.layer = _defaultLayer;
                 })
-                    .WithCancellation(token);
+                    .AsyncWaitForCompletion();
             }
             else
             {
