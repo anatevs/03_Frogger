@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WaterMove
-  m_Shader: {fileID: 4800000, guid: 1f793be99d52c6b448943bd03825849e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2441b3fe695171a4e8b3bf122f6e402f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
