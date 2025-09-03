@@ -30,8 +30,6 @@ namespace GameCore
 
         private bool _isDamageCollided;
 
-        private PlayerJump _playerJump;
-
         public void OnStartRound()
         {
             SetToStart();
@@ -44,11 +42,6 @@ namespace GameCore
             _isDamageCollided = false;
 
             _isOnFloating = false;
-        }
-
-        private void Awake()
-        {
-            _playerJump = GetComponent<PlayerJump>();
         }
 
         private void Update()
