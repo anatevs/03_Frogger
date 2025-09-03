@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1043742749787387329}
   - component: {fileID: 6170397984315751012}
   - component: {fileID: 3360412627429711159}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CarRacer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,9 +133,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8323310439453051056, guid: ddbf02a0bca107247ac209e53c39127c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7793902246011408729, guid: ddbf02a0bca107247ac209e53c39127c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2630219190623024763, guid: ddbf02a0bca107247ac209e53c39127c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ddbf02a0bca107247ac209e53c39127c, type: 3}
       propertyPath: m_Name
       value: vehicle-racer
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ddbf02a0bca107247ac209e53c39127c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6088962128163773307, guid: ddbf02a0bca107247ac209e53c39127c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
