@@ -7,9 +7,14 @@ namespace GameCore
         menuName = "Configs/LevelConfig")]
     public sealed class LevelConfig : ScriptableObject
     {
+        public int Lifes => _lifes;
+
         public RowData[] RowData => _rowData;
 
         public WinPlacesGOData[] WinPlaceGOData => _winPlaceGOData;
+
+        [SerializeField]
+        private int _lifes = 10;
 
         [SerializeField]
         private WinPlacesGOData[] _winPlaceGOData;
