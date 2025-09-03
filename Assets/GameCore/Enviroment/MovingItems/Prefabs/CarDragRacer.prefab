@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 3746136390663076552}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8930701423390451734
 BoxCollider:
@@ -135,15 +135,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8323310439453051056, guid: 84e7ad4254fc4814a9a1a24bae92c568, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7793902246011408729, guid: 84e7ad4254fc4814a9a1a24bae92c568, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2630219190623024763, guid: 84e7ad4254fc4814a9a1a24bae92c568, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 84e7ad4254fc4814a9a1a24bae92c568, type: 3}
       propertyPath: m_Name
@@ -151,11 +151,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 84e7ad4254fc4814a9a1a24bae92c568, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6088962128163773307, guid: 84e7ad4254fc4814a9a1a24bae92c568, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

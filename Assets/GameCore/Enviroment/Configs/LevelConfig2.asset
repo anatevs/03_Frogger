@@ -73,3 +73,53 @@ MonoBehaviour:
       - 1
       - 1.4
       Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
+  - <ZPos>k__BackingField: -5
+    <Speed>k__BackingField: -0.8
+    <MinDistance>k__BackingField: 4
+    <MaxDistance>k__BackingField: 6
+    <ItemsData>k__BackingField:
+    - AppearProb: 0
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 2697964278936713183, guid: 78f039aeffad3b041a283cd5789d5336, type: 3}
+  - <ZPos>k__BackingField: -4
+    <Speed>k__BackingField: 0.8
+    <MinDistance>k__BackingField: 4.5
+    <MaxDistance>k__BackingField: 6
+    <ItemsData>k__BackingField:
+    - AppearProb: 0
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 3360412627429711159, guid: 687108b02520c0143b961bace41c4bdd, type: 3}
+  - <ZPos>k__BackingField: -3
+    <Speed>k__BackingField: -1
+    <MinDistance>k__BackingField: 5
+    <MaxDistance>k__BackingField: 7
+    <ItemsData>k__BackingField:
+    - AppearProb: 0
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 8950926597977774773, guid: c7e209159ef18214aa876f6138e437cf, type: 3}
+  - <ZPos>k__BackingField: -2
+    <Speed>k__BackingField: 1
+    <MinDistance>k__BackingField: 5
+    <MaxDistance>k__BackingField: 8
+    <ItemsData>k__BackingField:
+    - AppearProb: 0
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 1824120866299927730, guid: 702464af49d8a0644a2460a68b5938ae, type: 3}
+  - <ZPos>k__BackingField: -1
+    <Speed>k__BackingField: -1.2
+    <MinDistance>k__BackingField: 5
+    <MaxDistance>k__BackingField: 6
+    <ItemsData>k__BackingField:
+    - AppearProb: 0
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 2476672701519416320, guid: 50422a0db866e1e4e9dc3afd4b03e031, type: 3}

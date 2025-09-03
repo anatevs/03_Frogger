@@ -40,6 +40,9 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField]
     private GameplayUIView _gameplayUIView;
 
+    [SerializeField]
+    private LifesPanel _lifesView;
+
     protected override void Configure(IContainerBuilder builder)
     {
         RegisterInfoComponents(builder);
@@ -91,6 +94,11 @@ public class GameLifetimeScope : LifetimeScope
             .WithParameter<PlayerJump>(_playerJump);
 
         builder.RegisterComponent<FrogFriend>(_frogFriend)
+            .AsImplementedInterfaces()
+            .AsSelf();
+
+        builder.Register<LifesPanelController>(Lifetime.Singleton)
+            .WithParameter<LifesPanel>(_lifesView)
             .AsImplementedInterfaces()
             .AsSelf();
     }

@@ -10,6 +10,7 @@ namespace GameCore
     public sealed class PlayerController :
         IInitializable,
         IDisposable,
+        IStartGameListener,
         IPauseListener,
         IResumeListener
     {
@@ -54,8 +55,6 @@ namespace GameCore
 
         void IInitializable.Initialize()
         {
-            _playerLifes.SetLifes(_startLifes);
-
             _inputHandler.OnMoved += MakeJump;
 
             _playerCollisions.OnDamaged += MakeOnDamage;
@@ -70,6 +69,11 @@ namespace GameCore
             _playerCollisions.OnDamaged -= MakeOnDamage;
 
             _timeCounter.OnTimeIsUp -= MakeOnDamage;
+        }
+
+        public void OnStartGame()
+        {
+            _playerLifes.SetLifes(_startLifes);
         }
 
         public void OnPause()
