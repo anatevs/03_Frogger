@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d47e1f731bddee4ebb056198f81b9af, type: 3}
   m_Name: LevelConfig2
   m_EditorClassIdentifier: 
-  _winPlaceGOData: []
+  _lifes: 8
+  _winPlaceGOData:
+  - <ShowPeriod>k__BackingField: 5
+    <FirstDelay>k__BackingField: 5
+    <Config>k__BackingField: {fileID: 11400000, guid: 2689d92ac420ff744a3302c113f1f674, type: 2}
+  - <ShowPeriod>k__BackingField: 3
+    <FirstDelay>k__BackingField: 1
+    <Config>k__BackingField: {fileID: 11400000, guid: 440df11dc77d69641a63ff35e659d8eb, type: 2}
   _rowData:
   - <ZPos>k__BackingField: 1
     <Speed>k__BackingField: 0.7

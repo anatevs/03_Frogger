@@ -16,13 +16,15 @@ namespace GameManagement
 
         private readonly List<IResumeListener> _resumeListeners = new();
 
-        private readonly List<IDamageListener> _restartRoundListeners = new();
+        private readonly List<IRoundRestartListener> _roundRestartListeners = new();
 
         private readonly List<IRoundEndListener> _roundEndListeners = new();
 
         private readonly List<IRoundStartListener> _roundStartListeners = new();
 
         private readonly List<ILevelEndListener> _levelEndListeners = new();
+
+        private readonly List<ILevelRestartListener> _levelRestartListeners = new();
 
         private readonly List<ILevelStartListener> _levelStartListeners = new();
 
@@ -62,9 +64,9 @@ namespace GameManagement
                 _resumeListeners.Add(resumeListener);
             }
 
-            if (listener is IDamageListener restartRoundListener)
+            if (listener is IRoundRestartListener restartRoundListener)
             {
-                _restartRoundListeners.Add(restartRoundListener);
+                _roundRestartListeners.Add(restartRoundListener);
             }
 
             if (listener is IRoundEndListener roundEndListener)
@@ -80,6 +82,11 @@ namespace GameManagement
             if (listener is ILevelEndListener levelEndListener)
             {
                 _levelEndListeners.Add(levelEndListener);
+            }
+
+            if (listener is ILevelRestartListener levelRestartListener)
+            {
+                _levelRestartListeners.Add(levelRestartListener);
             }
 
             if (listener is ILevelStartListener levelStartListener)
@@ -124,9 +131,9 @@ namespace GameManagement
 
         public void RestartRound()
         {
-            foreach (var listener in _restartRoundListeners)
+            foreach (var listener in _roundRestartListeners)
             {
-                listener.OnDamage();
+                listener.OnRestartRound();
             }
         }
 
@@ -151,6 +158,14 @@ namespace GameManagement
             foreach (var listener in _levelEndListeners)
             {
                 listener.OnEndLevel();
+            }
+        }
+
+        public void RestartLevel()
+        {
+            foreach (var listener in _levelRestartListeners)
+            {
+                listener.OnRestartLevel();
             }
         }
 

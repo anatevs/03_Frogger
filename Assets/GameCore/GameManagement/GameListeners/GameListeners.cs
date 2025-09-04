@@ -24,9 +24,9 @@ namespace GameManagement
         public void OnResume();
     }
 
-    public interface IDamageListener : IGameListener
+    public interface IRoundRestartListener : IGameListener
     {
-        public void OnDamage();
+        public void OnRestartRound();
     }
 
     public interface IRoundEndListener : IGameListener
@@ -42,6 +42,11 @@ namespace GameManagement
     public interface ILevelEndListener : IGameListener
     {
         public void OnEndLevel();
+    }
+
+    public interface ILevelRestartListener : IGameListener
+    {
+        public void OnRestartLevel();
     }
 
     public interface ILevelStartListener : IGameListener

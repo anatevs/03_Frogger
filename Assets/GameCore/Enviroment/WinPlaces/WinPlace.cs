@@ -55,6 +55,8 @@ namespace GameCore
                     gameObject.layer = _damageLayer;
                 }
 
+                token.ThrowIfCancellationRequested();
+
                 await sequence.Play().OnComplete(() =>
                 {
                     _containGO = false;
@@ -67,7 +69,7 @@ namespace GameCore
             {
                 sequence.Kill();
 
-                await UniTask.Yield();
+                await UniTask.Yield(cancellationToken: token);
             }
         }
 

@@ -4,7 +4,9 @@ namespace GameCore
 {
     public sealed class PointsStorageManager :
         IRoundStartListener,
-        ILevelStartListener
+        ILevelStartListener,
+        IRoundRestartListener,
+        ILevelRestartListener
     {
         public PointsStorage LevelStorage => _levelStorage;
 
@@ -46,7 +48,7 @@ namespace GameCore
             _roundPoints += amount;
         }
 
-        public void OnDamage()
+        public void OnRestartRound()
         {
             ChangeValue(-_roundPoints);
         }
@@ -54,6 +56,11 @@ namespace GameCore
         public void OnStartRound()
         {
             _roundPoints = 0;
+        }
+
+        public void OnRestartLevel()
+        {
+            ChangeValue(-_levelStorage.Value);
         }
 
         public void OnStartLevel()

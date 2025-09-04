@@ -10,7 +10,7 @@ namespace GameCore
     [RequireComponent(typeof(BoxCollider))]
     public sealed class FrogFriend : MonoBehaviour,
         IRoundEndListener,
-        IDamageListener,
+        IRoundRestartListener,
         IDisposable
     {
         [SerializeField]
@@ -81,7 +81,7 @@ namespace GameCore
             }
         }
 
-        public void OnDamage()
+        public void OnRestartRound()
         {
             if (_isAtPlayer)
             {

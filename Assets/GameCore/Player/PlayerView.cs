@@ -17,7 +17,7 @@ namespace GameCore
         [SerializeField]
         private float _deathHalfDuration = 0.5f;
 
-        public void ShowFrog(bool isShow)
+        public void Show(bool isShow)
         {
             _playerView.SetActive(isShow);
         }

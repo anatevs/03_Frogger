@@ -10,7 +10,8 @@ namespace GameCore
 {
     public sealed class WinPlaces :
         IInitializable,
-        IDisposable
+        IDisposable,
+        ILevelRestartListener
     {
         private readonly WinPlace[] _places;
 
@@ -69,6 +70,11 @@ namespace GameCore
             }
         }
 
+        public void OnRestartLevel()
+        {
+            ResetAchievedPlaces();
+        }
+
         public void SetupWinPlaces(WinPlacesGOData[] goData)
         {
             _ctn = new CancellationTokenSource();
@@ -101,7 +107,7 @@ namespace GameCore
 
             await UniTask.WaitForSeconds(_goData[goId].FirstDelay, cancellationToken: token);
 
-            while (!IsAllWin())
+            while (!IsAllWin() && !token.IsCancellationRequested)
             {
                 var randomIndex = UnityEngine.Random.Range(0, _currentFree.Count);
 
@@ -109,12 +115,16 @@ namespace GameCore
 
                 _accidentalGO[goId].SetActive(true);
 
+                token.ThrowIfCancellationRequested();
+
                 await ShowGO(placeId, goId, token);
 
                 if (!token.IsCancellationRequested)
                 {
                     _accidentalGO[goId].SetActive(false);
                 }
+
+                token.ThrowIfCancellationRequested();
 
                 await UniTask.WaitForSeconds(appearPeriod,
                     cancellationToken: token);
@@ -147,18 +157,24 @@ namespace GameCore
 
                 _listenersManager.StartLevel();
 
-                _currentAchieved.Clear();
-                _currentFree.Clear();
-
-                for (int i = 0; i < _places.Length; i++)
-                {
-                    _places[i].SetAchieved(false);
-
-                    _currentFree.Add(i);
-                }
+                ResetAchievedPlaces();
             }
 
             _listenersManager.StartRound();
+        }
+
+
+        public void ResetAchievedPlaces()
+        {
+            _currentAchieved.Clear();
+            _currentFree.Clear();
+
+            for (int i = 0; i < _places.Length; i++)
+            {
+                _places[i].SetAchieved(false);
+
+                _currentFree.Add(_places[i].Id);
+            }
         }
 
         private bool IsAllWin()
@@ -168,6 +184,8 @@ namespace GameCore
 
         private UniTask ShowGO(int placeId, int goId, CancellationToken token)
         {
+            token.ThrowIfCancellationRequested();
+
             var place = _winPlaces[placeId];
 
             var (sequence, isEnemy) = _goData[goId].Config

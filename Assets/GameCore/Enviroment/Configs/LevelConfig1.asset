@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d47e1f731bddee4ebb056198f81b9af, type: 3}
   m_Name: LevelConfig1
   m_EditorClassIdentifier: 
+  _lifes: 10
   _winPlaceGOData:
   - <ShowPeriod>k__BackingField: 5
     <FirstDelay>k__BackingField: 5

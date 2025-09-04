@@ -21,13 +21,9 @@ namespace GameCore
 
         public bool TryTakeOneLife()
         {
-            if (_lifes > 0)
-            {
-                DecreaseLifes(1);
-                return true;
-            }
+            DecreaseLifes(1);
 
-            return false;
+            return (_lifes > 0);
         }
 
         private void DecreaseLifes(int amount)

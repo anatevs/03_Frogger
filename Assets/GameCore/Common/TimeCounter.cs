@@ -10,7 +10,7 @@ namespace GameCore
         IStartGameListener,
         IRoundEndListener,
         IRoundStartListener,
-        IDamageListener
+        IRoundRestartListener
     {
         public event Action OnTimeIsUp;
 
@@ -36,7 +36,7 @@ namespace GameCore
             StartTimer();
         }
 
-        public void OnDamage()
+        public void OnRestartRound()
         {
             CancelTimer();
             StartTimer();

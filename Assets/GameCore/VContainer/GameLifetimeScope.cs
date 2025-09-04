@@ -135,7 +135,8 @@ public class GameLifetimeScope : LifetimeScope
 
     private void RegisterManagementComponents(IContainerBuilder builder)
     {
-        builder.RegisterEntryPoint<WinPlaces>()
+        builder.Register<WinPlaces>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
             .AsSelf()
             .WithParameter<WinPlace[]>(_winPlaces)
             .WithParameter<PlayerJump>(_playerJump);

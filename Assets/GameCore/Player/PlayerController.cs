@@ -94,19 +94,16 @@ namespace GameCore
         private async UniTaskVoid ShowDamage()
         {
             _isAlive = false;
-            _playerView.ShowFrog(false);
+            _playerView.Show(false);
 
             await _playerView.DeathAnimation()
                 .Play()
                 .AsyncWaitForCompletion();
 
+            _playerCollisions.SetToStart();
+
             if (_playerLifes.TryTakeOneLife())
             {
-                _playerCollisions.SetToStart();
-
-                _isAlive = true;
-                _playerView.ShowFrog(true);
-
                 _listenersManager.RestartRound();
 
                 Debug.Log($"you have {_playerLifes.Lifes} lifes left");
@@ -114,8 +111,13 @@ namespace GameCore
 
             else
             {
+                _listenersManager.RestartLevel();
+
                 Debug.Log("no more lifes, restart the level");
             }
+
+            _isAlive = true;
+            _playerView.Show(true);
         }
     }
 }

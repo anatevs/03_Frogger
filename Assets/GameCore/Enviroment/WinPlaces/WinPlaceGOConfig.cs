@@ -33,9 +33,9 @@ namespace GameCore
             var sequence = DOTween.Sequence().Pause();
 
             sequence
-                .Append(goTransform.DOMoveZ(_zPoints[1], _setDuration))
-                .AppendInterval(_stayDuration)
-                .Append(goTransform.DOMoveZ(_zPoints[0], _setDuration));
+                .Append(goTransform.DOMoveZ(_zPoints[1], _setDuration).SetLink(goTransform.gameObject))
+                .AppendInterval(_stayDuration).SetLink(goTransform.gameObject)
+                .Append(goTransform.DOMoveZ(_zPoints[0], _setDuration).SetLink(goTransform.gameObject));
 
             return (sequence, _isEnemy);
         }

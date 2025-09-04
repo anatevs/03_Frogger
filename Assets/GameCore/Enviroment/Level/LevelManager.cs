@@ -6,7 +6,8 @@ namespace GameCore
     public sealed class LevelManager :
         IStartGameListener,
         ILevelEndListener,
-        ILevelStartListener
+        ILevelStartListener,
+        ILevelRestartListener
     {
         private readonly LevelConfig[] _levelConfigs;
 
@@ -81,6 +82,13 @@ namespace GameCore
             _rowsManager.SetupLevelRows(config.RowData);
 
             _winPlaces.SetupWinPlaces(config.WinPlaceGOData);
+        }
+
+        public void OnRestartLevel()
+        {
+            var config = _levelConfigs[_currentLevelIndex];
+
+            _playerLifes.SetLifes(config.Lifes);
         }
     }
 }

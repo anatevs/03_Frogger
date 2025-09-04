@@ -7,7 +7,7 @@ namespace GameCore
     public sealed class PointsCounter :
         IInitializable,
         IDisposable,
-        IDamageListener,
+        IRoundRestartListener,
         IRoundEndListener,
         IRoundStartListener,
         ILevelEndListener
@@ -46,11 +46,9 @@ namespace GameCore
             _extraReward += _flyOrFriendReward;
         }
 
-        public void OnDamage()
+        public void OnRestartRound()
         {
             _extraReward = 0;
-
-            _storages.OnDamage();
         }
 
         public void OnEndRound()
