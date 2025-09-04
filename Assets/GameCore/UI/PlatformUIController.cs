@@ -9,7 +9,7 @@ namespace UI
 
         private void Awake()
         {
-            ShowMobile(Application.isMobilePlatform);
+            //ShowMobile(Application.isMobilePlatform);
         }
 
         private void ShowMobile(bool isMobile)
