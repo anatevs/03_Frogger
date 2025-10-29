@@ -81,9 +81,9 @@ namespace GameCore
 
                 //Debug.Log(transform.position);
 
-                Debug.Log($"contact: {collision.contacts[0].point}, time: {Time.time}");
+                Debug.Log($"damage contact: {collision.contacts[0].point}, damage object: {collision.gameObject.name}, time: {Time.time}");
 
-                Debug.Log(gameObject.GetComponent<BoxCollider>().center);
+                Debug.Log($"damage; collider pos: {gameObject.GetComponent<BoxCollider>().center}, position: {transform.position}");
 
                 return;
             }
