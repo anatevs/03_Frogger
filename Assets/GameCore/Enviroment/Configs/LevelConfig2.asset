@@ -22,20 +22,20 @@ MonoBehaviour:
     <Config>k__BackingField: {fileID: 11400000, guid: 440df11dc77d69641a63ff35e659d8eb, type: 2}
   _rowData:
   - <ZPos>k__BackingField: 1
-    <Speed>k__BackingField: 0.7
+    <Speed>k__BackingField: 0.5
     <MinDistance>k__BackingField: 1.6
     <MaxDistance>k__BackingField: 3
     <ItemsData>k__BackingField:
     - AppearProb: 0
       LengthScaleRange:
-      - 0.6
-      - 1.2
-      Prefab: {fileID: 5639120799803655140, guid: 821f7f02a51935649a739f18f6336138, type: 3}
-    - AppearProb: 0.8
-      LengthScaleRange:
-      - 0.6
       - 1
-      Prefab: {fileID: 8452967419237881682, guid: e8bc58c4b1f9c314998a75ebeac2cb51, type: 3}
+      - 1
+      Prefab: {fileID: 3280346816184696229, guid: 09fdad35535a69e499083741fd5e6d49, type: 3}
+    - AppearProb: 0.5
+      LengthScaleRange:
+      - 1
+      - 1
+      Prefab: {fileID: 752787103509172903, guid: 6e0dc0ddd53d24c46b990926930597da, type: 3}
   - <ZPos>k__BackingField: 2
     <Speed>k__BackingField: -0.9
     <MinDistance>k__BackingField: 2

@@ -77,6 +77,14 @@ namespace GameCore
 
             if (IsDamageCollision(collisionLayer))
             {
+                //Debug.Log(collision.gameObject);
+
+                //Debug.Log(transform.position);
+
+                Debug.Log($"contact: {collision.contacts[0].point}, time: {Time.time}");
+
+                Debug.Log(gameObject.GetComponent<BoxCollider>().center);
+
                 return;
             }
         }

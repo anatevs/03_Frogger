@@ -9,7 +9,7 @@
                     "name": "MoveUp",
                     "type": "Button",
                     "id": "c7e712da-4f0d-428c-a446-81693f906dbc",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
