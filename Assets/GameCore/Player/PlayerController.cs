@@ -2,6 +2,7 @@
 using DG.Tweening;
 using GameManagement;
 using System;
+using System.Threading;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -28,6 +29,8 @@ namespace GameCore
         private readonly TimeCounter _timeCounter;
 
         private bool _isAlive = true;
+
+        private CancellationTokenSource _damageCnclTkn;
 
         public PlayerController(InputHandler inputHandler,
             PlayerJump playerJump,

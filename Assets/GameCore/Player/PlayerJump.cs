@@ -42,8 +42,12 @@ namespace GameCore
 
         private readonly Vector3[] _colliderBordersX = new Vector3[2];
 
+        private Tween _moveTween;
+
         private void Awake()
         {
+            DOTween.Init();
+
             _frogAnimation.SetupJumpSpeed(_jumpDuration);
 
             _moveJumpDuration = _jumpDuration - _frogAnimation.StartJumpDelay;
@@ -77,6 +81,14 @@ namespace GameCore
             }
         }
 
+        private void OnDisable()
+        {
+            if (_moveTween != null && _moveTween.IsActive())
+            {
+                _moveTween.Kill();
+            }
+        }
+
         public void MakeJump(Vector3Int direction)
         {
             if (_isJumping)
@@ -103,12 +115,14 @@ namespace GameCore
 
                 if (direction.x != 0)
                 {
+                    _moveTween = 
                     transform.DOMoveX(transform.position.x + direction.x, _moveJumpDuration)
                         .SetDelay(_frogAnimation.StartJumpDelay)
                         .OnComplete(EndJump);
                 }
                 else
                 {
+                    _moveTween =
                     transform.DOMoveZ(transform.position.z + direction.z, _moveJumpDuration)
                         .SetDelay(_frogAnimation.StartJumpDelay)
                         .OnComplete(EndJump);

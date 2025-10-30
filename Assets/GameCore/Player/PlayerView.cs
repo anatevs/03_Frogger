@@ -17,6 +17,16 @@ namespace GameCore
         [SerializeField]
         private float _deathHalfDuration = 0.5f;
 
+        private Sequence _damageSeq;
+
+        private void OnDisable()
+        {
+            if (_damageSeq != null && _damageSeq.IsActive())
+            {
+                _damageSeq.Kill();
+            }
+        }
+
         public void Show(bool isShow)
         {
             _playerView.SetActive(isShow);
@@ -28,18 +38,18 @@ namespace GameCore
 
             _deathGO.SetActive(true);
 
-            var sequence = DOTween.Sequence().Pause();
+            _damageSeq = DOTween.Sequence().Pause();
 
-            sequence.Append(
+            _damageSeq.Append(
                 _deathGO.transform.DOScale(_deathAnimScale, _deathHalfDuration)
                 .Pause());
 
-            sequence.Append(
+            _damageSeq.Append(
                 _deathGO.transform.DOScale(1, _deathHalfDuration)
                 .OnComplete(MakeOnEnd)
                 .Pause());
 
-            return sequence;
+            return _damageSeq;
         }
 
         private void MakeOnEnd()
