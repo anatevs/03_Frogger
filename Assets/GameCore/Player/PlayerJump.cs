@@ -108,9 +108,6 @@ namespace GameCore
 
             if (!_isJumping)
             {
-                Debug.Log($"start jump pos: {transform.position}, collider: {_collider.center}, time: {Time.time}");
-                Debug.Log($"jump duration: {_moveJumpDuration}, jump delay: {_frogAnimation.StartJumpDelay}");
-
                 _isJumping = true;
 
                 if (direction.x != 0)
@@ -145,8 +142,6 @@ namespace GameCore
 
             if (hitInfo.collider != null)
             {
-                Debug.Log($"landing object: {hitInfo.collider.gameObject}, tr: {transform.position}, collider: {_collider.center}, hitPt:{hitInfo.point}, time: {Time.time}");
-
                 yPos = hitInfo.point.y + _collider.size.y / 2;
             }
 
