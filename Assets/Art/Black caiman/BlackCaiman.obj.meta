@@ -3,7 +3,17 @@ guid: 174fce998e690204d9b5c882140ce196
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackCaiman_mat
+    second: {fileID: 2100000, guid: 421a9501a77b3b947a30e2803264eefb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackCaiman_meshMat
+    second: {fileID: 2100000, guid: 421a9501a77b3b947a30e2803264eefb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
