@@ -43,17 +43,24 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField]
     private LifesPanel _lifesView;
 
+    [SerializeField]
+    private AppEndManager _appEndManager;
+
     protected override void Configure(IContainerBuilder builder)
     {
         RegisterInfoComponents(builder);
 
         RegisterComponents(builder);
 
-        RegisterManagement(builder);
+        RegisterGameListeners(builder);
 
         RegisterGameControllers(builder);
 
-        RegisterManagementComponents(builder);
+        RegisterManagers(builder);
+
+        RegisterSaveLoad(builder);
+
+        RegisterGameManagement(builder);
     }
 
     private void RegisterInfoComponents(IContainerBuilder builder)
@@ -103,15 +110,12 @@ public class GameLifetimeScope : LifetimeScope
             .AsSelf();
     }
 
-    private void RegisterManagement(IContainerBuilder builder)
+    private void RegisterGameListeners(IContainerBuilder builder)
     {
         builder.RegisterEntryPoint<GameListenersManager>()
             .AsSelf();
 
         builder.RegisterEntryPoint<GameListenersInstaller>()
-            .AsSelf();
-
-        builder.RegisterEntryPoint<GameManager>()
             .AsSelf();
     }
 
@@ -133,7 +137,7 @@ public class GameLifetimeScope : LifetimeScope
             .AsSelf();
     }
 
-    private void RegisterManagementComponents(IContainerBuilder builder)
+    private void RegisterManagers(IContainerBuilder builder)
     {
         builder.Register<WinPlaces>(Lifetime.Singleton)
             .AsImplementedInterfaces()
@@ -147,5 +151,22 @@ public class GameLifetimeScope : LifetimeScope
             .WithParameter<LevelConfig[]>(_levelConfigs)
             .AsImplementedInterfaces()
             .AsSelf();
+    }
+
+    private void RegisterSaveLoad(IContainerBuilder builder)
+    {
+        builder.Register<LevelIndexSaveLoad>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
+            .AsSelf();
+
+
+        builder.Register<SaveLoadManager>(Lifetime.Singleton);
+    }
+
+    private void RegisterGameManagement(IContainerBuilder builder)
+    {
+        builder.RegisterEntryPoint<GameManager>()
+            .AsSelf()
+            .WithParameter<AppEndManager>(_appEndManager);
     }
 }

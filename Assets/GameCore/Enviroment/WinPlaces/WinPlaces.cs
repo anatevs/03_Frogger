@@ -44,6 +44,19 @@ namespace GameCore
             _playersCounter = playersCounter;
         }
 
+        public void SetWinned(int[] winnedId)
+        {
+            for (int i = 0; i < winnedId.Length; i++)
+            {
+                SetWinnedPlace(winnedId[i]);
+            }
+        }
+
+        public int[] GetWinned()
+        {
+            return _currentAchieved.ToArray();
+        }
+
         void IInitializable.Initialize()
         {
             for (int i = 0; i < _places.Length; i++)
@@ -131,10 +144,15 @@ namespace GameCore
             }
         }
 
-        private void AddAchievedPlace(int placeId)
+        private void SetWinnedPlace(int placeId)
         {
             _currentAchieved.Add(placeId);
             _currentFree.Remove(placeId);
+        }
+
+        private void AddAchievedPlace(int placeId)
+        {
+            SetWinnedPlace(placeId);
 
             _listenersManager.EndRound();
 

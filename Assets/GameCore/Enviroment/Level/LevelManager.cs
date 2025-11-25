@@ -9,6 +9,11 @@ namespace GameCore
         ILevelStartListener,
         ILevelRestartListener
     {
+        public int LevelIndex {
+            get => _currentLevelIndex;
+            set => _currentLevelIndex = value;
+            }
+
         private readonly LevelConfig[] _levelConfigs;
 
         private readonly PlayerLifes _playerLifes;
@@ -21,7 +26,7 @@ namespace GameCore
 
         private readonly GameListenersManager _listenersManager;
 
-        private int _currentLevelIndex;
+        private int _currentLevelIndex = 0;
 
         public LevelManager(LevelConfig[] levelConfigs,
             PlayerLifes playerLifes,
@@ -40,7 +45,9 @@ namespace GameCore
 
         public void OnStartGame()
         {
-            _currentLevelIndex = 0;
+            //_currentLevelIndex = 0;
+
+            Debug.Log($"level mngr indx {_currentLevelIndex}");
 
             var config = _levelConfigs[_currentLevelIndex];
 
