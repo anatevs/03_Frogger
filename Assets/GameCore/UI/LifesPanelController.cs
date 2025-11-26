@@ -1,8 +1,8 @@
-﻿using GameCore;
+﻿using UI;
 using System;
 using VContainer.Unity;
 
-namespace UI
+namespace GameCore
 {
     public class LifesPanelController :
         IInitializable,

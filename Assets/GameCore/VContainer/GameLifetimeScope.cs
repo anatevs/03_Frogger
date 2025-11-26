@@ -20,19 +20,22 @@ public class GameLifetimeScope : LifetimeScope
     private FrogFriend _frogFriend;
 
     [SerializeField]
-    private TimerView _timerView;
-
-    [SerializeField]
     private WinPlace[] _winPlaces;
 
     [SerializeField]
     private InputHandler _inputHandler;
 
     [SerializeField]
+    private AppEndManager _appEndManager;
+
+    [SerializeField]
     private RowsManager _rowsManager;
 
     [SerializeField]
     private LevelConfig[] _levelConfigs;
+
+    [SerializeField]
+    private TimerView _timerView;
 
     [SerializeField]
     private PauseMenuView _pauseMenuView;
@@ -44,7 +47,7 @@ public class GameLifetimeScope : LifetimeScope
     private LifesPanel _lifesView;
 
     [SerializeField]
-    private AppEndManager _appEndManager;
+    private LevelView _levelView;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -54,9 +57,9 @@ public class GameLifetimeScope : LifetimeScope
 
         RegisterGameListeners(builder);
 
-        RegisterGameControllers(builder);
-
         RegisterManagers(builder);
+
+        RegisterGameControllers(builder);
 
         RegisterSaveLoad(builder);
 
@@ -118,6 +121,21 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<GameListenersInstaller>()
             .AsSelf();
     }
+    private void RegisterManagers(IContainerBuilder builder)
+    {
+        builder.Register<WinPlaces>(Lifetime.Singleton)
+            .AsImplementedInterfaces()
+            .AsSelf()
+            .WithParameter<WinPlace[]>(_winPlaces)
+            .WithParameter<PlayerJump>(_playerJump);
+
+        builder.RegisterComponent(_rowsManager);
+
+        builder.Register<LevelManager>(Lifetime.Singleton)
+            .WithParameter<LevelConfig[]>(_levelConfigs)
+            .AsImplementedInterfaces()
+            .AsSelf();
+    }
 
     private void RegisterGameControllers(IContainerBuilder builder)
     {
@@ -135,21 +153,9 @@ public class GameLifetimeScope : LifetimeScope
             .WithParameter<PauseMenuView>(_pauseMenuView)
             .AsImplementedInterfaces()
             .AsSelf();
-    }
 
-    private void RegisterManagers(IContainerBuilder builder)
-    {
-        builder.Register<WinPlaces>(Lifetime.Singleton)
-            .AsImplementedInterfaces()
-            .AsSelf()
-            .WithParameter<WinPlace[]>(_winPlaces)
-            .WithParameter<PlayerJump>(_playerJump);
-
-        builder.RegisterComponent(_rowsManager);
-
-        builder.Register<LevelManager>(Lifetime.Singleton)
-            .WithParameter<LevelConfig[]>(_levelConfigs)
-            .AsImplementedInterfaces()
+        builder.RegisterEntryPoint<LevelViewController>(Lifetime.Singleton)
+            .WithParameter<LevelView>(_levelView)
             .AsSelf();
     }
 

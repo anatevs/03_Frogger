@@ -1,5 +1,6 @@
 ﻿using GameManagement;
 using UnityEngine;
+using System;
 
 namespace GameCore
 {
@@ -9,9 +10,15 @@ namespace GameCore
         ILevelStartListener,
         ILevelRestartListener
     {
+        public event Action<int> OnLevelChanged;
+
         public int LevelIndex {
             get => _currentLevelIndex;
-            set => _currentLevelIndex = value;
+            set
+            {
+                _currentLevelIndex = value;
+                OnLevelChanged?.Invoke(value);
+            }
             }
 
         private readonly LevelConfig[] _levelConfigs;
