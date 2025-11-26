@@ -23,8 +23,6 @@ namespace GameManagement
             }
 
             _levelManager.LevelIndex = _levelIndexData.LevelIndex;
-
-            Debug.Log(_levelIndexData.LevelIndex);
         }
 
         public void LoadDefault()
